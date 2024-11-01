@@ -1,0 +1,177 @@
+.header {
+    padding: 60px;
+    background-image: url('{{ asset('img/betting-bg.png') }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    overflow-x: hidden !important;
+}
+
+.box{
+    padding: 30px;
+    background-color : #D2D2D2;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 12px;
+    width: 60%;
+}
+
+h4{
+    font-weight: 600;
+    color: #6C4483;
+    font-size: 22px;
+}
+
+.btnMain{
+    background: #611492;
+    color: white;
+    font-weight: 600;
+    /* width: 85%; */
+}
+
+.btnMain:hover{
+    color: #ddd;
+}
+
+.boxFaq{
+    padding: 30px;
+    background-color : #D2D2D2;
+    color: #222;
+    display: flex;
+    gap: 12px;
+    border-radius: 12px;
+    width: 60%;
+}
+
+.boxFaq h5{
+    flex 1;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #2B1B35;
+    font-size: 16px;
+}
+
+.boxFaq button{
+    flex 1;
+}
+
+.reviewBetMsg{
+    background-color: #D2D2D2;
+    padding: 9px;
+    font-weight: 600;
+    font-size: 19px;
+    border-radius: 5px;
+}
+
+.receiptLogin{
+    margin: 23px 0;
+    background: #D2D2D2;
+    padding: 32px;
+}
+
+.receiptLogin h3{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.receiptLogin .line{
+    margin-top: 15px;
+    display: flex;
+}
+
+.receiptLogin .line input{
+    width: 90%;
+}
+
+.list-box{
+    padding: 30px;
+    background-color : #D2D2D2;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    border-radius: 12px;
+    width: 60%;
+}
+
+.list-box select{
+    width: 150px;
+}
+
+.dropdown-menu{
+    width: 300px;
+    padding: 20px;
+}
+
+.itemstwo{
+    display: flex;
+    gap: 5px;
+}
+
+.paymentBox{
+    background: #D2D2D2;
+    padding: 18px;
+    width: 40%;
+}
+
+.paymentBox h4{
+    color: #222;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.paymentBox div{
+    background: #fff;
+    padding: 5px;
+}
+
+.emailBox{
+    background: #D2D2D2;
+    padding: 18px;
+    width: 33%;
+    display: flex;
+    gap: 8px;
+}
+
+/* .receiptLogin .line button{
+    padding: 23px;
+} */
+
+@media (max-width: 767px) {
+    .mainContainer {
+        background-size: contain;
+    }
+    /* .holder{
+        padding: 10px;
+        width: 80%;
+    } */
+    .box{
+        padding: 20px;
+        border-radius: 12px;
+        width: 120%;
+    }
+    .boxFaq{
+        padding: 10px;
+        background-color : #D2D2D2;
+        color: #222;
+        display: flex;
+        gap: 2px;
+        border-radius: 12px;
+        width: 110%;
+    }
+    .boxFaq h5, .boxFaq button{
+        font-size: 12px;
+    }
+    .list-box{
+        flex-direction: column;
+        gap: 14px;
+    }
+}
