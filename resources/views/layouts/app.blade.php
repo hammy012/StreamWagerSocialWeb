@@ -1560,6 +1560,8 @@
         media="all" />
     <link rel="stylesheet" id="buddy-bridge-css" href="{{ asset('web/assets/css/brigde-public.css') }}"
         type="text/css" media="all" />
+    <link rel="stylesheet" id="buddy-chat_main-css" href="{{ asset('web/assets/css/buddychat.css') }}"
+        type="text/css" media="all" />
     <link rel="stylesheet" id="beehive-fonts-css"
         href="https://fonts.googleapis.com/css?family=Nunito+Sans%3A300%2C400%2C600%2C700%2C300italic%2C400italic%2C600italic%2C700italic%7CQuicksand%3A700&#038;ver=1.6#038;subset"
         type="text/css" media="all" />
@@ -1913,11 +1915,13 @@
 
 
 
-
+    <script type="text/javascript" src="{{ asset('web/assets/js/editor.min.js') }}" id="bbpress-editor-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/underscrore.min.js') }}" id="underscore-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/backbone.min.js') }}" id="backbone-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/mediaelement.min.js') }}" id="rt-mediaelement-wp-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/emojipicker.min.js') }}" id="rtmedia-emoji-picker-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/mediaelement.min.js') }}" id="rt-mediaelement-wp-js">
+    </script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/emojipicker.min.js') }}" id="rtmedia-emoji-picker-js">
+    </script>
     <script type="text/javascript" id="rtmedia-main-js-extra">
         /* <![CDATA[ */
         var rtmedia_bp = {
@@ -2169,7 +2173,8 @@
         };
         /* ]]> */
     </script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/rtMedia.backbone.js') }}" id="rtmedia-backbone-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/rtMedia.backbone.js') }}" id="rtmedia-backbone-js">
+    </script>
     <script type="text/javascript" src="{{ asset('web/assets/js/moment.min.js') }}" id="moment-js"></script>
     <script type="text/javascript" id="moment-js-after">
         /* <![CDATA[ */
@@ -2323,8 +2328,10 @@
         };
         /* ]]> */
     </script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/buddypress-nouveau.min.js') }}" id="bp-nouveau-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/buddypress-activity.min.js') }}" id="bp-nouveau-activity-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/buddypress-nouveau.min.js') }}" id="bp-nouveau-js">
+    </script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/buddypress-activity.min.js') }}"
+        id="bp-nouveau-activity-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/jquery.caret.min.js') }}" id="jquery-caret-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/jquery.atwho.min.js') }}" id="jquery-atwho-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/mentions.min.js') }}" id="bp-mentions-js"></script>
@@ -2350,11 +2357,13 @@
         /* ]]> */
     </script>
     <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-public.js') }}" id="buddy-bridge-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-widgets.js') }}" id="buddy-bridge-widgets-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-activity-share.js') }}" id="buddy-bridge-activity-share-js">
+    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-widgets.js') }}" id="buddy-bridge-widgets-js">
     </script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-activity-reaction.js') }}" id="buddy-bridge-activity-reaction-js">
-    </script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-activity-share.js') }}"
+        id="buddy-bridge-activity-share-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-bridge-activity-reaction.js') }}"
+        id="buddy-bridge-activity-reaction-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/buddy-chat-public.js') }}" id="buddy-chat-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/popper.min.js') }}" id="popper-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/bootstrap.min.js') }}" id="bootstrap-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/mscrollbar.min.js') }}" id="mscrollbar-js"></script>
@@ -2413,8 +2422,8 @@
         };
         /* ]]> */
     </script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/beehive-bp-activity-view.min.js') }}" id="beehive-bp-activity-view-js">
-    </script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/beehive-bp-activity-view.min.js') }}"
+        id="beehive-bp-activity-view-js"></script>
     <script type="text/javascript" id="beehive-login-js-extra">
         /* <![CDATA[ */
         var beehive_data = {
@@ -2443,8 +2452,8 @@
     <script type="text/javascript" src="{{ asset('web/assets/js/sticky-kit.min.js') }}" id="sticky-kit-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/imagesloaded.min.js') }}" id="imagesloaded-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/masonry.min.js') }}" id="masonry-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/comment-reply.min.js') }}V" id="comment-reply-js" async="async"
-        data-wp-strategy="async"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/comment-reply.min.js') }}V" id="comment-reply-js"
+        async="async" data-wp-strategy="async"></script>
     <script type="text/javascript" id="beehive-js-extra">
         /* <![CDATA[ */
         var beehive_data = {
@@ -2503,11 +2512,26 @@
         };
         /* ]]> */
     </script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/order-attribution.min.js') }}" id="wc-order-attribution-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/media-element/mediaelement-and-player.min.js') }}" id="rt-mediaelement-js">
+    <script type="text/javascript"
+        src="https://mythemestore.com/beehive-preview/wp-content/plugins/woocommerce/assets/js/frontend/order-attribution.min.js?ver=9.2.3"
+        id="wc-order-attribution-js"></script>
+    <script type="text/javascript"
+        src="https://mythemestore.com/beehive-preview/wp-content/plugins/buddypress-media/lib/media-element/mediaelement-and-player.min.js?ver=4.6.20"
+        id="rt-mediaelement-js"></script>
+    <script type="text/javascript"
+        src="https://mythemestore.com/beehive-preview/wp-content/plugins/buddypress-media/lib/touchswipe/jquery.touchSwipe.min.js?ver=4.6.20"
+        id="rtmedia-touchswipe-js"></script>
+    <script type="text/javascript"
+        src="https://mythemestore.com/beehive-preview/wp-content/plugins/buddypress-media/app/assets/js/rtMedia.activity.js?ver=4.6.20"
+        id="rtmedia-activity-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/order-attribution.min.js') }}"
+        id="wc-order-attribution-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/media-element/mediaelement-and-player.min.js') }}"
+        id="rt-mediaelement-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/jquery.touchSwipe.min.js') }}" id="rtmedia-touchswipe-js">
     </script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/jquery.touchSwipe.min.js') }}" id="rtmedia-touchswipe-js"></script>
-    <script type="text/javascript" src="{{ asset('web/assets/js/rtMedia.activity.js') }}" id="rtmedia-activity-js"></script>
+    <script type="text/javascript" src="{{ asset('web/assets/js/rtMedia.activity.js') }}" id="rtmedia-activity-js">
+    </script>
 
 
 

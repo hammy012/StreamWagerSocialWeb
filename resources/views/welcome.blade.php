@@ -25577,5 +25577,5 @@
         content="STREAM WAGER">
     <meta name="description"
         content="">
-    <title>AFC - Fueling the Future</title>
+    <title>Stream Wager</title>
 @endsection
