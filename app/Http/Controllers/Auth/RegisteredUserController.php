@@ -38,19 +38,22 @@ class RegisteredUserController extends Controller
             'profile_picture' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'], // 2MB max size
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'first_name' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         // Store the profile picture
-        $profilePicturePath = $request->file('profile_picture')->store('user_profiles', 'public');
+        $profilePicturePath = 'user_profiles/' . $request->file('profile_picture')->getClientOriginalName();
+        $request->file('profile_picture')->move(public_path('user_profiles'), $profilePicturePath);
 
         // Create user with profile picture path
         $user = User::create([
             'profile_picture' => $profilePicturePath,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'type' => $request->type,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
