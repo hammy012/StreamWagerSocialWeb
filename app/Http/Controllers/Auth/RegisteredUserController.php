@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('auth.registration');
     }
 
     /**
@@ -33,20 +33,31 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate form inputs
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'profile_picture' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'], // 2MB max size
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Store the profile picture
+        $profilePicturePath = $request->file('profile_picture')->store('user_profiles', 'public');
+
+        // Create user with profile picture path
         $user = User::create([
-            'name' => $request->name,
+            'profile_picture' => $profilePicturePath,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Trigger registered event and login user
         event(new Registered($user));
-
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

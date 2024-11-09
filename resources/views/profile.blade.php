@@ -3,6 +3,8 @@
 @section('content')
 
 
+
+
 <div id="content" class="site-content" style="margin-top: 200px !important;">
 
     <div id="primary" class="content-area">
@@ -83,13 +85,13 @@
                                       >
                                     </li>
                                     <li></li>
-                                    <li class="generic-button">
+                                    {{--  <li class="generic-button">
                                       <a
                                         class="update-cover"
                                         href="https://mythemestore.com/beehive-preview/members/user/profile/change-cover-image/#item-body"
                                         >Update cover</a
                                       >
-                                    </li>
+                                    </li>  --}}
                                   </ul>
                                 </div>
                                 <!-- #item-header-content -->
@@ -6447,13 +6449,15 @@
       </div>
       <!-- .layout -->
     </div>
-    <!-- #primary -->
   </div>
 
 
 
 
-@endsection
+
+
+
+  @endsection
 
 
 

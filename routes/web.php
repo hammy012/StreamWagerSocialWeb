@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','WebController@welcome')->name('home');
 Route::get('/profile','WebController@profile')->name('profile');
 Route::get('/find-people','WebController@find_people')->name('find-people');
+Route::get('/about','WebController@about')->name('about');
+Route::get('/faq','WebController@faq')->name('faq');
+Route::get('/contact','WebController@contact')->name('contact');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
