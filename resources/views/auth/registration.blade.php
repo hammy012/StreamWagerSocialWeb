@@ -1809,14 +1809,14 @@
                                                                                                         <input type="text" name="username" required placeholder="Username">
                                                                                                     </div>
                                                                                                     <div class="form-group">
-                                                                                                        <input type="text" name="email" required placeholder="Email">
-                                                                                                    </div>
-                                                                                                    <div class="form-group">
                                                                                                         <select name="type" style="width: 100%">
                                                                                                             <option selected disabled>Type</option>
                                                                                                             <option value="player">Player</option>
                                                                                                             <option value="coach">Coach</option>
                                                                                                         </select>
+                                                                                                    </div>
+                                                                                                    <div class="form-group">
+                                                                                                        <input type="text" name="email" required placeholder="Email">
                                                                                                     </div>
                                                                                                     <div class="form-group">
                                                                                                         <input type="password" name="password" required placeholder="Password">
@@ -1825,7 +1825,7 @@
                                                                                                         <input type="password" name="password_confirmation" required placeholder="Confirm Password">
                                                                                                     </div>
 
-                                                                                                    <div class="form-options">
+                                                                                                    {{--  <div class="form-options">
                                                                                                         <div class="row">
                                                                                                             <div class="col-6">
                                                                                                                 <label for="element-rememberme">
@@ -1839,7 +1839,7 @@
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
-                                                                                                    </div>
+                                                                                                    </div>  --}}
 
                                                                                                     <div class="submit">
                                                                                                         <button type="submit" id="element_login_submit" class="wide submit-login ellipsis">Sign up</button>
