@@ -1716,20 +1716,12 @@
 
 <body
     class="
-    @if (request()->is('profile*')) activity bp-user my-activity my-account just-me buddypress bp-nouveau bbp-user-page single singular bbpress buddypress-template-default page page-id-371 logged-in wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-user buddychat-is-active bp-is-my-profile beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-collapsed no-sidebar
+    @if (request()->is('profile*') || request()->is('user-friends*')) activity bp-user my-activity my-account just-me buddypress bp-nouveau bbp-user-page single singular bbpress buddypress-template-default page page-id-371 logged-in wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-user buddychat-is-active bp-is-my-profile beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-collapsed no-sidebar
     @elseif (request()->is('about*')) bp-nouveau page-template page-template-page-templates page-template-full-width page-template-page-templatesfull-width-php page page-id-101 wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-guest-user beehive-child elementor-default elementor-kit-588 elementor-page elementor-page-101 full-width
     @else
         directory activity buddypress bp-nouveau buddypress-template-default page page-id-370 wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-guest-user beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-expanded has-page-sidebar @endif
     ">
 
-    <div class="beehive-preloader preloader-2">
-        <div class="loader-wrapper">
-            <img src="https://mythemestore.com/beehive-preview/wp-content/uploads/2020/07/logo-icon.svg"
-                class="attachment-full size-full" alt="" decoding="async" />
-            <div class="loader-bar"></div>
-            <div class="loading-text">Loading...</div>
-        </div>
-    </div>
 
     <div id="beehive-social-panel" class="beehive-social-panel">
         <div class="inner-panel ass-scrollbar">
@@ -1738,40 +1730,63 @@
                     <img src="https://mythemestore.com/beehive-preview/wp-content/themes/beehive/assets/images/logo-vertical.svg"
                         alt="Beehive Preview" />
                 </a>
-                <div class="my-card item">
-                    <h4 class="form-title">Login Now</h4>
-                    <form method="post" id="panel-login-form" class="beehive-login-form panel-login"
-                        name="panel-login">
-                        <div class="form-group">
-                            <div class="user-name">
-                                <label class="screen-reader-text">Email/username</label>
-                                <span class="icon"><i class="uil-user"></i></span>
-                                <input type="text" id="username" class="username-control" required
-                                    name="log" value="" placeholder="Email or username" />
+                @if (Auth::guard('web')->check())
+                    <div class="my-card item">
+                        <div class="info">
+                            <a href="https://mythemestore.com/beehive-preview/members/user/" class="profile-avatar">
+                                <img src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpfull.jpg"
+                                    alt="Tum Yeto" class="avatar mCS_img_loaded">
+                            </a>
+                            <div class="profile-name">
+                                <a href="https://mythemestore.com/beehive-preview/members/user/"
+                                    class="name ellipsis">Tum Yeto</a>
+                                <small>Member</small>
+
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="pass">
-                                <label class="screen-reader-text">Password</label>
-                                <span class="icon"><i class="uil-key-skeleton-alt"></i></span>
-                                <input type="password" id="password" class="password-control" required
-                                    name="pwd" value="" placeholder="Password" />
+                        <ul class="connections">
+                            <li><span class="count">1</span>
+                                <p class="mute">Friends</p>
+                            </li>
+                            <li><span class="count">4</span>
+                                <p class="mute">Groups</p>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                    <div class="my-card item">
+                        <h4 class="form-title">Login Now</h4>
+                        <form method="POST" class="beehive-login-form panel-login" action="{{ route('login') }}"
+                            name="panel-login">
+                            @csrf
+                            <div class="form-group">
+                                <div class="user-name">
+                                    <label class="screen-reader-text">Email</label>
+                                    <span class="icon"></span>
+                                    <input type="text" id="email" class="email-control" required
+                                        name="email" value="" placeholder="Email" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="beehive-login-result"></div>
-                        <div class="submit">
-                            <button type="submit" id="login_submit" class="submit-login" name="wp-submit">
-                                Log In
-                            </button>
-                        </div>
-                        <input type="hidden" id="panel-login-security" name="panel-login-security"
-                            value="dce0a49eb5" /><input type="hidden" name="_wp_http_referer"
-                            value="/beehive-preview/activity/" />
-                        <div class="register-link">
-                            <p class="color-primary">Signup is disabled</p>
-                        </div>
-                    </form>
-                </div>
+                            <div class="form-group">
+                                <div class="pass">
+                                    <label class="screen-reader-text">Password</label>
+                                    <span class="icon"></span>
+                                    <input type="password" id="password" class="password-control" required
+                                        name="password" value="" placeholder="Password" />
+                                </div>
+                            </div>
+                            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                            <div class="submit">
+                                <button type="submit" id="login_submit" class="submit-login" name="wp-submit">
+                                    Log In
+                                </button>
+                            </div>
+                            <div class="register-link">
+                                <a href="/login" class="color-primary">Signup</a>
+                            </div>
+                        </form>
+                    </div>
+                @endif
             </div>
             <div class="panel-block light">
                 <div class="panel-menu item">

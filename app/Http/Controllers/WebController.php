@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WebController extends Controller
 {
@@ -11,7 +13,11 @@ class WebController extends Controller
     }
 
     public function profile(){
-        return view('profile');
+
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+
+        return view('profile', compact('user'));
     }
 
     public function find_people(){
@@ -29,4 +35,10 @@ class WebController extends Controller
     public function contact(){
         return view('contact');
     }
+
+    public function user_friends(){
+        return view('user-friends');
+    }
+
+
 }
