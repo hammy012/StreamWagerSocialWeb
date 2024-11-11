@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','WebController@welcome')->name('home');
-Route::get('/profile','WebController@profile')->name('profile');
+Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
 Route::get('/find-people','WebController@find_people')->name('find-people');
 Route::get('/user-friends','WebController@user_friends')->name('user-friends');
 Route::get('/about','WebController@about')->name('about');

@@ -16,6 +16,7 @@
         href="https://mythemestore.com/beehive-preview/feed/" />
     <link rel="alternate" type="application/rss+xml" title="Beehive Preview &raquo; Comments Feed"
         href="https://mythemestore.com/beehive-preview/comments/feed/" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style id="wp-emoji-styles-inline-css" type="text/css">
         img.wp-smiley,
         img.emoji {
@@ -1731,16 +1732,17 @@
                         alt="Beehive Preview" />
                 </a>
                 @if (Auth::guard('web')->check())
+                @php($user = App\Models\User::where('id', Auth::guard('web')->user()->id)->first())
                     <div class="my-card item">
                         <div class="info">
-                            <a href="https://mythemestore.com/beehive-preview/members/user/" class="profile-avatar">
-                                <img src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpfull.jpg"
-                                    alt="Tum Yeto" class="avatar mCS_img_loaded">
+                            <a href="{{ route('profile') }}" class="profile-avatar">
+                                <img src="{{ asset($user->profile_picture) }}"
+                                    alt="User Image" class="avatar mCS_img_loaded">
                             </a>
                             <div class="profile-name">
-                                <a href="https://mythemestore.com/beehive-preview/members/user/"
-                                    class="name ellipsis">Tum Yeto</a>
-                                <small>Member</small>
+                                <a href="{{ route('profile') }}"
+                                    class="name ellipsis">{{ $user->first_name }} {{ $user->last_name }}</a>
+                                <small style="text-transform: capitalize">{{ $user->type }}</small>
 
                             </div>
                         </div>
@@ -1748,8 +1750,8 @@
                             <li><span class="count">1</span>
                                 <p class="mute">Friends</p>
                             </li>
-                            <li><span class="count">4</span>
-                                <p class="mute">Groups</p>
+                            <li><span class="count">6</span>
+                                <p class="mute">Posts</p>
                             </li>
                         </ul>
                     </div>
@@ -1793,54 +1795,33 @@
                     <ul id="menu-dashboard-menu" class="navbar-panel">
                         <li id="menu-item-74"
                             class="menu-item menu-item-type-post_type menu-item-object-buddypress current-menu-item menu-item-74">
-                            <a href="https://mythemestore.com/beehive-preview/activity/" aria-current="page"><i
-                                    class="uil-notebooks"></i><span class="nav-link-text">Activity</span></a>
+                            <a href="https://mythemestore.com/beehive-preview/activity/" aria-current="page">
+                                <i class="fas fa-tasks"></i> <!-- Activity icon -->
+                                <span class="nav-link-text">Activity</span>
+                            </a>
                         </li>
                         <li id="menu-item-80"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-80">
-                            <a href="https://mythemestore.com/beehive-preview/photos/"><i
-                                    class="uil-image-v"></i><span class="nav-link-text">Photos</span></a>
+                            <a href="https://mythemestore.com/beehive-preview/photos/">
+                                <i class="fas fa-camera"></i> <!-- Photos icon -->
+                                <span class="nav-link-text">Photos</span>
+                            </a>
                         </li>
                         <li id="menu-item-82"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-82">
-                            <a href="https://mythemestore.com/beehive-preview/videos/"><i class="uil-play"></i><span
-                                    class="nav-link-text">Watch</span></a>
+                            <a href="https://mythemestore.com/beehive-preview/videos/">
+                                <i class="fas fa-user-friends"></i> <!-- Friends icon -->
+                                <span class="nav-link-text">Friends</span>
+                            </a>
                         </li>
                         <li id="menu-item-83"
                             class="menu-item menu-item-type-post_type menu-item-object-buddypress menu-item-83">
-                            <a href="https://mythemestore.com/beehive-preview/members/"><i class="uil-user"></i><span
-                                    class="nav-link-text">People</span></a>
+                            <a href="https://mythemestore.com/beehive-preview/members/">
+                                <i class="fas fa-users"></i> <!-- Find People icon -->
+                                <span class="nav-link-text">Find People</span>
+                            </a>
                         </li>
-                        <li id="menu-item-78"
-                            class="menu-item menu-item-type-post_type menu-item-object-buddypress menu-item-78">
-                            <a href="https://mythemestore.com/beehive-preview/groups/"><i
-                                    class="uil-users-alt"></i><span class="nav-link-text">Groups</span></a>
-                        </li>
-                        <li id="menu-item-75"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75">
-                            <a href="https://mythemestore.com/beehive-preview/adverts/"><i
-                                    class="uil-tv-retro"></i><span class="nav-link-text">Adverts</span></a>
-                        </li>
-                        <li id="menu-item-81"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-81">
-                            <a href="https://mythemestore.com/beehive-preview/shop/"><i
-                                    class="uil-shopping-trolley"></i><span class="nav-link-text">Shop</span></a>
-                        </li>
-                        <li id="menu-item-79"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-79">
-                            <a href="https://mythemestore.com/beehive-preview/jobs/"><i
-                                    class="uil-briefcase-alt"></i><span class="nav-link-text">Jobs</span></a>
-                        </li>
-                        <li id="menu-item-77"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77">
-                            <a href="https://mythemestore.com/beehive-preview/forums/"><i
-                                    class="uil-comments"></i><span class="nav-link-text">Forums</span></a>
-                        </li>
-                        <li id="menu-item-76"
-                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-76">
-                            <a href="https://mythemestore.com/beehive-preview/blog/"><i
-                                    class="uil-newspaper"></i><span class="nav-link-text">Blog</span></a>
-                        </li>
+
                     </ul>
                 </div>
             </div>
