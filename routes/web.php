@@ -17,6 +17,7 @@ Route::get('/','WebController@welcome')->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
 Route::get('/find-people','WebController@find_people')->name('find-people');
 Route::get('/user-friends','WebController@user_friends')->name('user-friends');
+Route::get('/your-friends','WebController@your_friends')->name('your-friends');
 Route::get('/about','WebController@about')->name('about');
 Route::get('/faq','WebController@faq')->name('faq');
 Route::get('/contact','WebController@contact')->name('contact');

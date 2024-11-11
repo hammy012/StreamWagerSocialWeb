@@ -1717,7 +1717,7 @@
 
 <body
     class="
-    @if (request()->is('profile*') || request()->is('user-friends*')) activity bp-user my-activity my-account just-me buddypress bp-nouveau bbp-user-page single singular bbpress buddypress-template-default page page-id-371 logged-in wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-user buddychat-is-active bp-is-my-profile beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-collapsed no-sidebar
+    @if (request()->is('profile*') || request()->is('user-friends*') || request()->is('your-friends*')) activity bp-user my-activity my-account just-me buddypress bp-nouveau bbp-user-page single singular bbpress buddypress-template-default page page-id-371 logged-in wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-user buddychat-is-active bp-is-my-profile beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-collapsed no-sidebar
     @elseif (request()->is('about*')) bp-nouveau page-template page-template-page-templates page-template-full-width page-template-page-templatesfull-width-php page page-id-101 wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-guest-user beehive-child elementor-default elementor-kit-588 elementor-page elementor-page-101 full-width
     @else
         directory activity buddypress bp-nouveau buddypress-template-default page page-id-370 wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-guest-user beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-expanded has-page-sidebar @endif
@@ -1727,7 +1727,7 @@
     <div id="beehive-social-panel" class="beehive-social-panel">
         <div class="inner-panel ass-scrollbar">
             <div class="panel-block dark">
-                <a href="https://mythemestore.com/beehive-preview/" class="panel-logo item">
+                <a href="/" class="panel-logo item">
                     <img src="https://mythemestore.com/beehive-preview/wp-content/themes/beehive/assets/images/logo-vertical.svg"
                         alt="Beehive Preview" />
                 </a>
@@ -1795,28 +1795,28 @@
                     <ul id="menu-dashboard-menu" class="navbar-panel">
                         <li id="menu-item-74"
                             class="menu-item menu-item-type-post_type menu-item-object-buddypress current-menu-item menu-item-74">
-                            <a href="https://mythemestore.com/beehive-preview/activity/" aria-current="page">
+                            <a href="{{ route('profile') }}" aria-current="page">
                                 <i class="fas fa-tasks"></i> <!-- Activity icon -->
                                 <span class="nav-link-text">Activity</span>
                             </a>
                         </li>
                         <li id="menu-item-80"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-80">
-                            <a href="https://mythemestore.com/beehive-preview/photos/">
+                            <a href="{{ route('profile') }}">
                                 <i class="fas fa-camera"></i> <!-- Photos icon -->
                                 <span class="nav-link-text">Photos</span>
                             </a>
                         </li>
                         <li id="menu-item-82"
                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-82">
-                            <a href="https://mythemestore.com/beehive-preview/videos/">
+                            <a href="{{ route('your-friends') }}">
                                 <i class="fas fa-user-friends"></i> <!-- Friends icon -->
                                 <span class="nav-link-text">Friends</span>
                             </a>
                         </li>
                         <li id="menu-item-83"
                             class="menu-item menu-item-type-post_type menu-item-object-buddypress menu-item-83">
-                            <a href="https://mythemestore.com/beehive-preview/members/">
+                            <a href="{{ route('find-people') }}">
                                 <i class="fas fa-users"></i> <!-- Find People icon -->
                                 <span class="nav-link-text">Find People</span>
                             </a>

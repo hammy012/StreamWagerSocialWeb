@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class WebController extends Controller
 {
     public function welcome(){
-        return view('welcome');
+
+        $all_users = User::orderBy('created_at', 'desc')->get();
+
+        return view('welcome', compact('all_users'));
     }
 
     public function profile(){
@@ -38,6 +41,10 @@ class WebController extends Controller
 
     public function user_friends(){
         return view('user-friends');
+    }
+
+    public function your_friends(){
+        return view('your-friends');
     }
 
 
