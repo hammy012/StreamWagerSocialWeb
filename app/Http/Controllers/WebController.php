@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +17,17 @@ class WebController extends Controller
     }
 
     public function profile(){
-
+        // Get the logged-in user's ID
         $userId = Auth::user()->id;
+
+        // Fetch the user along with their posts and associated media
         $user = User::find($userId);
 
-        return view('profile', compact('user'));
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $userId)->get();
+
+        // Pass the user and posts (with media) to the view
+        return view('profile', compact('user', 'posts'));
     }
 
     public function find_people(){

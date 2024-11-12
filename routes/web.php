@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ Route::get('/your-friends','WebController@your_friends')->name('your-friends');
 Route::get('/about','WebController@about')->name('about');
 Route::get('/faq','WebController@faq')->name('faq');
 Route::get('/contact','WebController@contact')->name('contact');
+
+// FOR POST
+Route::post('/create-post', [PostController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -57,11 +57,13 @@
             margin-top: 10px;
             border-radius: 8px;
         }
+
         .gallery-icon {
             font-size: 24px;
-            color: #333; /* Icon color */
+            color: #333;
+            /* Icon color */
             cursor: pointer;
-          }
+        }
     </style>
 
 
@@ -188,106 +190,21 @@
 
                                                                 <div class="widget">
                                                                     <h5 class="widget-title">My photos</h5>
-                                                                    <ul class="member-photo-list">
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3530/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/frontend-Php-Laravel-dark-mode-250x250.png"
-                                                                                        alt="frontend Php Laravel dark mode" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3528/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6076-250x250.jpeg"
-                                                                                        alt="IMG_6076" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3527/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6083-250x250.jpeg"
-                                                                                        alt="IMG_6083" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3526/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6080-250x250.png"
-                                                                                        alt="IMG_6080" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3525/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6079-250x250.jpeg"
-                                                                                        alt="IMG_6079" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3524/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6078-250x250.png"
-                                                                                        alt="IMG_6078" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3523/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6081-250x250.jpeg"
-                                                                                        alt="IMG_6081" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3522/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/IMG_6082-250x250.png"
-                                                                                        alt="IMG_6082" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li
-                                                                            class="rtmedia-list-media rtm-gallery-list member-photo">
-                                                                            <div class="inner">
-                                                                                <a
-                                                                                    href="https://mythemestore.com/beehive-preview/members/user/media/3521/">
-                                                                                    <img decoding="async"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/EFE_6726-250x250.jpg"
-                                                                                        alt="EFE_6726" />
-                                                                                </a>
-                                                                            </div>
-                                                                        </li>
+                                                                    <ul class="member-photo-list" style="gap: 8px;">
+                                                                        @foreach($posts as $post)
+                                                                            @php
+                                                                                $media = App\Models\Media::where('post_id', $post->id)->first();
+                                                                            @endphp
+
+                                                                            @if ($media)
+                                                                                @if (str_contains($media->media_type, 'image'))
+                                                                                        <div class="inner">
+                                                                                            <img style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;" decoding="async" src="{{ asset($media->media_url) }}" alt="Photo" />
+                                                                                        </div>
+                                                                                @endif
+                                                                            @endif
+                                                                        @endforeach
+
                                                                     </ul>
                                                                 </div>
                                                             </aside>
@@ -312,7 +229,7 @@
                                                             <div id="activity-stream" class="activity single-user"
                                                                 data-bp-list="activity" style="">
                                                                 <ul class="activity-list item-list bp-list">
-                                                                    <li class="activity activity_comment activity-item animate-item slideInUp"
+                                                                    {{--  <li class="activity activity_comment activity-item animate-item slideInUp"
                                                                         id="activity-16181" data-bp-activity-id="16181"
                                                                         data-bp-timestamp="1730321202"
                                                                         style="
@@ -428,288 +345,290 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </li>
+                                                                    </li>  --}}
 
-                                                                    <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
-                                                                        id="activity-16180" data-bp-activity-id="16180"
-                                                                        data-bp-timestamp="1730305712"
-                                                                        style="
-                                                            visibility: visible;
-                                                            animation-name: slideInUp;
-                                                            ">
-                                                                        <div class="activity-avatar item-avatar">
-                                                                            <a
-                                                                                href="https://mythemestore.com/beehive-preview/members/user/">
-                                                                                <img loading="lazy"
-                                                                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpfull.jpg"
-                                                                                    class="avatar user-3-avatar avatar-200 photo"
-                                                                                    width="200" height="200"
-                                                                                    alt="Profile picture of Tum Yeto" />
-                                                                            </a>
-                                                                        </div>
+                                                                    @foreach ($posts as $post)
+                                                                        <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
+                                                                            id="activity-16180"
+                                                                            data-bp-activity-id="16180"
+                                                                            data-bp-timestamp="1730305712"
+                                                                            style="
+                                                                                visibility: visible;
+                                                                                animation-name: slideInUp;
+                                                                                ">
+                                                                            <div class="activity-avatar item-avatar">
+                                                                                <a href="{{ route('profile') }}">
+                                                                                    <img loading="lazy"
+                                                                                        src="{{ asset($user->profile_picture) }}"
+                                                                                        class="avatar user-3-avatar avatar-200 photo"
+                                                                                        width="200" height="200"
+                                                                                        alt="Profile picture of Tum Yeto" />
+                                                                                </a>
+                                                                            </div>
 
-                                                                        <div class="activity-content">
-                                                                            <div class="activity-header">
-                                                                                <div class="posted-meta">
-                                                                                    <p>
-                                                                                        <a
-                                                                                            href="https://mythemestore.com/beehive-preview/members/user/">Tum
-                                                                                            Yeto</a>
-                                                                                        posted an update
-                                                                                    </p>
+                                                                            <div class="activity-content">
+                                                                                <div class="activity-header">
+                                                                                    <div class="posted-meta">
+                                                                                        <p>
+                                                                                            <a
+                                                                                                href="{{ route('profile') }}">{{ $user->first_name }}
+                                                                                                {{ $user->last_name }}</a>
+                                                                                            posted
+                                                                                        </p>
+                                                                                    </div>
+
+                                                                                    <div class="date mute">
+                                                                                        {{ $post->created_at->diffForHumans() }}
+                                                                                    </div>
+
+                                                                                    <div class="activity-options dropleft">
+                                                                                        <a class="dropdown-toggle"
+                                                                                            href="#" role="button"
+                                                                                            id="activity-action-dropdown-16180"
+                                                                                            data-toggle="dropdown"
+                                                                                            aria-expanded="false"><i
+                                                                                                class="uil-ellipsis-v"></i></a>
+                                                                                        <div class="dropdown-menu"
+                                                                                            aria-labelledby="activity-action-dropdown-16180">
+                                                                                            <div
+                                                                                                class="activity-meta action">
+                                                                                                <div
+                                                                                                    class="generic-button">
+                                                                                                    <a href="https://mythemestore.com/beehive-preview/activity/favorite/16180/?_wpnonce=9bedea944d"
+                                                                                                        class="button fav bp-secondary-action bp-tooltip"
+                                                                                                        data-bp-tooltip="Mark as Favorite"
+                                                                                                        aria-pressed="false"><span
+                                                                                                            class="bp-screen-reader-text">Mark
+                                                                                                            as
+                                                                                                            Favorite</span></a>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="generic-button">
+                                                                                                    <a href="https://mythemestore.com/beehive-preview/activity/delete/16180/?_wpnonce=13fca8171e"
+                                                                                                        class="button item-button bp-secondary-action bp-tooltip delete-activity confirm"
+                                                                                                        data-bp-tooltip="Delete"><span
+                                                                                                            class="bp-screen-reader-text">Delete</span></a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
 
-                                                                                <div class="date mute">
-                                                                                    18 hours, 7 minutes ago
+                                                                                <div class="activity-inner">
+                                                                                    <div
+                                                                                        class="rtmedia-activity-container">
+                                                                                        <ul
+                                                                                            class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-1 rtm-activity-photo-list">
+                                                                                            <li
+                                                                                                class="rtmedia-list-item media-type-photo">
+                                                                                                <span
+                                                                                                    style="color: #444; font-weight: 600;">{{ $post->content }}</span>
+                                                                                                @php
+                                                                                                    $media = App\Models\Media::where(
+                                                                                                        'post_id',
+                                                                                                        $post->id,
+                                                                                                    )->first();
+                                                                                                @endphp
+
+                                                                                                @if ($media)
+                                                                                                    @if (str_contains($media->media_type, 'image'))
+                                                                                                        <div
+                                                                                                            class="rtmedia-item-thumbnail">
+                                                                                                            <img loading="lazy"
+                                                                                                                alt="{{ $media->media_url }}"
+                                                                                                                src="{{ asset($media->media_url) }}" />
+                                                                                                        </div>
+                                                                                                    @elseif(str_contains($media->media_type, 'video'))
+                                                                                                        <div
+                                                                                                            class="rtmedia-item-thumbnail">
+                                                                                                            <video
+                                                                                                                loading="lazy"
+                                                                                                                controls>
+                                                                                                                <source
+                                                                                                                    src="{{ asset($media->media_url) }}"
+                                                                                                                    type="{{ $media->media_url }}">
+                                                                                                            </video>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                @endif
+
+
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
                                                                                 </div>
 
-                                                                                <div class="activity-options dropleft">
-                                                                                    <a class="dropdown-toggle"
-                                                                                        href="#" role="button"
-                                                                                        id="activity-action-dropdown-16180"
-                                                                                        data-toggle="dropdown"
-                                                                                        aria-expanded="false"><i
-                                                                                            class="uil-ellipsis-v"></i></a>
-                                                                                    <div class="dropdown-menu"
-                                                                                        aria-labelledby="activity-action-dropdown-16180">
+                                                                                <div class="who-reacted">
+                                                                                    <span class="top-reactions"><span
+                                                                                            class="like"></span></span>
+                                                                                    You reacted to this!
+                                                                                </div>
+                                                                                <div class="activity-meta action">
+                                                                                    <div class="generic-button">
+                                                                                        <a id="acomment-comment-16180"
+                                                                                            class="button acomment-reply bp-primary-action bp-tooltip"
+                                                                                            data-bp-tooltip="Comment"
+                                                                                            aria-expanded="false"
+                                                                                            href="https://mythemestore.com/beehive-preview/activity/?ac=16180/#ac-form-16180"
+                                                                                            role="button"><span
+                                                                                                class="bp-screen-reader-text">Comment</span>
+                                                                                            <span
+                                                                                                class="comment-count">1</span></a>
+                                                                                    </div>
+                                                                                    <div class="generic-button reactions">
+                                                                                        <a href="#"
+                                                                                            data-reaction-type="like"
+                                                                                            class="button react-to-activity"><span
+                                                                                                class="bp-screen-reader-text">Like</span></a>
+                                                                                    </div>
+                                                                                    <div class="generic-button">
+                                                                                        <a href="#"
+                                                                                            id="activity-share-16180"
+                                                                                            class="button share-activity"><span
+                                                                                                class="bp-screen-reader-text">Share</span></a>
+                                                                                        <ul class="share-activity-options"
+                                                                                            aria-labelledby="activity-share-16180"
+                                                                                            style="display: none">
+                                                                                            <li>
+                                                                                                <a id="share-on-activity-16180"
+                                                                                                    href="#"
+                                                                                                    class="share-item share-on-activity"
+                                                                                                    data-share-id="16180">Share
+                                                                                                    on Activity</a>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://mythemestore.com/beehive-preview/activity/p/16180/"
+                                                                                                    class="share-item share-on-facebook"
+                                                                                                    target="_blank">Share
+                                                                                                    on
+                                                                                                    Facebook</a>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a href="https://twitter.com/intent/tweet?url=https://mythemestore.com/beehive-preview/activity/p/16180/"
+                                                                                                    class="share-item share-on-twitter"
+                                                                                                    target="_blank">Share
+                                                                                                    on
+                                                                                                    Twitter</a>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://mythemestore.com/beehive-preview/activity/p/16180/"
+                                                                                                    class="share-item share-on-linkedin"
+                                                                                                    target="_blank">Share
+                                                                                                    on
+                                                                                                    Linkedin</a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="activity-comments">
+                                                                                <ul>
+                                                                                    <li id="acomment-16181"
+                                                                                        class="comment-item"
+                                                                                        data-bp-activity-comment-id="16181">
+                                                                                        <div
+                                                                                            class="acomment-avatar item-avatar">
+                                                                                            <a
+                                                                                                href="https://mythemestore.com/beehive-preview/members/user/">
+                                                                                                <img loading="lazy"
+                                                                                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpthumb.jpg"
+                                                                                                    class="avatar user-3-avatar avatar-50 photo"
+                                                                                                    width="50"
+                                                                                                    height="50"
+                                                                                                    alt="Profile picture of Tum Yeto" />
+                                                                                            </a>
+                                                                                        </div>
+
+                                                                                        <div class="acomment-meta">
+                                                                                            <a
+                                                                                                href="https://mythemestore.com/beehive-preview/members/user/">Tum
+                                                                                                Yeto</a>
+                                                                                            replied
+                                                                                            <a href="https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
+                                                                                                class="activity-time-since"><time
+                                                                                                    class="time-since"
+                                                                                                    datetime="2024-10-30 20:46:42"
+                                                                                                    data-bp-timestamp="1730321202">13
+                                                                                                    hours, 49 minutes
+                                                                                                    ago</time></a>
+                                                                                        </div>
+
+                                                                                        <div class="acomment-content">
+                                                                                            <div
+                                                                                                class="rtmedia-activity-container">
+                                                                                                <div
+                                                                                                    class="rtmedia-activity-text">
+                                                                                                    <span>this is fucked
+                                                                                                        up<br />
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <ul
+                                                                                                    class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-0 rtm-activity-mixed-list rtm-activity-list-rendered">
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+
                                                                                         <div class="activity-meta action">
                                                                                             <div class="generic-button">
-                                                                                                <a href="https://mythemestore.com/beehive-preview/activity/favorite/16180/?_wpnonce=9bedea944d"
-                                                                                                    class="button fav bp-secondary-action bp-tooltip"
-                                                                                                    data-bp-tooltip="Mark as Favorite"
-                                                                                                    aria-pressed="false"><span
-                                                                                                        class="bp-screen-reader-text">Mark
-                                                                                                        as
-                                                                                                        Favorite</span></a>
+                                                                                                <a class="acomment-reply bp-primary-action"
+                                                                                                    id="acomment-reply-16180-from-16181"
+                                                                                                    href="#acomment-16181">Reply</a>
                                                                                             </div>
                                                                                             <div class="generic-button">
-                                                                                                <a href="https://mythemestore.com/beehive-preview/activity/delete/16180/?_wpnonce=13fca8171e"
-                                                                                                    class="button item-button bp-secondary-action bp-tooltip delete-activity confirm"
-                                                                                                    data-bp-tooltip="Delete"><span
-                                                                                                        class="bp-screen-reader-text">Delete</span></a>
+                                                                                                <a class="delete acomment-delete confirm bp-secondary-action"
+                                                                                                    rel="nofollow"
+                                                                                                    href="https://mythemestore.com/beehive-preview/activity/delete/16181/?cid=16181&amp;_wpnonce=13fca8171e">Delete</a>
                                                                                             </div>
                                                                                         </div>
+                                                                                    </li>
+                                                                                </ul>
+
+                                                                                <form
+                                                                                    action="https://mythemestore.com/beehive-preview/activity/reply/"
+                                                                                    method="post" id="ac-form-16180"
+                                                                                    class="ac-form">
+                                                                                    <div class="ac-reply-avatar">
+                                                                                        <img loading="lazy"
+                                                                                            src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpthumb.jpg"
+                                                                                            class="avatar user-3-avatar avatar-50 photo"
+                                                                                            width="50" height="50"
+                                                                                            alt="Profile picture of Tum Yeto" />
                                                                                     </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="activity-inner">
-                                                                                <div class="rtmedia-activity-container">
-                                                                                    <ul
-                                                                                        class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-1 rtm-activity-photo-list">
-                                                                                        <li
-                                                                                            class="rtmedia-list-item media-type-photo">
-                                                                                            <a href="https://mythemestore.com/beehive-preview/members/user/media/3530/"
-                                                                                                rel="nofollow ugc">
-                                                                                                <div
-                                                                                                    class="rtmedia-item-thumbnail">
-                                                                                                    <img loading="lazy"
-                                                                                                        alt="frontend Php Laravel dark mode"
-                                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/rtMedia/users/3/2024/10/frontend-Php-Laravel-dark-mode-450x320.png" />
-                                                                                                </div>
-                                                                                                <div class="rtmedia-item-title"
-                                                                                                    style="max-width: 320px">
-                                                                                                    <p>
-                                                                                                        frontend Php Laravel
-                                                                                                        dark mode
-                                                                                                    </p>
-                                                                                                </div>
-                                                                                            </a>
-                                                                                            <p>
-                                                                                                <a href="https://mythemestore.com/beehive-preview/members/user/media/3530/"
-                                                                                                    rel="nofollow ugc"
-                                                                                                    class="no-popup">
-                                                                                                </a>
-                                                                                            </p>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="who-reacted">
-                                                                                <span class="top-reactions"><span
-                                                                                        class="like"></span></span>You
-                                                                                reacted to this!
-                                                                            </div>
-                                                                            <div class="activity-meta action">
-                                                                                <div class="generic-button">
-                                                                                    <a id="acomment-comment-16180"
-                                                                                        class="button acomment-reply bp-primary-action bp-tooltip"
-                                                                                        data-bp-tooltip="Comment"
-                                                                                        aria-expanded="false"
-                                                                                        href="https://mythemestore.com/beehive-preview/activity/?ac=16180/#ac-form-16180"
-                                                                                        role="button"><span
-                                                                                            class="bp-screen-reader-text">Comment</span>
-                                                                                        <span
-                                                                                            class="comment-count">1</span></a>
-                                                                                </div>
-                                                                                <div class="generic-button reactions">
-                                                                                    <a href="#"
-                                                                                        data-reaction-type="like"
-                                                                                        class="button react-to-activity"><span
-                                                                                            class="bp-screen-reader-text">Like</span></a>
-                                                                                    <div class="pick-reaction">
-                                                                                        <span class="reaction like"><span
-                                                                                                class="reaction-tooltip">Like</span></span><span
-                                                                                            class="reaction love"><span
-                                                                                                class="reaction-tooltip">Love</span></span><span
-                                                                                            class="reaction care"><span
-                                                                                                class="reaction-tooltip">Care</span></span><span
-                                                                                            class="reaction haha"><span
-                                                                                                class="reaction-tooltip">Haha</span></span><span
-                                                                                            class="reaction wow"><span
-                                                                                                class="reaction-tooltip">Wow</span></span><span
-                                                                                            class="reaction sad"><span
-                                                                                                class="reaction-tooltip">Sad</span></span><span
-                                                                                            class="reaction angry"><span
-                                                                                                class="reaction-tooltip">Angry</span></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="generic-button">
-                                                                                    <a href="#"
-                                                                                        id="activity-share-16180"
-                                                                                        class="button share-activity"><span
-                                                                                            class="bp-screen-reader-text">Share</span></a>
-                                                                                    <ul class="share-activity-options"
-                                                                                        aria-labelledby="activity-share-16180"
-                                                                                        style="display: none">
-                                                                                        <li>
-                                                                                            <a id="share-on-activity-16180"
-                                                                                                href="#"
-                                                                                                class="share-item share-on-activity"
-                                                                                                data-share-id="16180">Share
-                                                                                                on Activity</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://mythemestore.com/beehive-preview/activity/p/16180/"
-                                                                                                class="share-item share-on-facebook"
-                                                                                                target="_blank">Share on
-                                                                                                Facebook</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="https://twitter.com/intent/tweet?url=https://mythemestore.com/beehive-preview/activity/p/16180/"
-                                                                                                class="share-item share-on-twitter"
-                                                                                                target="_blank">Share on
-                                                                                                Twitter</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://mythemestore.com/beehive-preview/activity/p/16180/"
-                                                                                                class="share-item share-on-linkedin"
-                                                                                                target="_blank">Share on
-                                                                                                Linkedin</a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="activity-comments">
-                                                                            <ul>
-                                                                                <li id="acomment-16181"
-                                                                                    class="comment-item"
-                                                                                    data-bp-activity-comment-id="16181">
-                                                                                    <div
-                                                                                        class="acomment-avatar item-avatar">
-                                                                                        <a
-                                                                                            href="https://mythemestore.com/beehive-preview/members/user/">
-                                                                                            <img loading="lazy"
-                                                                                                src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpthumb.jpg"
-                                                                                                class="avatar user-3-avatar avatar-50 photo"
-                                                                                                width="50"
-                                                                                                height="50"
-                                                                                                alt="Profile picture of Tum Yeto" />
-                                                                                        </a>
-                                                                                    </div>
-
-                                                                                    <div class="acomment-meta">
-                                                                                        <a
-                                                                                            href="https://mythemestore.com/beehive-preview/members/user/">Tum
-                                                                                            Yeto</a>
-                                                                                        replied
-                                                                                        <a href="https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
-                                                                                            class="activity-time-since"><time
-                                                                                                class="time-since"
-                                                                                                datetime="2024-10-30 20:46:42"
-                                                                                                data-bp-timestamp="1730321202">13
-                                                                                                hours, 49 minutes
-                                                                                                ago</time></a>
-                                                                                    </div>
-
-                                                                                    <div class="acomment-content">
-                                                                                        <div
-                                                                                            class="rtmedia-activity-container">
-                                                                                            <div
-                                                                                                class="rtmedia-activity-text">
-                                                                                                <span>this is fucked
-                                                                                                    up<br />
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <ul
-                                                                                                class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-0 rtm-activity-mixed-list rtm-activity-list-rendered">
-                                                                                            </ul>
+                                                                                    <div class="ac-reply-content">
+                                                                                        <div class="ac-textarea">
+                                                                                            <label for="ac-input-16180"
+                                                                                                class="bp-screen-reader-text">
+                                                                                                Comment
+                                                                                            </label>
+                                                                                            <textarea id="ac-input-16180" class="ac-input bp-suggestions" name="ac_input_16180"></textarea>
                                                                                         </div>
+                                                                                        <input type="hidden"
+                                                                                            name="comment_form_id"
+                                                                                            value="16180" />
+
+                                                                                        <input type="submit"
+                                                                                            name="ac_form_submit"
+                                                                                            value="Post" /><input
+                                                                                            type="hidden"
+                                                                                            id="_wpnonce_new_activity_comment_16180"
+                                                                                            name="_wpnonce_new_activity_comment_16180"
+                                                                                            value="b7ba7da908" /><input
+                                                                                            type="hidden"
+                                                                                            name="_wp_http_referer"
+                                                                                            value="/beehive-preview/wp-admin/admin-ajax.php" />&nbsp;
+                                                                                        <button type="button"
+                                                                                            class="ac-reply-cancel">
+                                                                                            Cancel
+                                                                                        </button>
                                                                                     </div>
-
-                                                                                    <div class="activity-meta action">
-                                                                                        <div class="generic-button">
-                                                                                            <a class="acomment-reply bp-primary-action"
-                                                                                                id="acomment-reply-16180-from-16181"
-                                                                                                href="#acomment-16181">Reply</a>
-                                                                                        </div>
-                                                                                        <div class="generic-button">
-                                                                                            <a class="delete acomment-delete confirm bp-secondary-action"
-                                                                                                rel="nofollow"
-                                                                                                href="https://mythemestore.com/beehive-preview/activity/delete/16181/?cid=16181&amp;_wpnonce=13fca8171e">Delete</a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-
-                                                                            <form
-                                                                                action="https://mythemestore.com/beehive-preview/activity/reply/"
-                                                                                method="post" id="ac-form-16180"
-                                                                                class="ac-form">
-                                                                                <div class="ac-reply-avatar">
-                                                                                    <img loading="lazy"
-                                                                                        src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpthumb.jpg"
-                                                                                        class="avatar user-3-avatar avatar-50 photo"
-                                                                                        width="50" height="50"
-                                                                                        alt="Profile picture of Tum Yeto" />
-                                                                                </div>
-                                                                                <div class="ac-reply-content">
-                                                                                    <div class="ac-textarea">
-                                                                                        <label for="ac-input-16180"
-                                                                                            class="bp-screen-reader-text">
-                                                                                            Comment
-                                                                                        </label>
-                                                                                        <textarea id="ac-input-16180" class="ac-input bp-suggestions" name="ac_input_16180"></textarea>
-                                                                                    </div>
-                                                                                    <input type="hidden"
-                                                                                        name="comment_form_id"
-                                                                                        value="16180" />
-
-                                                                                    <input type="submit"
-                                                                                        name="ac_form_submit"
-                                                                                        value="Post" /><input
-                                                                                        type="hidden"
-                                                                                        id="_wpnonce_new_activity_comment_16180"
-                                                                                        name="_wpnonce_new_activity_comment_16180"
-                                                                                        value="b7ba7da908" /><input
-                                                                                        type="hidden"
-                                                                                        name="_wp_http_referer"
-                                                                                        value="/beehive-preview/wp-admin/admin-ajax.php" />&nbsp;
-                                                                                    <button type="button"
-                                                                                        class="ac-reply-cancel">
-                                                                                        Cancel
-                                                                                    </button>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </li>
-
-
-
+                                                                                </form>
+                                                                            </div>
+                                                                        </li>
+                                                                    @endforeach
                                                                 </ul>
+
+
                                                             </div>
                                                         </div>
 
@@ -743,23 +662,27 @@
             <h2>Create Post</h2>
 
             <!-- Post Form -->
-            <textarea id="postText" placeholder="What's on your mind?"></textarea>
+            <form id="createPostForm" action="/create-post" method="POST" enctype="multipart/form-data">
+                @csrf <!-- Laravel CSRF Token -->
+                <textarea id="postText" name="content" placeholder="What's on your mind?"></textarea>
 
-            <div class="upload-section">
-                <label for="fileInput">
-                  <i class="fas fa-photo-video gallery-icon"></i> <!-- Font Awesome icon for gallery -->
-                </label>
-                <input type="file" id="fileInput" accept="image/*,video/*" style="display: none;">
-              </div>
+                <div class="upload-section">
+                    <label for="fileInput">
+                        {{--  <i class="fas fa-photo-video gallery-icon"></i>  --}}
+                    </label>
+                    <input type="file" id="fileInput" name="file" accept="image/*,video/*">
+                </div>
 
-            <!-- Preview Section -->
-            <div id="preview"></div>
+                <!-- Preview Section -->
+                <div id="preview"></div>
 
-            <button id="submitPost" style="margin-top: 25px;">Post</button>
+                <button type="submit" id="submitPost" style="margin-top: 25px;">Post</button>
+            </form>
         </div>
     </div>
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         // Modal open and close functionality
@@ -769,15 +692,18 @@
         const fileInput = document.getElementById("fileInput");
         const preview = document.getElementById("preview");
 
+        // Open the modal when the button is clicked
         openModalBtn.addEventListener("click", () => {
             postModal.style.display = "flex";
         });
 
+        // Close the modal when the close button is clicked
         closeModal.addEventListener("click", () => {
             postModal.style.display = "none";
             clearPreview();
         });
 
+        // Close the modal if clicked outside of it
         window.addEventListener("click", (event) => {
             if (event.target == postModal) {
                 postModal.style.display = "none";
@@ -798,11 +724,15 @@
                     if (fileType.startsWith("image")) {
                         const img = document.createElement("img");
                         img.src = e.target.result;
+                        img.style.height = "100px"; // Set the height to 100px
+                        img.style.objectFit = "cover"; // Optional: makes sure the image covers the space
                         preview.appendChild(img);
                     } else if (fileType.startsWith("video")) {
                         const video = document.createElement("video");
                         video.src = e.target.result;
                         video.controls = true;
+                        video.style.height = "100px"; // Set the height to 100px
+                        video.style.objectFit = "cover"; // Optional: makes sure the video covers the space
                         preview.appendChild(video);
                     }
                 };
@@ -814,6 +744,44 @@
         function clearPreview() {
             preview.innerHTML = "";
         }
+
+        // Handle form submission
+        {{--  document.getElementById("createPostForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            const postText = document.getElementById("postText").value;
+            const file = document.getElementById("fileInput").files[0];
+
+            // Create a FormData object to send text and file data
+            const formData = new FormData();
+            formData.append("content", postText);
+            if (file) {
+                formData.append("file", file);
+            }
+
+            // Send AJAX request to Laravel route
+            fetch("/create-post", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            "content")
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Post created successfully!");
+                        postModal.style.display = "none";
+                        clearPreview();
+                    } else {
+                        alert("Failed to create post. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        });  --}}
     </script>
 
 @endsection

@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Stream Wager</title>
     @yield('seo')
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="alternate" type="application/rss+xml" title="Beehive Preview | Site Wide Activity RSS Feed"
         href="https://mythemestore.com/beehive-preview/activity/feed/" />
     <meta name="robots" content="max-image-preview:large" />
@@ -1732,16 +1733,16 @@
                         alt="Beehive Preview" />
                 </a>
                 @if (Auth::guard('web')->check())
-                @php($user = App\Models\User::where('id', Auth::guard('web')->user()->id)->first())
+                    @php($user = App\Models\User::where('id', Auth::guard('web')->user()->id)->first())
                     <div class="my-card item">
                         <div class="info">
                             <a href="{{ route('profile') }}" class="profile-avatar">
-                                <img src="{{ asset($user->profile_picture) }}"
-                                    alt="User Image" class="avatar mCS_img_loaded">
+                                <img src="{{ asset($user->profile_picture) }}" alt="User Image"
+                                    class="avatar mCS_img_loaded">
                             </a>
                             <div class="profile-name">
-                                <a href="{{ route('profile') }}"
-                                    class="name ellipsis">{{ $user->first_name }} {{ $user->last_name }}</a>
+                                <a href="{{ route('profile') }}" class="name ellipsis">{{ $user->first_name }}
+                                    {{ $user->last_name }}</a>
                                 <small style="text-transform: capitalize">{{ $user->type }}</small>
 
                             </div>
@@ -1910,7 +1911,23 @@
 
 
 
-
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{{ session('success') }}"
+            });
+        </script>
+    @elseif (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}"
+            });
+        </script>
+    @endif
 
     <script type="text/javascript" src="{{ asset('web/assets/js/editor.min.js') }}" id="bbpress-editor-js"></script>
     <script type="text/javascript" src="{{ asset('web/assets/js/underscrore.min.js') }}" id="underscore-js"></script>
