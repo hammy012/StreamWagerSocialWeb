@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -67,6 +69,42 @@ class WebController extends Controller
         $posts = Post::where('user_id', $userId)->get();
 
         return view('your-friends', compact('user', 'posts'));
+    }
+
+    public function storeComment(Request $request, $postId)
+    {
+        $request->validate([
+            'content' => 'required|string|max:1000',
+        ]);
+
+        $comment = Comment::create([
+            'post_id' => $postId,
+            'user_id' => $request->user_id,
+            'content' => $request->content,
+        ]);
+
+        return response()->json(['success' => true, 'comment' => $comment]);
+    }
+
+    public function likePost($postId)
+    {
+        $userId = Auth::user()->id;
+
+        // Check if the user has already liked the post
+        $like = Like::where('post_id', $postId)->where('user_id', $userId)->first();
+
+        if ($like) {
+            // If the user already liked, remove like
+            $like->delete();
+            return response()->json(['liked' => false]);
+        } else {
+            // If the user has not liked, add a like
+            Like::create([
+                'post_id' => $postId,
+                'user_id' => $userId
+            ]);
+            return response()->json(['liked' => true]);
+        }
     }
 
 

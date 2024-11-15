@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\WebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,7 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/','WebController@welcome')->name('home');
+Route::get('/','WebController@welcome')->middleware(['auth'])->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
 Route::get('/find-people','WebController@find_people')->name('find-people');
 Route::get('/user-friends','WebController@user_friends')->middleware(['auth'])->name('user-friends');
@@ -22,6 +23,10 @@ Route::get('/your-friends','WebController@your_friends')->middleware(['auth'])->
 Route::get('/about','WebController@about')->name('about');
 Route::get('/faq','WebController@faq')->name('faq');
 Route::get('/contact','WebController@contact')->name('contact');
+Route::post('/post/{post}/comment', [WebController::class, 'storeComment'])->name('post.comment');
+Route::post('/like/{postId}', [WebController::class, 'likePost'])->name('like.post');
+
+
 
 // FOR POST
 Route::post('/create-post', [PostController::class, 'store']);
