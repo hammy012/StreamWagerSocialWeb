@@ -66,6 +66,71 @@
         }
     </style>
 
+    <style>
+        /* Style for the container */
+        .nav-container {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Style for each tab */
+        .tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Style for Activity tab */
+        .activity-tab {
+            background-color: #8224E3;
+            /* Purple background */
+            color: white;
+        }
+
+        .activity-tab a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .activity-tab i {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        /* Style for Friends tab */
+        .friend-tab {
+            background-color: transparent;
+            /* No background */
+            color: black;
+            border: 2px solid #555;
+        }
+
+        .friend-tab a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #555;
+        }
+
+        .friend-tab i {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+    </style>
+
 
     <div id="content" class="site-content" style="margin-top: 200px !important;">
 
@@ -98,7 +163,7 @@
                                                                 <div id="item-header-avatar">
                                                                     <div class="item-avatar">
                                                                         <a
-                                                                            href="https://mythemestore.com/beehive-preview/members/user/">
+                                                                            href="{{ route('profile') }}">
                                                                             <img loading="lazy" decoding="async"
                                                                                 src="{{ asset($user->profile_picture) }}"
                                                                                 class="avatar user-3-avatar avatar-200 photo"
@@ -109,6 +174,7 @@
                                                                     <h3 class="profile-name">
                                                                         {{ $user->first_name . ' ' . $user->last_name }}
                                                                     </h3>
+                                                                    <p style="margin:0; padding:0">{{ $user->type }}</p>
                                                                 </div>
                                                                 <!-- #item-header-avatar -->
                                                             </div>
@@ -120,7 +186,7 @@
                                                                     <ul class="member-header-actions action">
                                                                         <li class="generic-button">
                                                                             <a class="edit-profile"
-                                                                                href="https://mythemestore.com/beehive-preview/members/user/profile/edit/#item-body">Edit
+                                                                                href="">Edit
                                                                                 profile</a>
                                                                         </li>
                                                                         <li></li>
@@ -147,24 +213,17 @@
                                                 <nav class="main-navs no-ajax bp-navs single-screen-navs horizontal users-nav"
                                                     id="object-nav" role="navigation" aria-label="Member menu">
                                                     <div class="row">
+
                                                         <div class="col-lg-6 ml-auto mr-auto">
                                                             <div class="nav-container">
-                                                                <ul class="profile-nav">
-                                                                    <li id="activity-personal-li"
-                                                                        class="bp-personal-tab current selected">
-                                                                        <a href="https://mythemestore.com/beehive-preview/members/user/activity/"
-                                                                            id="user-activity" title="Activity">
-                                                                            <span class="nav-link-text">Activity</span>
-                                                                        </a>
-                                                                    </li>
-
-                                                                    <li id="friends-personal-li" class="bp-personal-tab">
-                                                                        <a href="https://mythemestore.com/beehive-preview/members/user/friends/"
-                                                                            id="user-friends" title="Friends">
-                                                                            <span class="nav-link-text">Friends</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
+                                                                <li class="tab activity-tab">
+                                                                    <a href="{{ route('profile') }}"><i
+                                                                            class="fa fa-chart-line"></i>Activity</a>
+                                                                </li>
+                                                                <li class="tab friend-tab">
+                                                                    <a href="{{ route('your-friends') }}"><i
+                                                                            class="fas fa-user-friends"></i>Friends</a>
+                                                                </li>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -182,8 +241,8 @@
                                                                             <p>Friends</p>
                                                                         </li>
                                                                         <li>
-                                                                            <span class="count color-primary">5</span>
-                                                                            <p>Groups</p>
+                                                                            <span class="count color-primary">{{ $posts->count() }}</span>
+                                                                            <p>Posts</p>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
@@ -191,16 +250,22 @@
                                                                 <div class="widget">
                                                                     <h5 class="widget-title">My photos</h5>
                                                                     <ul class="member-photo-list" style="gap: 8px;">
-                                                                        @foreach($posts as $post)
+                                                                        @foreach ($posts as $post)
                                                                             @php
-                                                                                $media = App\Models\Media::where('post_id', $post->id)->first();
+                                                                                $media = App\Models\Media::where(
+                                                                                    'post_id',
+                                                                                    $post->id,
+                                                                                )->first();
                                                                             @endphp
 
                                                                             @if ($media)
                                                                                 @if (str_contains($media->media_type, 'image'))
-                                                                                        <div class="inner">
-                                                                                            <img style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;" decoding="async" src="{{ asset($media->media_url) }}" alt="Photo" />
-                                                                                        </div>
+                                                                                    <div class="inner">
+                                                                                        <img style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;"
+                                                                                            decoding="async"
+                                                                                            src="{{ asset($media->media_url) }}"
+                                                                                            alt="Photo" />
+                                                                                    </div>
                                                                                 @endif
                                                                             @endif
                                                                         @endforeach
@@ -220,11 +285,11 @@
 
 
 
-                                                            <div id="bp-nouveau-activity-form"
-                                                                class="activity-update-form"></div>
+                                                            <div id="bp-nouveau-activity-form" class="activity-update-form">
+                                                            </div>
 
-                                                            <input type="hidden" id="rt_upload_hf_activity"
-                                                                value="1" name="activity" />
+                                                            <input type="hidden" id="rt_upload_hf_activity" value="1"
+                                                                name="activity" />
 
                                                             <div id="activity-stream" class="activity single-user"
                                                                 data-bp-list="activity" style="">
@@ -349,8 +414,7 @@
 
                                                                     @foreach ($posts as $post)
                                                                         <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
-                                                                            id="activity-16180"
-                                                                            data-bp-activity-id="16180"
+                                                                            id="activity-16180" data-bp-activity-id="16180"
                                                                             data-bp-timestamp="1730305712"
                                                                             style="
                                                                                 visibility: visible;
@@ -387,24 +451,14 @@
                                                                                             id="activity-action-dropdown-16180"
                                                                                             data-toggle="dropdown"
                                                                                             aria-expanded="false"><i
-                                                                                                class="uil-ellipsis-v"></i></a>
+                                                                                                class="fa fa-ellipsis-h"></i></a>
                                                                                         <div class="dropdown-menu"
                                                                                             aria-labelledby="activity-action-dropdown-16180">
                                                                                             <div
                                                                                                 class="activity-meta action">
                                                                                                 <div
                                                                                                     class="generic-button">
-                                                                                                    <a href="https://mythemestore.com/beehive-preview/activity/favorite/16180/?_wpnonce=9bedea944d"
-                                                                                                        class="button fav bp-secondary-action bp-tooltip"
-                                                                                                        data-bp-tooltip="Mark as Favorite"
-                                                                                                        aria-pressed="false"><span
-                                                                                                            class="bp-screen-reader-text">Mark
-                                                                                                            as
-                                                                                                            Favorite</span></a>
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="generic-button">
-                                                                                                    <a href="https://mythemestore.com/beehive-preview/activity/delete/16180/?_wpnonce=13fca8171e"
+                                                                                                    <a href=""
                                                                                                         class="button item-button bp-secondary-action bp-tooltip delete-activity confirm"
                                                                                                         data-bp-tooltip="Delete"><span
                                                                                                             class="bp-screen-reader-text">Delete</span></a>
@@ -469,7 +523,7 @@
                                                                                             class="button acomment-reply bp-primary-action bp-tooltip"
                                                                                             data-bp-tooltip="Comment"
                                                                                             aria-expanded="false"
-                                                                                            href="https://mythemestore.com/beehive-preview/activity/?ac=16180/#ac-form-16180"
+                                                                                            href=""
                                                                                             role="button"><span
                                                                                                 class="bp-screen-reader-text">Comment</span>
                                                                                             <span
@@ -480,44 +534,6 @@
                                                                                             data-reaction-type="like"
                                                                                             class="button react-to-activity"><span
                                                                                                 class="bp-screen-reader-text">Like</span></a>
-                                                                                    </div>
-                                                                                    <div class="generic-button">
-                                                                                        <a href="#"
-                                                                                            id="activity-share-16180"
-                                                                                            class="button share-activity"><span
-                                                                                                class="bp-screen-reader-text">Share</span></a>
-                                                                                        <ul class="share-activity-options"
-                                                                                            aria-labelledby="activity-share-16180"
-                                                                                            style="display: none">
-                                                                                            <li>
-                                                                                                <a id="share-on-activity-16180"
-                                                                                                    href="#"
-                                                                                                    class="share-item share-on-activity"
-                                                                                                    data-share-id="16180">Share
-                                                                                                    on Activity</a>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <a href="https://www.facebook.com/sharer/sharer.php?u=https://mythemestore.com/beehive-preview/activity/p/16180/"
-                                                                                                    class="share-item share-on-facebook"
-                                                                                                    target="_blank">Share
-                                                                                                    on
-                                                                                                    Facebook</a>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <a href="https://twitter.com/intent/tweet?url=https://mythemestore.com/beehive-preview/activity/p/16180/"
-                                                                                                    class="share-item share-on-twitter"
-                                                                                                    target="_blank">Share
-                                                                                                    on
-                                                                                                    Twitter</a>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://mythemestore.com/beehive-preview/activity/p/16180/"
-                                                                                                    class="share-item share-on-linkedin"
-                                                                                                    target="_blank">Share
-                                                                                                    on
-                                                                                                    Linkedin</a>
-                                                                                            </li>
-                                                                                        </ul>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

@@ -1748,10 +1748,11 @@
                             </div>
                         </div>
                         <ul class="connections">
+                            @php($posts = App\Models\Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get())
                             <li><span class="count">1</span>
                                 <p class="mute">Friends</p>
                             </li>
-                            <li><span class="count">6</span>
+                            <li><span class="count">{{ $posts->count() }}</span>
                                 <p class="mute">Posts</p>
                             </li>
                         </ul>
@@ -1785,7 +1786,7 @@
                                 </button>
                             </div>
                             <div class="register-link">
-                                <a href="/login" class="color-primary">Signup</a>
+                                <a href="/register" class="color-primary">Signup</a>
                             </div>
                         </form>
                     </div>

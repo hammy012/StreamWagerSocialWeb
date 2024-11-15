@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class WebController extends Controller
 {
     public function welcome(){
-
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
         $all_users = User::orderBy('created_at', 'desc')->get();
 
-        return view('welcome', compact('all_users'));
+        $posts = Post::orderBy('created_at', 'desc')->get();
+
+        return view('welcome', compact('all_users', 'posts', 'user'));
     }
 
     public function profile(){
@@ -47,11 +50,23 @@ class WebController extends Controller
     }
 
     public function user_friends(){
+
+
         return view('user-friends');
     }
 
     public function your_friends(){
-        return view('your-friends');
+
+        // Get the logged-in user's ID
+        $userId = Auth::user()->id;
+
+        // Fetch the user along with their posts and associated media
+        $user = User::find($userId);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $userId)->get();
+
+        return view('your-friends', compact('user', 'posts'));
     }
 
 
