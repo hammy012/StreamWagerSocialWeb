@@ -162,8 +162,7 @@
                                                             <div class="col-lg-3">
                                                                 <div id="item-header-avatar">
                                                                     <div class="item-avatar">
-                                                                        <a
-                                                                            href="{{ route('profile') }}">
+                                                                        <a href="{{ route('profile') }}">
                                                                             <img loading="lazy" decoding="async"
                                                                                 src="{{ asset($user->profile_picture) }}"
                                                                                 class="avatar user-3-avatar avatar-200 photo"
@@ -185,8 +184,7 @@
 
                                                                     <ul class="member-header-actions action">
                                                                         <li class="generic-button">
-                                                                            <a class="edit-profile"
-                                                                                href="">Edit
+                                                                            <a class="edit-profile" href="">Edit
                                                                                 profile</a>
                                                                         </li>
                                                                         <li></li>
@@ -241,7 +239,8 @@
                                                                             <p>Friends</p>
                                                                         </li>
                                                                         <li>
-                                                                            <span class="count color-primary">{{ $posts->count() }}</span>
+                                                                            <span
+                                                                                class="count color-primary">{{ $posts->count() }}</span>
                                                                             <p>Posts</p>
                                                                         </li>
                                                                     </ul>
@@ -414,57 +413,31 @@
 
                                                                     @foreach ($posts as $post)
                                                                         <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
-                                                                            id="activity-16180" data-bp-activity-id="16180"
-                                                                            data-bp-timestamp="1730305712"
-                                                                            style="
-                                                                                visibility: visible;
-                                                                                animation-name: slideInUp;
-                                                                                ">
+                                                                            id="activity-{{ $post->id }}"
+                                                                            data-bp-activity-id="{{ $post->id }}"
+                                                                            data-bp-timestamp="{{ $post->created_at->timestamp }}">
+
+                                                                            <!-- Avatar and other post details -->
                                                                             <div class="activity-avatar item-avatar">
                                                                                 <a href="{{ route('profile') }}">
                                                                                     <img loading="lazy"
                                                                                         src="{{ asset($user->profile_picture) }}"
                                                                                         class="avatar user-3-avatar avatar-200 photo"
                                                                                         width="200" height="200"
-                                                                                        alt="Profile picture of Tum Yeto" />
+                                                                                        alt="Profile picture of {{ $user->first_name }} {{ $user->last_name }}" />
                                                                                 </a>
                                                                             </div>
 
                                                                             <div class="activity-content">
                                                                                 <div class="activity-header">
                                                                                     <div class="posted-meta">
-                                                                                        <p>
-                                                                                            <a
+                                                                                        <p><a
                                                                                                 href="{{ route('profile') }}">{{ $user->first_name }}
                                                                                                 {{ $user->last_name }}</a>
-                                                                                            posted
-                                                                                        </p>
+                                                                                            posted</p>
                                                                                     </div>
-
                                                                                     <div class="date mute">
                                                                                         {{ $post->created_at->diffForHumans() }}
-                                                                                    </div>
-
-                                                                                    <div class="activity-options dropleft">
-                                                                                        <a class="dropdown-toggle"
-                                                                                            href="#" role="button"
-                                                                                            id="activity-action-dropdown-16180"
-                                                                                            data-toggle="dropdown"
-                                                                                            aria-expanded="false"><i
-                                                                                                class="fa fa-ellipsis-h"></i></a>
-                                                                                        <div class="dropdown-menu"
-                                                                                            aria-labelledby="activity-action-dropdown-16180">
-                                                                                            <div
-                                                                                                class="activity-meta action">
-                                                                                                <div
-                                                                                                    class="generic-button">
-                                                                                                    <a href=""
-                                                                                                        class="button item-button bp-secondary-action bp-tooltip delete-activity confirm"
-                                                                                                        data-bp-tooltip="Delete"><span
-                                                                                                            class="bp-screen-reader-text">Delete</span></a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
 
@@ -483,7 +456,6 @@
                                                                                                         $post->id,
                                                                                                     )->first();
                                                                                                 @endphp
-
                                                                                                 @if ($media)
                                                                                                     @if (str_contains($media->media_type, 'image'))
                                                                                                         <div
@@ -505,8 +477,6 @@
                                                                                                         </div>
                                                                                                     @endif
                                                                                                 @endif
-
-
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -517,128 +487,63 @@
                                                                                             class="like"></span></span>
                                                                                     You reacted to this!
                                                                                 </div>
+
                                                                                 <div class="activity-meta action">
                                                                                     <div class="generic-button">
-                                                                                        <a id="acomment-comment-16180"
+                                                                                        <a href="javascript:void(0);"
+                                                                                            onclick="likePost({{ $post->id }})"
+                                                                                            id="like-button-{{ $post->id }}"
+                                                                                            class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
+                                                                                            style="color: {{ Auth::user()->hasLiked($post->id) ? '#8833E6' : '#777' }}">
+                                                                                            {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
+                                                                                            {{ $post->likes()->count() }}
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="generic-button">
+                                                                                        <a id="acomment-comment-{{ $post->id }}"
                                                                                             class="button acomment-reply bp-primary-action bp-tooltip"
                                                                                             data-bp-tooltip="Comment"
                                                                                             aria-expanded="false"
-                                                                                            href=""
-                                                                                            role="button"><span
+                                                                                            href="javascript:void(0);"
+                                                                                            role="button"
+                                                                                            onclick="toggleCommentInput({{ $post->id }})">
+                                                                                            <span
                                                                                                 class="bp-screen-reader-text">Comment</span>
                                                                                             <span
-                                                                                                class="comment-count">1</span></a>
+                                                                                                class="comment-count">{{ $post->comments()->count() }}</span>
+                                                                                            <!-- Display comment count -->
+                                                                                        </a>
                                                                                     </div>
-                                                                                    <div class="generic-button reactions">
-                                                                                        <a href="#"
-                                                                                            data-reaction-type="like"
-                                                                                            class="button react-to-activity"><span
-                                                                                                class="bp-screen-reader-text">Like</span></a>
-                                                                                    </div>
+
+
                                                                                 </div>
-                                                                            </div>
 
-                                                                            <div class="activity-comments">
-                                                                                <ul>
-                                                                                    <li id="acomment-16181"
-                                                                                        class="comment-item"
-                                                                                        data-bp-activity-comment-id="16181">
-                                                                                        <div
-                                                                                            class="acomment-avatar item-avatar">
-                                                                                            <a
-                                                                                                href="https://mythemestore.com/beehive-preview/members/user/">
-                                                                                                <img loading="lazy"
-                                                                                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpthumb.jpg"
-                                                                                                    class="avatar user-3-avatar avatar-50 photo"
-                                                                                                    width="50"
-                                                                                                    height="50"
-                                                                                                    alt="Profile picture of Tum Yeto" />
-                                                                                            </a>
+                                                                                <!-- Hidden comment input -->
+                                                                                <div id="comment-input-{{ $post->id }}"
+                                                                                    style="display:none;">
+                                                                                    <textarea id="comment-text-{{ $post->id }}" placeholder="Write a comment..." rows="1"></textarea>
+                                                                                    <button style="margin-top: 14px;"
+                                                                                        onclick="postComment({{ $post->id }})">Post</button>
+                                                                                </div>
+
+                                                                                <!-- Display Comments under the post -->
+                                                                                <div class="post-comments"
+                                                                                    id="comments-{{ $post->id }}">
+                                                                                    @foreach ($post->comments as $comment)
+                                                                                        @php($userComment = App\Models\User::where('id', $comment->user_id)->first())
+                                                                                        <div class="comment"
+                                                                                            style="display: flex; align-items:center; gap: 12px; margin-top: 12px; background: #eee; padding: 12px; border-radius: 25px;">
+                                                                                            <img src="{{ asset($userComment->profile_picture) }}"
+                                                                                                style="width: 30px; height: 30px; border-radius: 50%"
+                                                                                                alt="">
+                                                                                            <a href="#"
+                                                                                                class="color-primary"><strong>{{ $comment->user->first_name }}
+                                                                                                    {{ $comment->user->last_name }}
+                                                                                                    : </strong></a>
+                                                                                            <p>{{ $comment->content }}</p>
                                                                                         </div>
-
-                                                                                        <div class="acomment-meta">
-                                                                                            <a
-                                                                                                href="https://mythemestore.com/beehive-preview/members/user/">Tum
-                                                                                                Yeto</a>
-                                                                                            replied
-                                                                                            <a href="https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
-                                                                                                class="activity-time-since"><time
-                                                                                                    class="time-since"
-                                                                                                    datetime="2024-10-30 20:46:42"
-                                                                                                    data-bp-timestamp="1730321202">13
-                                                                                                    hours, 49 minutes
-                                                                                                    ago</time></a>
-                                                                                        </div>
-
-                                                                                        <div class="acomment-content">
-                                                                                            <div
-                                                                                                class="rtmedia-activity-container">
-                                                                                                <div
-                                                                                                    class="rtmedia-activity-text">
-                                                                                                    <span>this is fucked
-                                                                                                        up<br />
-                                                                                                    </span>
-                                                                                                </div>
-                                                                                                <ul
-                                                                                                    class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-0 rtm-activity-mixed-list rtm-activity-list-rendered">
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <div class="activity-meta action">
-                                                                                            <div class="generic-button">
-                                                                                                <a class="acomment-reply bp-primary-action"
-                                                                                                    id="acomment-reply-16180-from-16181"
-                                                                                                    href="#acomment-16181">Reply</a>
-                                                                                            </div>
-                                                                                            <div class="generic-button">
-                                                                                                <a class="delete acomment-delete confirm bp-secondary-action"
-                                                                                                    rel="nofollow"
-                                                                                                    href="https://mythemestore.com/beehive-preview/activity/delete/16181/?cid=16181&amp;_wpnonce=13fca8171e">Delete</a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                </ul>
-
-                                                                                <form
-                                                                                    action="https://mythemestore.com/beehive-preview/activity/reply/"
-                                                                                    method="post" id="ac-form-16180"
-                                                                                    class="ac-form">
-                                                                                    <div class="ac-reply-avatar">
-                                                                                        <img loading="lazy"
-                                                                                            src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpthumb.jpg"
-                                                                                            class="avatar user-3-avatar avatar-50 photo"
-                                                                                            width="50" height="50"
-                                                                                            alt="Profile picture of Tum Yeto" />
-                                                                                    </div>
-                                                                                    <div class="ac-reply-content">
-                                                                                        <div class="ac-textarea">
-                                                                                            <label for="ac-input-16180"
-                                                                                                class="bp-screen-reader-text">
-                                                                                                Comment
-                                                                                            </label>
-                                                                                            <textarea id="ac-input-16180" class="ac-input bp-suggestions" name="ac_input_16180"></textarea>
-                                                                                        </div>
-                                                                                        <input type="hidden"
-                                                                                            name="comment_form_id"
-                                                                                            value="16180" />
-
-                                                                                        <input type="submit"
-                                                                                            name="ac_form_submit"
-                                                                                            value="Post" /><input
-                                                                                            type="hidden"
-                                                                                            id="_wpnonce_new_activity_comment_16180"
-                                                                                            name="_wpnonce_new_activity_comment_16180"
-                                                                                            value="b7ba7da908" /><input
-                                                                                            type="hidden"
-                                                                                            name="_wp_http_referer"
-                                                                                            value="/beehive-preview/wp-admin/admin-ajax.php" />&nbsp;
-                                                                                        <button type="button"
-                                                                                            class="ac-reply-cancel">
-                                                                                            Cancel
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </form>
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
                                                                         </li>
                                                                     @endforeach
@@ -699,6 +604,78 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function likePost(postId) {
+            // Send AJAX request to like/unlike the post
+            fetch(`/like/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ post_id: postId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Toggle the button text and color based on like status
+                const likeButton = document.getElementById(`like-button-${postId}`);
+                if (data.liked) {
+                    likeButton.style.color = '#8833E6'; // Liked color
+                    likeButton.textContent = 'Liked';
+                } else {
+                    likeButton.style.color = '#777'; // Default color
+                    likeButton.textContent = 'Like';
+                }
+            });
+        }
+    </script>
+    <script>
+        function toggleCommentInput(postId) {
+            var commentInput = document.getElementById('comment-input-' + postId);
+            commentInput.style.display = (commentInput.style.display === 'none') ? 'block' : 'none';
+        }
+
+        // Post the comment using AJAX
+        // Post the comment using AJAX
+        function postComment(postId) {
+            var commentText = document.getElementById('comment-text-' + postId).value;
+
+            if (commentText.trim() === "") {
+                alert("Please write a comment.");
+                return;
+            }
+
+            var data = {
+                post_id: postId,
+                user_id: {{ auth()->user()->id }},
+                content: commentText,
+                _token: '{{ csrf_token() }}',
+            };
+
+            // Update this line to correctly include the postId in the route URL
+            fetch("/post/" + postId + "/comment", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Comment posted successfully!");
+                        location.reload(); // Reload to display the new comment
+                    } else {
+                        alert("Failed to post comment. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+    </script>
 
     <script>
         // Modal open and close functionality
