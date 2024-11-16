@@ -37,9 +37,18 @@ class WebController extends Controller
         return view('profile', compact('user', 'posts'));
     }
 
-    public function find_people()
+    public function find_people(Request $request)
     {
-        return view('find-people');
+        $search = $request->input('s');
+
+        $all_users = User::orderBy('created_at', 'desc')->get();
+
+        $search_users = User::when($search, function ($query, $search) {
+            return $query->where('first_name', 'LIKE', "%{$search}%")
+                ->orWhere('last_name', 'LIKE', "%{$search}%");
+        })->orderBy('created_at', 'desc')->get();
+
+        return view('find-people', compact('all_users', 'search_users'));
     }
 
     public function about()
@@ -137,7 +146,7 @@ class WebController extends Controller
 
         // Retrieve the authenticated user
         $userId = auth()->id(); // Get the logged-in user ID
-        $user = \App\Models\User::find($userId); // Retrieve the user by ID
+        $user = User::find($userId); // Retrieve the user by ID
 
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'User not found.'], 404);

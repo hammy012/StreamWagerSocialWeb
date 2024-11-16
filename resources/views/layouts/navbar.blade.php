@@ -56,14 +56,20 @@
     <nav class="navbar beehive-navbar social fixed-top">
         <div class="container">
             <div id="beehive-ajax-search" class="beehive-ajax-search">
-                <form role="search" method="get" id="ajax-search-form" class="ajax-search-form form-inline"
-                    action="https://mythemestore.com/beehive-preview/">
+                <form role="search" method="GET" class="ajax-search-form form-inline" action="{{ route('find-people') }}">
                     <div class="search-field">
                         <i class="fa fa-search"></i>
-                        <input id="ajax-search-textfield" type="text" name="s" placeholder="Search..." value="" autocomplete="off" required />
+                        <input
+                            id="ajax-search-textfield"
+                            type="text"
+                            name="s"
+                            placeholder="Search..."
+                            value="{{ request('s') }}"
+                            autocomplete="off"
+                            required
+                        />
                         <span class="beehive-loading-ring"></span>
                     </div>
-
                     <div class="search-button">
                         <button type="submit" class="search-submit">
                             <i class="icon ion-android-search"></i>
