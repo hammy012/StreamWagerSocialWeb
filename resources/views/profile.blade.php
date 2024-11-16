@@ -162,13 +162,54 @@
                                                             <div class="col-lg-3">
                                                                 <div id="item-header-avatar">
                                                                     <div class="item-avatar">
-                                                                        <a href="{{ route('profile') }}">
+                                                                        <a href="javascript:void(0)" id="profile-picture-link">
                                                                             <img loading="lazy" decoding="async"
                                                                                 src="{{ asset($user->profile_picture) }}"
                                                                                 class="avatar user-3-avatar avatar-200 photo"
                                                                                 width="200" height="200"
                                                                                 alt="Profile picture of Tum Yeto" />
                                                                         </a>
+
+                                                                        <!-- Hidden file input -->
+                                                                        <input type="file" id="profile-picture-input" style="display: none;" accept="image/*" />
+
+                                                                        <script>
+                                                                            // JavaScript to trigger file input when profile picture is clicked
+                                                                            document.getElementById('profile-picture-link').addEventListener('click', function () {
+                                                                                document.getElementById('profile-picture-input').click();
+                                                                            });
+
+                                                                            // Handle file upload
+                                                                            document.getElementById('profile-picture-input').addEventListener('change', function (event) {
+                                                                                const file = event.target.files[0];
+                                                                                if (file) {
+                                                                                    const formData = new FormData();
+                                                                                    formData.append('profile_picture', file);
+
+                                                                                    fetch('{{ route('upload-profile-picture') }}', {
+                                                                                        method: 'POST',
+                                                                                        headers: {
+                                                                                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token for Laravel
+                                                                                        },
+                                                                                        body: formData,
+                                                                                    })
+                                                                                    .then(response => response.json())
+                                                                                    .then(data => {
+                                                                                        if (data.success) {
+                                                                                            alert('Profile picture updated successfully!');
+                                                                                            // Update the profile picture preview
+                                                                                            document.querySelector('#profile-picture-link img').src = data.new_profile_picture_url;
+                                                                                        } else {
+                                                                                            alert('Failed to upload profile picture.');
+                                                                                        }
+                                                                                    })
+                                                                                    .catch(error => {
+                                                                                        console.error('Error uploading profile picture:', error);
+                                                                                        alert('An error occurred. Please try again.');
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        </script>
                                                                     </div>
                                                                     <h3 class="profile-name">
                                                                         {{ $user->first_name . ' ' . $user->last_name }}

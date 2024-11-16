@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class WebController extends Controller
 {
-    public function welcome(){
+    public function welcome()
+    {
         $userId = Auth::user()->id;
         $user = User::find($userId);
         $all_users = User::orderBy('created_at', 'desc')->get();
@@ -21,7 +22,8 @@ class WebController extends Controller
         return view('welcome', compact('all_users', 'posts', 'user'));
     }
 
-    public function profile(){
+    public function profile()
+    {
         // Get the logged-in user's ID
         $userId = Auth::user()->id;
 
@@ -35,29 +37,35 @@ class WebController extends Controller
         return view('profile', compact('user', 'posts'));
     }
 
-    public function find_people(){
+    public function find_people()
+    {
         return view('find-people');
     }
 
-    public function about(){
+    public function about()
+    {
         return view('about');
     }
 
-    public function faq(){
+    public function faq()
+    {
         return view('faq');
     }
 
-    public function contact(){
+    public function contact()
+    {
         return view('contact');
     }
 
-    public function user_friends(){
+    public function user_friends()
+    {
 
 
         return view('user-friends');
     }
 
-    public function your_friends(){
+    public function your_friends()
+    {
 
         // Get the logged-in user's ID
         $userId = Auth::user()->id;
@@ -106,6 +114,54 @@ class WebController extends Controller
             return response()->json(['liked' => true]);
         }
     }
+
+    public function uploadProfilePicture(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Save the uploaded file in 'public/user_profiles' folder
+        $file = $request->file('profile_picture');
+        $filename = time() . '_' . $file->getClientOriginalName(); // Unique filename
+        $destinationPath = public_path('user_profiles'); // Direct path to 'public/user_profiles'
+
+        // Ensure the directory exists
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true); // Create directory if not exists
+        }
+
+        // Move file to the destination
+        $file->move($destinationPath, $filename);
+
+        // Retrieve the authenticated user
+        $userId = auth()->id(); // Get the logged-in user ID
+        $user = \App\Models\User::find($userId); // Retrieve the user by ID
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        }
+
+        // Get old profile picture path
+        $oldProfilePicture = $user->profile_picture;
+
+        // Save new profile picture path in database
+        $user->profile_picture = 'user_profiles/' . $filename;
+        $user->save();
+
+        // Optionally delete the old profile picture
+        if ($oldProfilePicture && file_exists(public_path($oldProfilePicture))) {
+            unlink(public_path($oldProfilePicture));
+        }
+
+        // Return the new profile picture URL
+        return response()->json([
+            'success' => true,
+            'new_profile_picture_url' => asset('user_profiles/' . $filename),
+        ]);
+    }
+
 
 
 }

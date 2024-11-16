@@ -26,6 +26,8 @@ Route::get('/contact','WebController@contact')->name('contact');
 Route::post('/post/{post}/comment', [WebController::class, 'storeComment'])->name('post.comment');
 Route::post('/like/{postId}', [WebController::class, 'likePost'])->name('like.post');
 
+Route::post('/upload-profile-picture', [WebController::class, 'uploadProfilePicture'])->name('upload-profile-picture');
+
 
 
 // FOR POST
