@@ -229,7 +229,7 @@
                                                                             @php($userComment = App\Models\User::where('id', $comment->user_id)->first())
                                                                             <div class="comment" style="display: flex; align-items:center; gap: 12px; margin-top: 12px; background: #eee; padding: 12px; border-radius: 25px;">
                                                                                 <img src="{{ asset($userComment->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 50%" alt="">
-                                                                                <a href="#" class="color-primary"><strong>{{ $comment->user->first_name }}
+                                                                                <a href="{{ route('user-profile', ['id' => $userComment->id]) }}" class="color-primary"><strong>{{ $comment->user->first_name }}
                                                                                     {{ $comment->user->last_name }} : </strong></a>
                                                                                 <p>{{ $comment->content }}</p>
                                                                             </div>

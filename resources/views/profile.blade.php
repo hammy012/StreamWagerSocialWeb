@@ -571,7 +571,7 @@
                                                                                             <img src="{{ asset($userComment->profile_picture) }}"
                                                                                                 style="width: 30px; height: 30px; border-radius: 50%"
                                                                                                 alt="">
-                                                                                            <a href="#"
+                                                                                            <a href="{{ route('user-profile', ['id' => $userComment->id]) }}"
                                                                                                 class="color-primary"><strong>{{ $comment->user->first_name }}
                                                                                                     {{ $comment->user->last_name }}
                                                                                                     : </strong></a>
