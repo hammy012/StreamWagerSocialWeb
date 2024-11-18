@@ -36,6 +36,16 @@ class WebController extends Controller
         // Pass the user and posts (with media) to the view
         return view('profile', compact('user', 'posts'));
     }
+    public function user_profile($id)
+    {
+        $user = User::find($id);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $id)->get();
+
+        // Pass the user and posts (with media) to the view
+        return view('user-profile', compact('user', 'posts'));
+    }
 
     public function find_people(Request $request)
     {

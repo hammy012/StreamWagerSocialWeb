@@ -17,6 +17,7 @@ use App\Http\Controllers\WebController;
 
 Route::get('/','WebController@welcome')->middleware(['auth'])->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
+Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['auth'])->name('user-profile');
 Route::get('/find-people','WebController@find_people')->name('find-people');
 Route::get('/user-friends','WebController@user_friends')->middleware(['auth'])->name('user-friends');
 Route::get('/your-friends','WebController@your_friends')->middleware(['auth'])->name('your-friends');

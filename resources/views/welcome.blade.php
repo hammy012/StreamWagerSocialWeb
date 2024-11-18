@@ -185,11 +185,6 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="who-reacted">
-                                                                        <span class="top-reactions"><span
-                                                                                class="like"></span></span>
-                                                                        You reacted to this!
-                                                                    </div>
 
                                                                     <div class="activity-meta action">
                                                                         <div class="generic-button">
@@ -275,16 +270,15 @@
                                         @foreach ($all_users as $user)
                                             <li class="vcard">
                                                 <div class="item-avatar">
-                                                    <a href="https://mythemestore.com/beehive-preview/members/user/"><img
+                                                    <a href="{{ route('user-profile', ['id' => $user->id]) }}"><img
                                                             loading="lazy" loading="lazy"
                                                             src="{{ asset($user->profile_picture) }}"
-                                                            class="avatar user-3-avatar avatar-50 photo" width="50"
-                                                            height="50" alt="Profile picture" /></a>
+                                                            class="avatar user-3-avatar avatar-50 photo" style="width: 50px; height: 40px;" alt="Profile picture" /></a>
                                                 </div>
 
                                                 <div class="item">
                                                     <div class="item-title fn">
-                                                        <a href="https://mythemestore.com/beehive-preview/members/user/">{{ $user->first_name }}
+                                                        <a href="{{ route('user-profile', ['id' => $user->id]) }}">{{ $user->first_name }}
                                                             {{ $user->last_name }}</a>
                                                     </div>
                                                     <div class="item-meta">

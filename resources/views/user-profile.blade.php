@@ -2,69 +2,6 @@
 @section('header', 'Page Heading')
 @section('content')
 
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            width: 400px;
-            border-radius: 8px;
-            text-align: center;
-            position: relative;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        textarea {
-            width: 100%;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
-        .upload-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .gallery-icon {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-
-        #preview img,
-        #preview video {
-            max-width: 100%;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-
-        .gallery-icon {
-            font-size: 24px;
-            color: #333;
-            /* Icon color */
-            cursor: pointer;
-        }
-    </style>
 
     <style>
         /* Style for the container */
@@ -162,17 +99,13 @@
                                                             <div class="col-lg-3">
                                                                 <div id="item-header-avatar">
                                                                     <div class="item-avatar">
-                                                                        <a href="javascript:void(0)" id="profile-picture-link">
+                                                                        <a href="#" id="profile-picture-link">
                                                                             <img loading="lazy" decoding="async"
                                                                                 src="{{ asset($user->profile_picture) }}"
                                                                                 class="avatar user-3-avatar avatar-200 photo"
-                                                                                width="200" height="200"
+                                                                                style="width: 200px; height: 200px;"
                                                                                 alt="Profile picture of Tum Yeto" />
                                                                         </a>
-
-                                                                        <!-- Hidden file input -->
-                                                                        <input type="file" id="profile-picture-input" style="display: none;" accept="image/*" />
-
                                                                         <script>
                                                                             // JavaScript to trigger file input when profile picture is clicked
                                                                             document.getElementById('profile-picture-link').addEventListener('click', function () {
@@ -259,10 +192,6 @@
                                                                     <a href="{{ route('profile') }}"><i
                                                                             class="fa fa-chart-line"></i>Activity</a>
                                                                 </li>
-                                                                <li class="tab friend-tab">
-                                                                    <a href="{{ route('your-friends') }}"><i
-                                                                            class="fas fa-user-friends"></i>Friends</a>
-                                                                </li>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,8 +249,8 @@
 
                                                         <div class="col-lg-9 profile-col-main">
 
-                                                            <button id="openModalBtn" style="width: 100%">Create a
-                                                                Post</button>
+                                                            {{--  <button id="openModalBtn" style="width: 100%">Create a
+                                                                Post</button>  --}}
 
 
 
@@ -523,6 +452,7 @@
                                                                                     </div>
                                                                                 </div>
 
+
                                                                                 <div class="activity-meta action">
                                                                                     <div class="generic-button">
                                                                                         <a href="javascript:void(0);"
@@ -710,106 +640,6 @@
                     alert("An error occurred. Please try again.");
                 });
         }
-    </script>
-
-    <script>
-        // Modal open and close functionality
-        const openModalBtn = document.getElementById("openModalBtn");
-        const postModal = document.getElementById("postModal");
-        const closeModal = document.querySelector(".close");
-        const fileInput = document.getElementById("fileInput");
-        const preview = document.getElementById("preview");
-
-        // Open the modal when the button is clicked
-        openModalBtn.addEventListener("click", () => {
-            postModal.style.display = "flex";
-        });
-
-        // Close the modal when the close button is clicked
-        closeModal.addEventListener("click", () => {
-            postModal.style.display = "none";
-            clearPreview();
-        });
-
-        // Close the modal if clicked outside of it
-        window.addEventListener("click", (event) => {
-            if (event.target == postModal) {
-                postModal.style.display = "none";
-                clearPreview();
-            }
-        });
-
-        // Image/Video preview functionality
-        fileInput.addEventListener("change", () => {
-            clearPreview();
-            const file = fileInput.files[0];
-
-            if (file) {
-                const fileType = file.type;
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    if (fileType.startsWith("image")) {
-                        const img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.style.height = "100px"; // Set the height to 100px
-                        img.style.objectFit = "cover"; // Optional: makes sure the image covers the space
-                        preview.appendChild(img);
-                    } else if (fileType.startsWith("video")) {
-                        const video = document.createElement("video");
-                        video.src = e.target.result;
-                        video.controls = true;
-                        video.style.height = "100px"; // Set the height to 100px
-                        video.style.objectFit = "cover"; // Optional: makes sure the video covers the space
-                        preview.appendChild(video);
-                    }
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Clear preview
-        function clearPreview() {
-            preview.innerHTML = "";
-        }
-
-        // Handle form submission
-        {{--  document.getElementById("createPostForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form from submitting normally
-
-            const postText = document.getElementById("postText").value;
-            const file = document.getElementById("fileInput").files[0];
-
-            // Create a FormData object to send text and file data
-            const formData = new FormData();
-            formData.append("content", postText);
-            if (file) {
-                formData.append("file", file);
-            }
-
-            // Send AJAX request to Laravel route
-            fetch("/create-post", {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            "content")
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Post created successfully!");
-                        postModal.style.display = "none";
-                        clearPreview();
-                    } else {
-                        alert("Failed to create post. Please try again.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-        });  --}}
     </script>
 
 @endsection

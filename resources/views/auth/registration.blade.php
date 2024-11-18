@@ -1796,7 +1796,7 @@
                                                                                                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                                                                                                     <div class="form-group">
-                                                                                                        <label>Profile Picture :</label>
+                                                                                                        <label>Profile Picture : <span style="color: red; opacity: .7;">ratio (1:1)</span> </label>
                                                                                                         <input type="file" name="profile_picture" required placeholder="Profile Picture">
                                                                                                     </div>
                                                                                                     <div class="form-group">

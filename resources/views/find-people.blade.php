@@ -27,7 +27,7 @@
                                                 <ul class="component-navigation members-nav">
                                                     <li id="members-all" class="" data-bp-scope="all"
                                                         data-bp-object="members">
-                                                        <a href="https://mythemestore.com/beehive-preview/members/">
+                                                        <a href="#">
                                                             All Members
                                                             <span class="count">{{ $search_users->count() }}</span>
                                                         </a>
@@ -48,18 +48,18 @@
                                                                 data-bp-item-component="members">
                                                                 <div class="list-wrap">
                                                                     <div class="item-avatar">
-                                                                        <a href="#">
+                                                                        <a href="{{ route('user-profile', ['id' => $user->id]) }}">
                                                                             <img loading="lazy"
                                                                                 src="{{ asset($user->profile_picture ?? 'default-avatar.jpg') }}"
                                                                                 class="avatar user-avatar avatar-200 photo"
-                                                                                width="200" height="200"
+                                                                                style="width: 150px; height: 150px;"
                                                                                 alt="Profile picture of {{ $user->first_name }} {{ $user->last_name }}" />
                                                                         </a>
                                                                     </div>
                                                                     <div class="item">
                                                                         <div class="item-block">
                                                                             <h4 class="list-title member-name">
-                                                                                <a href="#">{{ $user->first_name }}
+                                                                                <a href="{{ route('user-profile', ['id' => $user->id]) }}">{{ $user->first_name }}
                                                                                     {{ $user->last_name }}</a>
                                                                             </h4>
                                                                             <p class="item-meta last-activity mute">Last
@@ -127,16 +127,15 @@
                                         @foreach ($all_users as $user)
                                             <li class="vcard">
                                                 <div class="item-avatar">
-                                                    <a href="https://mythemestore.com/beehive-preview/members/user/"><img
+                                                    <a href=""><img
                                                             loading="lazy" loading="lazy"
                                                             src="{{ asset($user->profile_picture) }}"
-                                                            class="avatar user-3-avatar avatar-50 photo" width="50"
-                                                            height="50" alt="Profile picture" /></a>
+                                                            class="avatar user-3-avatar avatar-50 photo" style="width: 50px; height: 40px;" alt="Profile picture" /></a>
                                                 </div>
 
                                                 <div class="item">
                                                     <div class="item-title fn">
-                                                        <a href="https://mythemestore.com/beehive-preview/members/user/">{{ $user->first_name }}
+                                                        <a href="">{{ $user->first_name }}
                                                             {{ $user->last_name }}</a>
                                                     </div>
                                                     <div class="item-meta">
