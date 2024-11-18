@@ -15,6 +15,13 @@ use App\Http\Controllers\WebController;
 |
 */
 
+Route::post('/send-friend-request', 'WebController@sendFriendRequest');
+Route::post('/accept-friend-request/{id}', 'WebController@acceptFriendRequest');
+Route::post('/decline-friend-request/{id}', 'WebController@declineFriendRequest');
+Route::get('/send-request/{id}', 'WebController@sendRequest')->name('send-request');
+
+Route::get('/friends', 'WebController@getFriends');
+
 Route::get('/','WebController@welcome')->middleware(['auth'])->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
 Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['auth'])->name('user-profile');

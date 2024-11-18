@@ -48,7 +48,8 @@
                                                                 data-bp-item-component="members">
                                                                 <div class="list-wrap">
                                                                     <div class="item-avatar">
-                                                                        <a href="{{ route('user-profile', ['id' => $user->id]) }}">
+                                                                        <a
+                                                                            href="{{ route('user-profile', ['id' => $user->id]) }}">
                                                                             <img loading="lazy"
                                                                                 src="{{ asset($user->profile_picture ?? 'default-avatar.jpg') }}"
                                                                                 class="avatar user-avatar avatar-200 photo"
@@ -59,12 +60,16 @@
                                                                     <div class="item">
                                                                         <div class="item-block">
                                                                             <h4 class="list-title member-name">
-                                                                                <a href="{{ route('user-profile', ['id' => $user->id]) }}">{{ $user->first_name }}
-                                                                                    {{ $user->last_name }}</a>
+                                                                                <a
+                                                                                    href="{{ route('user-profile', ['id' => $user->id]) }}">
+                                                                                    {{ $user->first_name }}
+                                                                                    {{ $user->last_name }}
+                                                                                </a>
                                                                             </h4>
                                                                             <p class="item-meta last-activity mute">Last
                                                                                 Active:
-                                                                                {{ $user->updated_at->diffForHumans() }}</p>
+                                                                                {{ $user->updated_at->diffForHumans() }}
+                                                                            </p>
                                                                             <ul class="connections">
                                                                                 <li>
                                                                                     <span class="count">0</span>
@@ -77,8 +82,17 @@
                                                                             </ul>
                                                                             <ul class="members-meta action">
                                                                                 <li class="generic-button">
-                                                                                    <a href="#">My Profile</a>
+                                                                                    @if (auth()->user()->isFriend($user->id))
+                                                                                        <span>Friends</span>
+                                                                                    @elseif(auth()->user()->hasPendingRequest($user->id))
+                                                                                        <span>Requested</span>
+                                                                                    @else
+                                                                                        <a
+                                                                                            href="{{ route('send-request', ['id' => $user->id]) }}">Send
+                                                                                            Request</a>
+                                                                                    @endif
                                                                                 </li>
+
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -87,6 +101,7 @@
                                                         @empty
                                                             <p>No users found matching your search criteria.</p>
                                                         @endforelse
+
                                                     </ul>
 
                                                     <div class="bp-pagination bottom" data-bp-pagination="upage">
@@ -127,10 +142,10 @@
                                         @foreach ($all_users as $user)
                                             <li class="vcard">
                                                 <div class="item-avatar">
-                                                    <a href=""><img
-                                                            loading="lazy" loading="lazy"
+                                                    <a href=""><img loading="lazy" loading="lazy"
                                                             src="{{ asset($user->profile_picture) }}"
-                                                            class="avatar user-3-avatar avatar-50 photo" style="width: 50px; height: 40px;" alt="Profile picture" /></a>
+                                                            class="avatar user-3-avatar avatar-50 photo"
+                                                            style="width: 50px; height: 40px;" alt="Profile picture" /></a>
                                                 </div>
 
                                                 <div class="item">
@@ -183,7 +198,29 @@
         <!-- #primary -->
     </div>
 
+    <script>
+        document.querySelectorAll('.send-request').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
 
+                const userId = this.dataset.userId;
+
+                fetch(`/send-request/${userId}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.textContent = 'Requested';
+                            this.classList.remove('send-request');
+                        }
+                    });
+            });
+        });
+    </script>
 
 @endsection
 

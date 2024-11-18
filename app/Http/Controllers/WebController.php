@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\FriendRequest;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
@@ -180,6 +181,82 @@ class WebController extends Controller
             'new_profile_picture_url' => asset('user_profiles/' . $filename),
         ]);
     }
+
+
+    // FRIENDS
+    public function sendFriendRequest(Request $request)
+    {
+        $receiverId = $request->receiver_id;
+
+        // Check if already friends or pending request exists
+        $exists = FriendRequest::where('sender_id', auth()->id())
+            ->where('receiver_id', $receiverId)
+            ->whereIn('status', ['pending', 'accepted'])
+            ->exists();
+
+        if ($exists) {
+            return response()->json(['message' => 'Request already sent or already friends.']);
+        }
+
+        FriendRequest::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $receiverId,
+            'status' => 'pending',
+        ]);
+
+        return response()->json(['message' => 'Friend request sent!']);
+    }
+
+
+
+    public function acceptFriendRequest($requestId)
+    {
+        $friendRequest = FriendRequest::find($requestId);
+
+        if ($friendRequest && $friendRequest->receiver_id == auth()->id()) {
+            $friendRequest->update(['status' => 'accepted']);
+
+            return response()->json(['message' => 'Friend request accepted!']);
+        }
+
+        return response()->json(['message' => 'Invalid request.']);
+    }
+
+
+
+    public function declineFriendRequest($requestId)
+    {
+        $friendRequest = FriendRequest::find($requestId);
+
+        if ($friendRequest && $friendRequest->receiver_id == auth()->id()) {
+            $friendRequest->update(['status' => 'declined']);
+
+            return response()->json(['message' => 'Friend request declined.']);
+        }
+
+        return response()->json(['message' => 'Invalid request.']);
+    }
+
+
+    public function sendRequest($receiverId)
+    {
+        $exists = FriendRequest::where('sender_id', auth()->id())
+            ->where('receiver_id', $receiverId)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with('message', 'Request already sent.');
+        }
+
+        FriendRequest::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $receiverId,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->back()->with('message', 'Friend request sent!');
+    }
+
 
 
 
