@@ -263,6 +263,10 @@
                                                                     <a href="{{ route('your-friends') }}"><i
                                                                             class="fas fa-user-friends"></i>Friends</a>
                                                                 </li>
+                                                                <li class="tab friend-tab">
+                                                                    <a href="{{ route('friend-requests') }}"><i
+                                                                            class="fas fa-user-friends"></i>Ruquests</a>
+                                                                </li>
                                                             </div>
                                                         </div>
                                                     </div>

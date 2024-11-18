@@ -262,15 +262,14 @@
                                                                     <a href="{{ route('profile') }}"><i
                                                                             class="fa fa-chart-line"></i>Activity</a>
                                                                 </li>
-                                                                <li class="tab activity-tab">
+                                                                <li class="tab friend-tab">
                                                                     <a href="{{ route('your-friends') }}"><i
                                                                             class="fas fa-user-friends"></i>Friends</a>
                                                                 </li>
-                                                                <li class="tab friend-tab">
+                                                                <li class="tab activity-tab">
                                                                     <a href="{{ route('friend-requests') }}"><i
                                                                             class="fas fa-user-friends"></i>Ruquests</a>
                                                                 </li>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -376,15 +375,24 @@
                                                                                     </ul>
                                                                                     <ul class="members-meta action">
                                                                                         <li class="generic-button">
-                                                                                            <span>Friends</span>
-
+                                                                                            <form action="{{ route('accept-friend-request', ['id' => $user->id]) }}" method="POST">
+                                                                                                @csrf
+                                                                                                <button type="submit" class="btn btn-success">Accept</button>
+                                                                                            </form>
+                                                                                        </li>
+                                                                                        <li class="generic-button">
+                                                                                            <form action="{{ route('decline-friend-request', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                                                                                                @csrf
+                                                                                                <button type="submit" class="btn btn-danger">Decline</button>
+                                                                                            </form>
+                                                                                        </li>
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </li>
                                                                 @empty
-                                                                    <p>You Have No Any Friends</p>
+                                                                    <p>You Have No Any Requests</p>
                                                                 @endforelse
 
                                                             </ul>

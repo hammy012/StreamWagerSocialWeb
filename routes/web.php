@@ -16,8 +16,8 @@ use App\Http\Controllers\WebController;
 */
 
 Route::post('/send-friend-request', 'WebController@sendFriendRequest');
-Route::post('/accept-friend-request/{id}', 'WebController@acceptFriendRequest');
-Route::post('/decline-friend-request/{id}', 'WebController@declineFriendRequest');
+Route::post('/accept-friend-request/{id}', 'WebController@acceptFriendRequest')->name('accept-friend-request');
+Route::post('/decline-friend-request/{id}', 'WebController@declineFriendRequest')->name('decline-friend-request');
 Route::get('/send-request/{id}', 'WebController@sendRequest')->name('send-request');
 
 Route::get('/friends', 'WebController@getFriends');
@@ -28,6 +28,7 @@ Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['aut
 Route::get('/find-people','WebController@find_people')->name('find-people');
 Route::get('/user-friends','WebController@user_friends')->middleware(['auth'])->name('user-friends');
 Route::get('/your-friends','WebController@your_friends')->middleware(['auth'])->name('your-friends');
+Route::get('/friend-requests','WebController@friend_requests')->middleware(['auth'])->name('friend-requests');
 Route::get('/about','WebController@about')->name('about');
 Route::get('/faq','WebController@faq')->name('faq');
 Route::get('/contact','WebController@contact')->name('contact');

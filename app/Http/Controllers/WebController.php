@@ -96,7 +96,50 @@ class WebController extends Controller
         // Get all posts made by the user with media (if available)
         $posts = Post::where('user_id', $userId)->get();
 
-        return view('your-friends', compact('user', 'posts'));
+        $friendsAsSender = FriendRequest::where('sender_id', $userId)
+            ->where('status', 'accepted')
+            ->pluck('receiver_id'); // Get the IDs of the receivers
+
+        $friendsAsReceiver = FriendRequest::where('receiver_id', $userId)
+            ->where('status', 'accepted')
+            ->pluck('sender_id'); // Get the IDs of the senders
+
+        // Combine both to get all friends
+        $friendIds = $friendsAsSender->merge($friendsAsReceiver);
+
+        // Fetch the friend users
+        $friends = User::whereIn('id', $friendIds)->orderBy('created_at', 'desc')->get();
+
+        return view('your-friends', compact('user', 'posts', 'friends'));
+    }
+
+    public function friend_requests()
+    {
+
+        // Get the logged-in user's ID
+        $userId = Auth::user()->id;
+
+        // Fetch the user along with their posts and associated media
+        $user = User::find($userId);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $userId)->get();
+
+        $friendsAsSender = FriendRequest::where('sender_id', $userId)
+            ->where('status', 'pending')
+            ->pluck('receiver_id'); // Get the IDs of the receivers
+
+        $friendsAsReceiver = FriendRequest::where('receiver_id', $userId)
+            ->where('status', 'pending')
+            ->pluck('sender_id'); // Get the IDs of the senders
+
+        // Combine both to get all friends
+        $friendIds = $friendsAsSender->merge($friendsAsReceiver);
+
+        // Fetch the friend users
+        $friends = User::whereIn('id', $friendIds)->orderBy('created_at', 'desc')->get();
+
+        return view('friends-requests', compact('user', 'posts', 'friends'));
     }
 
     public function storeComment(Request $request, $postId)
@@ -209,33 +252,41 @@ class WebController extends Controller
 
 
 
-    public function acceptFriendRequest($requestId)
+    public function acceptFriendRequest($id)
     {
-        $friendRequest = FriendRequest::find($requestId);
+        $friendRequest = FriendRequest::where('sender_id', $id)
+            ->where('receiver_id', auth()->id())
+            ->where('status', 'pending')
+            ->first();
 
-        if ($friendRequest && $friendRequest->receiver_id == auth()->id()) {
+        if ($friendRequest) {
             $friendRequest->update(['status' => 'accepted']);
-
-            return response()->json(['message' => 'Friend request accepted!']);
+            return redirect()->back()->with('success', 'Friend request accepted.');
         }
 
-        return response()->json(['message' => 'Invalid request.']);
+        return redirect()->back()->with('error', 'Friend request not found or already processed.');
     }
 
 
 
-    public function declineFriendRequest($requestId)
+    public function declineFriendRequest($id)
     {
-        $friendRequest = FriendRequest::find($requestId);
+        // Fetch the friend request
+        $friendRequest = FriendRequest::where('sender_id', $id)
+            ->where('receiver_id', auth()->id())
+            ->where('status', 'pending')
+            ->first();
 
-        if ($friendRequest && $friendRequest->receiver_id == auth()->id()) {
+        // Check if request exists
+        if ($friendRequest) {
+            // Update the status to declined
             $friendRequest->update(['status' => 'declined']);
-
-            return response()->json(['message' => 'Friend request declined.']);
+            return redirect()->back()->with('success', 'Friend request declined.');
         }
 
-        return response()->json(['message' => 'Invalid request.']);
+        return redirect()->back()->with('error', 'Friend request not found or already processed.');
     }
+
 
 
     public function sendRequest($receiverId)
