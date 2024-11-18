@@ -157,7 +157,7 @@
                                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-115">
                                             <a href="/">Home</a>
                                         </li>
-                                        <li id="menu-item-114"
+                                        {{--  <li id="menu-item-114"
                                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-114">
                                             <a href="{{ route('about') }}">About Us</a>
                                         </li>
@@ -168,7 +168,7 @@
                                         <li id="menu-item-112"
                                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-112">
                                             <a href="{{ route('contact') }}">Contact</a>
-                                        </li>
+                                        </li>  --}}
                                     </ul>
                                 </nav>
                             </aside>
