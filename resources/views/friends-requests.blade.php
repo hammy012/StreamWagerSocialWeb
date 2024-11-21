@@ -283,13 +283,17 @@
                                                                 <div class="widget">
                                                                     <ul class="connections">
                                                                         <li>
-                                                                            <span class="count color-primary">0</span>
-                                                                            <p>Friends</p>
+                                                                            <span
+                                                                                class="count">{{ \App\Models\FriendRequest::where(function ($query) use ($user) {
+                                                                                    $query->where('sender_id', $user->id)->orWhere('receiver_id', $user->id);
+                                                                                })->where('status', 'accepted')->count() }}</span>
+                                                                            <p class="mute">Friends</p>
                                                                         </li>
                                                                         <li>
-                                                                            <span
-                                                                                class="count color-primary">{{ $posts->count() }}</span>
-                                                                            <p>Posts</p>
+                                                                            <span class="count">
+                                                                                {{ \App\Models\Post::where('user_id', $user->id)->count() }}
+                                                                            </span>
+                                                                            <p class="mute">Posts</p>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
@@ -365,11 +369,16 @@
                                                                                     </p>
                                                                                     <ul class="connections">
                                                                                         <li>
-                                                                                            <span class="count">0</span>
+                                                                                            <span
+                                                                                                class="count">{{ \App\Models\FriendRequest::where(function ($query) use ($user) {
+                                                                                                    $query->where('sender_id', $user->id)->orWhere('receiver_id', $user->id);
+                                                                                                })->where('status', 'accepted')->count() }}</span>
                                                                                             <p class="mute">Friends</p>
                                                                                         </li>
                                                                                         <li>
-                                                                                            <span class="count">5</span>
+                                                                                            <span class="count">
+                                                                                                {{ \App\Models\Post::where('user_id', $user->id)->count() }}
+                                                                                            </span>
                                                                                             <p class="mute">Posts</p>
                                                                                         </li>
                                                                                     </ul>
