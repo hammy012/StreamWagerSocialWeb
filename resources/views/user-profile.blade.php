@@ -464,6 +464,7 @@
                                                                                             id="like-button-{{ $post->id }}"
                                                                                             class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
                                                                                             style="color: {{ Auth::user()->hasLiked($post->id) ? '#8833E6' : '#777' }}">
+                                                                                            <i class="fa fa-thumbs-up mr-2"></i>
                                                                                             {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
                                                                                             {{ $post->likes()->count() }}
                                                                                         </a>
