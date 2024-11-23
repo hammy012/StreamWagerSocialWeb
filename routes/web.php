@@ -29,6 +29,7 @@ Route::get('/find-people','WebController@find_people')->name('find-people');
 Route::get('/user-friends','WebController@user_friends')->middleware(['auth'])->name('user-friends');
 Route::get('/your-friends','WebController@your_friends')->middleware(['auth'])->name('your-friends');
 Route::get('/friend-requests','WebController@friend_requests')->middleware(['auth'])->name('friend-requests');
+Route::get('/schedule','WebController@schedule')->middleware(['auth'])->name('schedule');
 Route::get('/about','WebController@about')->name('about');
 Route::get('/faq','WebController@faq')->name('faq');
 Route::get('/contact','WebController@contact')->name('contact');

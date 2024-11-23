@@ -125,6 +125,22 @@
             color: #555;
         }
 
+        .schedule-tab {
+            background-color: transparent;
+            /* No background */
+            color: black;
+            border: 2px solid #555;
+        }
+
+        .schedule-tab a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #555;
+        }
+
         .friend-tab i {
             font-size: 15px;
             margin-bottom: 8px;
@@ -267,6 +283,12 @@
                                                                     <a href="{{ route('friend-requests') }}"><i
                                                                             class="fas fa-user-friends"></i>Ruquests</a>
                                                                 </li>
+                                                                @if ($user->type === 'player')
+                                                                    <li class="tab schedule-tab">
+                                                                        <a href="{{ route('schedule') }}"><i
+                                                                                class="fas fa-user-friends"></i>Schedule</a>
+                                                                    </li>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>

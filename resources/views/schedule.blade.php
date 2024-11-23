@@ -89,9 +89,10 @@
 
         /* Style for Activity tab */
         .activity-tab {
-            background-color: #8224E3;
+            background-color: transparent;
             /* Purple background */
-            color: white;
+            color: black;
+            border: 2px solid #555;
         }
 
         .activity-tab a {
@@ -100,7 +101,7 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: white;
+            color: #555;
         }
 
         .activity-tab i {
@@ -116,21 +117,6 @@
             border: 2px solid #555;
         }
 
-        .schedule-tab {
-            background-color: transparent;
-            /* No background */
-            color: black;
-            border: 2px solid #555;
-        }
-
-        .schedule-tab a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #555;
-        }
         .friend-tab a {
             display: flex;
             flex-direction: column;
@@ -140,9 +126,63 @@
             color: #555;
         }
 
+        .schedule-tab {
+            background-color: #8224E3;
+            /* No background */
+            color: white;
+        }
+
+        .schedule-tab a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+        }
+
         .friend-tab i {
             font-size: 15px;
             margin-bottom: 8px;
+        }
+    </style>
+
+    <style>
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar .day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .calendar .day input {
+            width: 100%;
+            height: 30px;
+            margin-top: 5px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .calendar .day-name {
+            font-weight: bold;
+        }
+
+        .calendar .day-number {
+            font-size: 18px;
+        }
+
+        .calendar .passed {
+            color: #888;
+            font-size: 14px;
+            text-align: center;
         }
     </style>
 
@@ -273,21 +313,21 @@
 
                                                         <div class="col-lg-6 ml-auto mr-auto">
                                                             <div class="nav-container">
-                                                                <li class="tab friend-tab">
+                                                                <li class="tab activity-tab">
                                                                     <a href="{{ route('profile') }}"><i
                                                                             class="fa fa-chart-line"></i>Activity</a>
                                                                 </li>
-                                                                <li class="tab activity-tab">
+                                                                <li class="tab friend-tab">
                                                                     <a href="{{ route('your-friends') }}"><i
                                                                             class="fas fa-user-friends"></i>Friends</a>
                                                                 </li>
                                                                 <li class="tab friend-tab">
                                                                     <a href="{{ route('friend-requests') }}"><i
-                                                                            class="fas fa-user-friends"></i>Requests</a>
+                                                                            class="fas fa-user-friends"></i>Ruquests</a>
                                                                 </li>
                                                                 @if ($user->type === 'player')
                                                                     <li class="tab schedule-tab">
-                                                                        <a href="{{ route('schedule') }}"><i
+                                                                        <a href="{{ route('friend-requests') }}"><i
                                                                                 class="fas fa-user-friends"></i>Schedule</a>
                                                                     </li>
                                                                 @endif
@@ -351,100 +391,33 @@
 
 
                                                         <div class="col-lg-9 profile-col-main">
-
-
-
-
-                                                            <ul id="members-list"
-                                                                class="item-list members-list bp-list grid two">
-
-                                                                @forelse ($friends as $user)
-                                                                    <li class="item-entryanimate-itemslideInUp odd is-online is-current-user"
-                                                                        data-bp-item-id="{{ $user->id }}"
-                                                                        data-bp-item-component="members">
-                                                                        <div class="list-wrap">
-                                                                            <div class="item-avatar">
-                                                                                <a
-                                                                                    href="{{ route('user-profile', ['id' => $user->id]) }}">
-                                                                                    <img loading="lazy"
-                                                                                        src="{{ asset($user->profile_picture ?? 'default-avatar.jpg') }}"
-                                                                                        class="avatar user-avatar avatar-200 photo"
-                                                                                        style="width: 150px; height: 150px;"
-                                                                                        alt="Profile picture of {{ $user->first_name }} {{ $user->last_name }}" />
-                                                                                </a>
-                                                                            </div>
-                                                                            <div class="item">
-                                                                                <div class="item-block">
-                                                                                    <h4 class="list-title member-name">
-                                                                                        <a
-                                                                                            href="{{ route('user-profile', ['id' => $user->id]) }}">
-                                                                                            {{ $user->first_name }}
-                                                                                            {{ $user->last_name }}
-                                                                                        </a>
-                                                                                    </h4>
-                                                                                    <p
-                                                                                        class="item-meta last-activity mute">
-                                                                                        Last
-                                                                                        Active:
-                                                                                        {{ $user->updated_at->diffForHumans() }}
-                                                                                    </p>
-                                                                                    <ul class="connections">
-                                                                                        <li>
-                                                                                            <span
-                                                                                                class="count">{{ \App\Models\FriendRequest::where(function ($query) use ($user) {
-                                                                                                    $query->where('sender_id', $user->id)->orWhere('receiver_id', $user->id);
-                                                                                                })->where('status', 'accepted')->count() }}</span>
-                                                                                            <p class="mute">Friends</p>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <span class="count">
-                                                                                                {{ \App\Models\Post::where('user_id', $user->id)->count() }}
-                                                                                            </span>
-                                                                                            <p class="mute">Posts</p>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <ul class="members-meta action">
-                                                                                        <li class="generic-button">
-                                                                                            <span>Friends</span>
-
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                @empty
-                                                                    <p>You Have No Any Friends</p>
-                                                                @endforelse
-
-                                                            </ul>
-
-
-
+                                                            <h1>Schedule for <span id="monthName"></span>:</h1>
+                                                            <div id="calendar" class="calendar"></div>
                                                         </div>
-                                                    </div>
 
+
+                                                    </div>
                                                 </div>
+                                                <!-- #item-body -->
                                             </div>
-                                            <!-- #item-body -->
+                                            <!-- // .bp-wrap -->
                                         </div>
-                                        <!-- // .bp-wrap -->
+                                        <!-- #buddypress -->
                                     </div>
-                                    <!-- #buddypress -->
+                                    <!-- .entry-contents -->
+                                </article>
+                                <!-- #post-0 -->
+                            </main>
+                            <!-- #main -->
                         </div>
-                        <!-- .entry-contents -->
-                        </article>
-                        <!-- #post-0 -->
-                        </main>
-                        <!-- #main -->
+                        <!-- .col-main -->
                     </div>
-                    <!-- .col-main -->
+                    <!-- .row -->
                 </div>
-                <!-- .row -->
+                <!-- .container -->
             </div>
-            <!-- .container -->
+            <!-- .layout -->
         </div>
-        <!-- .layout -->
-    </div>
     </div>
 
     <div id="postModal" class="modal">
@@ -474,6 +447,148 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+        });
+
+        function generateCalendar() {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth(); // Get current month (0-11)
+            const currentYear = currentDate.getFullYear(); // Get current year
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // First day of the month
+            const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Last date of the month
+
+            // Set the month name in the heading
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                "October", "November", "December"
+            ];
+            document.getElementById('monthName').textContent = monthNames[currentMonth];
+
+            const calendarContainer = document.getElementById('calendar');
+            calendarContainer.innerHTML = ''; // Clear previous calendar
+
+            // Create days of the week header
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            daysOfWeek.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.classList.add('day-name');
+                dayHeader.textContent = day;
+                calendarContainer.appendChild(dayHeader);
+            });
+
+            // Empty cells before the first day of the month
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const emptyCell = document.createElement('div');
+                calendarContainer.appendChild(emptyCell);
+            }
+
+            // Create day blocks
+            for (let day = 1; day <= lastDateOfMonth; day++) {
+                const dayBlock = document.createElement('div');
+                dayBlock.classList.add('day');
+
+                // Day number
+                const dayNumber = document.createElement('div');
+                dayNumber.classList.add('day-number');
+                dayNumber.textContent = day;
+                dayBlock.appendChild(dayNumber);
+
+                // Check if the date is passed or future
+                const currentDay = new Date(currentYear, currentMonth, day);
+                if (currentDay < currentDate) {
+                    // Date has passed
+                    const passedText = document.createElement('div');
+                    passedText.classList.add('passed');
+                    passedText.textContent = 'Passed';
+                    dayBlock.appendChild(passedText);
+                } else {
+                    // Input field for the schedule
+                    const inputField = document.createElement('input');
+                    inputField.type = 'text';
+                    inputField.placeholder = 'Type Here...';
+                    dayBlock.appendChild(inputField);
+                }
+
+                calendarContainer.appendChild(dayBlock);
+            }
+        }
+    </script>
+
+    <script>
+        function likePost(postId) {
+            // Send AJAX request to like/unlike the post
+            fetch(`/like/${postId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Toggle the button text and color based on like status
+                    const likeButton = document.getElementById(`like-button-${postId}`);
+                    if (data.liked) {
+                        likeButton.style.color = '#8833E6'; // Liked color
+                        likeButton.textContent = 'Liked';
+                    } else {
+                        likeButton.style.color = '#777'; // Default color
+                        likeButton.textContent = 'Like';
+                    }
+                });
+        }
+    </script>
+    <script>
+        function toggleCommentInput(postId) {
+            var commentInput = document.getElementById('comment-input-' + postId);
+            commentInput.style.display = (commentInput.style.display === 'none') ? 'block' : 'none';
+        }
+
+        // Post the comment using AJAX
+        // Post the comment using AJAX
+        function postComment(postId) {
+            var commentText = document.getElementById('comment-text-' + postId).value;
+
+            if (commentText.trim() === "") {
+                alert("Please write a comment.");
+                return;
+            }
+
+            var data = {
+                post_id: postId,
+                user_id: {{ auth()->user()->id }},
+                content: commentText,
+                _token: '{{ csrf_token() }}',
+            };
+
+            // Update this line to correctly include the postId in the route URL
+            fetch("/post/" + postId + "/comment", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Comment posted successfully!");
+                        location.reload(); // Reload to display the new comment
+                    } else {
+                        alert("Failed to post comment. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+    </script>
 
     <script>
         // Modal open and close functionality

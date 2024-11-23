@@ -37,6 +37,22 @@ class WebController extends Controller
         // Pass the user and posts (with media) to the view
         return view('profile', compact('user', 'posts'));
     }
+
+    public function schedule()
+    {
+        // Get the logged-in user's ID
+        $userId = Auth::user()->id;
+
+        // Fetch the user along with their posts and associated media
+        $user = User::find($userId);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $userId)->get();
+
+        // Pass the user and posts (with media) to the view
+        return view('schedule', compact('user', 'posts'));
+    }
+
     public function user_profile($id)
     {
         $user = User::find($id);
