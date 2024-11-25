@@ -25,6 +25,11 @@ Route::get('/friends', 'WebController@getFriends');
 Route::get('/', 'WebController@welcome')->middleware(['auth'])->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
 Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['auth'])->name('user-profile');
+
+// USER SCHEDULE
+Route::get('/user-schedule/{id}', 'WebController@user_schedule')->middleware(['auth'])->name('user-schedule');
+Route::get('/user-schedules/{id}', 'WebController@getUserSchedules');
+
 Route::get('/find-people', 'WebController@find_people')->name('find-people');
 Route::get('/user-friends', 'WebController@user_friends')->middleware(['auth'])->name('user-friends');
 Route::get('/your-friends', 'WebController@your_friends')->middleware(['auth'])->name('your-friends');

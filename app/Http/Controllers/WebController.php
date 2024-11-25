@@ -83,6 +83,51 @@ class WebController extends Controller
         return response()->json($schedules);
     }
 
+    public function getUserSchedules(Request $request, $id)
+    {
+        $year = $request->input('year', date('Y'));
+        $month = $request->input('month', date('m'));
+
+        $schedules = Schedule::where('user_id', $id)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->get();
+
+        $data = [];
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dateString = sprintf('%04d-%02d-%02d', $year, $month, $day);
+            $schedule = $schedules->firstWhere('date', $dateString);
+            $data[] = [
+                'date' => $dateString,
+                'schedule' => $schedule ? $schedule->schedule : 'Non Added',
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    public function user_schedule(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $id)->get();
+
+        // Current year and month
+        $year = $request->input('year', date('Y'));
+        $month = $request->input('month', date('m'));
+
+        // Get user's schedules for the specific month and year
+        $schedules = Schedule::where('user_id', $id)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->get();
+
+        return view('user-schedule', compact('user', 'posts', 'schedules', 'year', 'month'));
+    }
+
     public function user_profile($id)
     {
         $user = User::find($id);

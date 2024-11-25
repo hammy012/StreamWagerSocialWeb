@@ -189,9 +189,19 @@
                                                         <div class="col-lg-6 ml-auto mr-auto">
                                                             <div class="nav-container">
                                                                 <li class="tab activity-tab">
-                                                                    <a href="{{ route('profile') }}"><i
-                                                                            class="fa fa-chart-line"></i>Activity</a>
+                                                                    <a href="{{ route('user-profile', ['id'=> $user->id]) }}">
+                                                                        <i class="fa fa-chart-line"></i>
+                                                                        Activity
+                                                                    </a>
                                                                 </li>
+                                                                @if (auth()->user()->type === 'coach')
+                                                                    <li class="tab friend-tab">
+                                                                        <a href="{{ route('user-schedule', ['id'=> $user->id]) }}">
+                                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                                            Schedule
+                                                                        </a>
+                                                                    </li>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
