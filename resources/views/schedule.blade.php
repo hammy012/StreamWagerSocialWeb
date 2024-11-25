@@ -184,6 +184,11 @@
             font-size: 14px;
             text-align: center;
         }
+
+        .schedule {
+            line-height: 13px;
+            color: #8124E2
+        }
     </style>
 
 
@@ -391,7 +396,8 @@
 
 
                                                         <div class="col-lg-9 profile-col-main">
-                                                            <h1>Schedule for <span id="monthName"></span>:</h1>
+                                                            <h1 class="mb-5">Schedule for: <span id="monthName"></span>
+                                                            </h1>
                                                             <div id="calendar" class="calendar"></div>
                                                         </div>
 
@@ -420,101 +426,131 @@
         </div>
     </div>
 
-    <div id="postModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Create Post</h2>
-
-            <!-- Post Form -->
-            <form id="createPostForm" action="/create-post" method="POST" enctype="multipart/form-data">
-                @csrf <!-- Laravel CSRF Token -->
-                <textarea id="postText" name="content" placeholder="What's on your mind?"></textarea>
-
-                <div class="upload-section">
-                    <label for="fileInput">
-                        {{--  <i class="fas fa-photo-video gallery-icon"></i>  --}}
-                    </label>
-                    <input type="file" id="fileInput" name="file" accept="image/*,video/*">
-                </div>
-
-                <!-- Preview Section -->
-                <div id="preview"></div>
-
-                <button type="submit" id="submitPost" style="margin-top: 25px;">Post</button>
-            </form>
-        </div>
-    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            generateCalendar();
-        });
-
-        function generateCalendar() {
             const currentDate = new Date();
-            const currentMonth = currentDate.getMonth(); // Get current month (0-11)
-            const currentYear = currentDate.getFullYear(); // Get current year
-            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // First day of the month
-            const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Last date of the month
+            let currentMonth = currentDate.getMonth(); // 0-based index (Jan = 0)
+            let currentYear = currentDate.getFullYear();
 
-            // Set the month name in the heading
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
-                "October", "November", "December"
-            ];
-            document.getElementById('monthName').textContent = monthNames[currentMonth];
+            // Initial Load
+            fetchSchedulesAndGenerateCalendar(currentYear, currentMonth);
 
-            const calendarContainer = document.getElementById('calendar');
-            calendarContainer.innerHTML = ''; // Clear previous calendar
-
-            // Create days of the week header
-            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            daysOfWeek.forEach(day => {
-                const dayHeader = document.createElement('div');
-                dayHeader.classList.add('day-name');
-                dayHeader.textContent = day;
-                calendarContainer.appendChild(dayHeader);
-            });
-
-            // Empty cells before the first day of the month
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                const emptyCell = document.createElement('div');
-                calendarContainer.appendChild(emptyCell);
+            function fetchSchedulesAndGenerateCalendar(year, month) {
+                fetch(`/get-schedules?year=${year}&month=${month + 1}`) // Month is 1-based in backend
+                    .then(response => response.json())
+                    .then(data => {
+                        generateCalendar(data, year, month);
+                    });
             }
 
-            // Create day blocks
-            for (let day = 1; day <= lastDateOfMonth; day++) {
-                const dayBlock = document.createElement('div');
-                dayBlock.classList.add('day');
+            function generateCalendar(schedules, year, month) {
+                const firstDayOfMonth = new Date(year, month, 1).getDay();
+                const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
 
-                // Day number
-                const dayNumber = document.createElement('div');
-                dayNumber.classList.add('day-number');
-                dayNumber.textContent = day;
-                dayBlock.appendChild(dayNumber);
+                const calendarContainer = document.getElementById('calendar');
+                calendarContainer.innerHTML = ''; // Clear calendar
 
-                // Check if the date is passed or future
-                const currentDay = new Date(currentYear, currentMonth, day);
-                if (currentDay < currentDate) {
-                    // Date has passed
-                    const passedText = document.createElement('div');
-                    passedText.classList.add('passed');
-                    passedText.textContent = 'Passed';
-                    dayBlock.appendChild(passedText);
-                } else {
-                    // Input field for the schedule
-                    const inputField = document.createElement('input');
-                    inputField.type = 'text';
-                    inputField.placeholder = 'Type Here...';
-                    dayBlock.appendChild(inputField);
+                // Update month name
+                const monthNameElement = document.getElementById('monthName');
+                const monthNames = [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ];
+                monthNameElement.textContent = monthNames[month];
+
+                // Days of Week Headers
+                const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                daysOfWeek.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.classList.add('day-name');
+                    dayHeader.textContent = day;
+                    calendarContainer.appendChild(dayHeader);
+                });
+
+                // Empty cells before 1st day
+                for (let i = 0; i < firstDayOfMonth; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.classList.add('empty-day');
+                    calendarContainer.appendChild(emptyCell);
                 }
 
-                calendarContainer.appendChild(dayBlock);
+                // Dates with schedules
+                for (let day = 1; day <= lastDateOfMonth; day++) {
+                    const dayBlock = document.createElement('div');
+                    dayBlock.classList.add('day');
+
+                    const dayNumber = document.createElement('div');
+                    dayNumber.classList.add('day-number');
+                    dayNumber.textContent = day;
+                    dayBlock.appendChild(dayNumber);
+
+                    const dateString =
+                        `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const schedule = schedules.find(s => s.date === dateString);
+
+                    if (schedule) {
+                        const scheduleText = document.createElement('div');
+                        scheduleText.classList.add('schedule');
+                        scheduleText.classList.add('text-center');
+                        scheduleText.textContent = schedule.schedule;
+                        dayBlock.appendChild(scheduleText);
+                    } else {
+                        const inputField = document.createElement('input');
+                        inputField.type = 'text';
+                        inputField.name = `schedules[${dateString}]`;
+                        inputField.placeholder = 'Type Here...';
+                        dayBlock.appendChild(inputField);
+                    }
+
+                    calendarContainer.appendChild(dayBlock);
+                }
+
+                // Update Button
+                const updateButton = document.createElement('button');
+                updateButton.textContent = 'Update Schedule';
+                updateButton.addEventListener('click', function() {
+                    const formData = new FormData();
+                    const inputs = document.querySelectorAll('#calendar input');
+                    inputs.forEach(input => {
+                        if (input.value) {
+                            formData.append(input.name, input.value);
+                        }
+                    });
+
+                    fetch('/update-schedule', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .content,
+                            },
+                            body: formData,
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                location.reload(); // Page ko reload kare
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                });
+                calendarContainer.appendChild(updateButton);
             }
-        }
+        });
     </script>
+
 
     <script>
         function likePost(postId) {

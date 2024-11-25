@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\FriendRequest;
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,12 +46,41 @@ class WebController extends Controller
 
         // Fetch the user along with their posts and associated media
         $user = User::find($userId);
-
+        $schedules = Schedule::where('user_id', $userId)->get();
         // Get all posts made by the user with media (if available)
         $posts = Post::where('user_id', $userId)->get();
 
         // Pass the user and posts (with media) to the view
-        return view('schedule', compact('user', 'posts'));
+        return view('schedule', compact('user', 'posts', 'schedules'));
+    }
+
+    public function updateSchedule(Request $request)
+    {
+        $userId = Auth::id();
+        $schedules = $request->schedules;
+
+        foreach ($schedules as $date => $schedule) {
+            Schedule::updateOrCreate(
+                ['user_id' => $userId, 'date' => $date],
+                ['schedule' => $schedule]
+            );
+        }
+
+        return response()->json(['success' => true, 'message' => 'Schedule Updated Successfully']);
+    }
+
+    public function getSchedules(Request $request)
+    {
+        $userId = Auth::id();
+        $year = $request->input('year');
+        $month = $request->input('month');
+
+        $schedules = Schedule::where('user_id', $userId)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->get();
+
+        return response()->json($schedules);
     }
 
     public function user_profile($id)
