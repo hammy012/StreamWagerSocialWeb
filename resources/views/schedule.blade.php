@@ -189,6 +189,12 @@
             line-height: 13px;
             color: #8124E2
         }
+        .no-attendance{
+            text-align: center;
+            font-size: 12px;
+            line-height: 12px;
+            margin-top: 12px;
+        }
     </style>
 
 
@@ -433,26 +439,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const currentDate = new Date();
-            let currentMonth = currentDate.getMonth(); // 0-based index (Jan = 0)
+            let currentMonth = currentDate.getMonth();
             let currentYear = currentDate.getFullYear();
 
             // Initial Load
             fetchSchedulesAndGenerateCalendar(currentYear, currentMonth);
 
             function fetchSchedulesAndGenerateCalendar(year, month) {
-                fetch(`/get-schedules?year=${year}&month=${month + 1}`) // Month is 1-based in backend
+                fetch(`/get-schedules?year=${year}&month=${month + 1}`) // Backend expects month 1-based
                     .then(response => response.json())
                     .then(data => {
-                        generateCalendar(data, year, month);
+                        generateCalendar(data.schedules, data.attendance, year, month);
                     });
             }
 
-            function generateCalendar(schedules, year, month) {
+            function generateCalendar(schedules, attendance, year, month) {
                 const firstDayOfMonth = new Date(year, month, 1).getDay();
                 const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
-
                 const calendarContainer = document.getElementById('calendar');
-                calendarContainer.innerHTML = ''; // Clear calendar
+                calendarContainer.innerHTML = ''; // Clear previous calendar
 
                 // Update month name
                 const monthNameElement = document.getElementById('monthName');
@@ -471,7 +476,7 @@
                     calendarContainer.appendChild(dayHeader);
                 });
 
-                // Empty cells before 1st day
+                // Empty cells before the first day of the month
                 for (let i = 0; i < firstDayOfMonth; i++) {
                     const emptyCell = document.createElement('div');
                     emptyCell.classList.add('empty-day');
@@ -492,12 +497,38 @@
                         `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     const schedule = schedules.find(s => s.date === dateString);
 
+                    // Create input or show schedule
                     if (schedule) {
                         const scheduleText = document.createElement('div');
                         scheduleText.classList.add('schedule');
                         scheduleText.classList.add('text-center');
                         scheduleText.textContent = schedule.schedule;
                         dayBlock.appendChild(scheduleText);
+
+                        // Find the attendance for the day
+                        const attendanceForDay = attendance.filter(a => a.date === dateString);
+                        const attendanceText = document.createElement('div');
+                        attendanceText.classList.add('attendance');
+                        if (attendanceForDay.length > 0) {
+                            attendanceForDay.forEach(attendance => {
+
+                                const userName = attendance.user.username; // Assuming 'user' is related correctly
+                                const userId = attendance.user.id; // Assuming 'user' has the 'id' property
+                                const userElement = document.createElement('div');
+                                const userLink = document.createElement('a');
+                                userLink.href = `/user-profile/${userId}`;  // Link to the user's profile
+                                userLink.textContent = `@${userName}`;  // Display username with '@'
+                                userLink.classList.add('user-link'); // Optionally add a class for styling
+                                userElement.appendChild(userLink);
+                                attendanceText.appendChild(userElement);
+                            });
+                        } else {
+                            const noAttendance = document.createElement('div');
+                            noAttendance.classList.add('no-attendance');
+                            noAttendance.textContent = 'No one comes';
+                            attendanceText.appendChild(noAttendance);
+                        }
+                        dayBlock.appendChild(attendanceText);
                     } else {
                         const inputField = document.createElement('input');
                         inputField.type = 'text';
@@ -538,7 +569,7 @@
                         .then(data => {
                             if (data.success) {
                                 alert(data.message);
-                                location.reload(); // Page ko reload kare
+                                location.reload(); // Reload page after success
                             }
                         })
                         .catch(error => {

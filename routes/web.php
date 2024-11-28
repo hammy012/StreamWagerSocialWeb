@@ -36,6 +36,7 @@ Route::get('/user-attendance/{scheduleHolderId}', 'WebController@getUserAttendan
 
 
 
+
 Route::get('/find-people', 'WebController@find_people')->name('find-people');
 Route::get('/user-friends', 'WebController@user_friends')->middleware(['auth'])->name('user-friends');
 Route::get('/your-friends', 'WebController@your_friends')->middleware(['auth'])->name('your-friends');

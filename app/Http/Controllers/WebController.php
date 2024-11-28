@@ -70,19 +70,32 @@ class WebController extends Controller
         return response()->json(['success' => true, 'message' => 'Schedule Updated Successfully']);
     }
 
+    // Controller function to get schedules
     public function getSchedules(Request $request)
     {
         $userId = Auth::id();
         $year = $request->input('year');
         $month = $request->input('month');
 
+        // Fetch schedules for the user
         $schedules = Schedule::where('user_id', $userId)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->get();
 
-        return response()->json($schedules);
+        // Fetch attendance for the user
+        $attendance = UserAttendance::where('schedule_holder_id', $userId)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->with('user') // Eager load user
+            ->get();
+
+        return response()->json(['schedules' => $schedules, 'attendance' => $attendance]);
     }
+
+
+
+
 
     public function getUserSchedules(Request $request, $id)
     {
