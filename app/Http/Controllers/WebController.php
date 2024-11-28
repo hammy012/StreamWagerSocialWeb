@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\FriendRequest;
 use App\Models\Like;
+use App\Models\Payment;
 use App\Models\Post;
 use App\Models\Schedule;
 use App\Models\User;
 use App\Models\UserAttendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class WebController extends Controller
 {
@@ -463,5 +466,81 @@ class WebController extends Controller
 
 
 
+
+
+    // Payment and Membership
+    public function checkout(Request $request)
+    {
+
+        // Set Stripe API key
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        try {
+            // Create Stripe Checkout Session
+            $checkoutSession = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'usd',
+                            'product_data' => [
+                                'name' => 'Order Payment',
+                            ],
+                            'unit_amount' => 5000,  // Amount in cents
+                        ],
+                        'quantity' => 1,
+                    ]
+                ],
+                'mode' => 'payment',
+                'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('stripe.cancel'),
+            ]);
+
+            // Redirect to Stripe Checkout
+            return redirect()->away($checkoutSession->url);
+        } catch (\Exception $e) {
+            // Handle Stripe errors
+            return back()->with('error', 'Stripe Error: ' . $e->getMessage());
+        }
+    }
+
+    public function stripeSuccess(Request $request)
+    {
+        // Capture Stripe Session ID from success URL
+        $sessionId = $request->get('session_id');
+
+        try {
+            // Retrieve the checkout session
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+            $session = \Stripe\Checkout\Session::retrieve($sessionId);
+
+            if ($session->payment_status === 'paid') {
+                // Create the order in the Payment model
+                $order = Payment::create([
+                    'trx_id' => $session->payment_intent,
+                    'user_id' => auth()->id(),  // Get logged-in user's ID
+                ]);
+
+                // Update the user's membership to 1
+                $userID = auth()->user()->id;
+                $user = User::find($userID);
+                $user->membership = 1;  // Set the membership to 1
+                $user->save();
+
+                // Redirect the user to a success page after payment
+                return redirect()->route('schedule')->with('success', 'Stripe Payment Successful, Membership Upgraded!');
+            }
+
+            return redirect()->route('schedule')->with('error', 'Payment not completed.');
+        } catch (\Exception $e) {
+            return redirect()->route('schedule')->with('error', 'Stripe Error: ' . $e->getMessage());
+        }
+    }
+
+
+    public function stripeCancel()
+    {
+        return redirect()->back()->with('error', 'Payment was cancelled!');
+    }
 
 }

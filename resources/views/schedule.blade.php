@@ -189,11 +189,18 @@
             line-height: 13px;
             color: #8124E2
         }
-        .no-attendance{
+
+        .no-attendance {
             text-align: center;
             font-size: 12px;
             line-height: 12px;
-            margin-top: 12px;
+            margin-top: 8px;
+        }
+
+        .blurred-text {
+            filter: blur(3px);
+            color: gray;
+            /* Optional: Adjust color to make it appear more faded */
         }
     </style>
 
@@ -402,6 +409,23 @@
 
 
                                                         <div class="col-lg-9 profile-col-main">
+
+                                                            @if (auth()->user()->membership === 1)
+                                                                <div class="my-4" style="margin-top: 100px;">
+                                                                    <h3>You have our premium membership</h3>
+                                                                </div>
+                                                            @else
+                                                                <div class="my-4">
+                                                                    <h3>You do not have our premium membership</h3>
+                                                                    <form action="{{ route('checkout-payment') }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <button type="submit">Click to Upgrade</button>
+                                                                    </form>
+                                                                </div>
+                                                            @endif
+
+
                                                             <h1 class="mb-5">Schedule for: <span id="monthName"></span>
                                                             </h1>
                                                             <div id="calendar" class="calendar"></div>
@@ -509,17 +533,33 @@
                         const attendanceForDay = attendance.filter(a => a.date === dateString);
                         const attendanceText = document.createElement('div');
                         attendanceText.classList.add('attendance');
+                        const loggedInUserMembership =
+                            {{ auth()->user()->membership }}; // This will fetch membership of logged-in user
+
                         if (attendanceForDay.length > 0) {
                             attendanceForDay.forEach(attendance => {
-
-                                const userName = attendance.user.username; // Assuming 'user' is related correctly
+                                const userName = attendance.user
+                                    .username; // Assuming 'user' is related correctly
                                 const userId = attendance.user.id; // Assuming 'user' has the 'id' property
                                 const userElement = document.createElement('div');
-                                const userLink = document.createElement('a');
-                                userLink.href = `/user-profile/${userId}`;  // Link to the user's profile
-                                userLink.textContent = `@${userName}`;  // Display username with '@'
-                                userLink.classList.add('user-link'); // Optionally add a class for styling
-                                userElement.appendChild(userLink);
+
+                                if (loggedInUserMembership === 1) {
+                                    // Logged-in user's membership is 1, show as a link
+                                    const userLink = document.createElement('a');
+                                    userLink.href = `/user-profile/${userId}`; // Link to the user's profile
+                                    userLink.textContent = `@${userName}`; // Display username with '@'
+                                    userLink.classList.add(
+                                        'user-link'); // Optionally add a class for styling
+                                    userElement.appendChild(userLink);
+                                } else {
+                                    // Logged-in user's membership is 0, show as a blurred p tag
+                                    const userText = document.createElement('p');
+                                    userText.textContent = `@${userName}`; // Display username with '@'
+                                    userText.classList.add(
+                                        'blurred-text'); // Add a class for styling blur effect
+                                    userElement.appendChild(userText);
+                                }
+
                                 attendanceText.appendChild(userElement);
                             });
                         } else {

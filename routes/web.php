@@ -35,6 +35,11 @@ Route::post('/mark-attendance','WebController@markAttendance')->name('mark.atten
 Route::get('/user-attendance/{scheduleHolderId}', 'WebController@getUserAttendance');
 
 
+// STRIPE PAYMENT
+Route::post('/checkout-payment', 'WebController@checkout')->name('checkout-payment');
+
+Route::get('/stripe-success', 'WebController@stripeSuccess')->name('stripe.success');
+Route::get('/stripe-cancel', 'WebController@stripeCancel')->name('stripe.cancel');
 
 
 Route::get('/find-people', 'WebController@find_people')->name('find-people');
