@@ -101,6 +101,11 @@
             color: #8224E3;
             line-height: 14px;
         }
+
+        .attendance-button {
+            padding: 6px !important;
+            font-size: 13px;
+        }
     </style>
 
 
@@ -321,23 +326,29 @@
             const currentDate = new Date();
             let currentMonth = currentDate.getMonth(); // 0-based index
             let currentYear = currentDate.getFullYear();
-            const userId = {{ $user->id }}; // Replace with dynamic user ID
+            const userId = {{ $user->id }};
+            const scheduleHolderId = {{ $user->id }};
+            const loggedinuserid = {{ auth()->user()->id }};
 
             // Initial Load
-            fetchSchedulesAndGenerateCalendar(currentYear, currentMonth);
+            fetchAttendanceAndSchedules(currentYear, currentMonth);
 
-            function fetchSchedulesAndGenerateCalendar(year, month) {
-                fetch(`/user-schedules/${userId}?year=${year}&month=${month + 1}`) // Month is 1-based
-                    .then(response => response.json())
-                    .then(data => {
-                        generateCalendar(data, year, month);
+            function fetchAttendanceAndSchedules(year, month) {
+                Promise.all([
+                        fetch(`/user-schedules/${userId}?year=${year}&month=${month + 1}`), // Schedules
+                        fetch(`/user-attendance/${scheduleHolderId}`) // Attendance
+                    ])
+                    .then(([scheduleRes, attendanceRes]) =>
+                        Promise.all([scheduleRes.json(), attendanceRes.json()])
+                    )
+                    .then(([schedules, attendance]) => {
+                        const markedDates = attendance.map(item => item.date); // Extract marked dates
+                        generateCalendar(schedules, year, month, markedDates);
                     });
             }
 
-            function generateCalendar(schedules, year, month) {
+            function generateCalendar(schedules, year, month, markedDates) {
                 const firstDayOfMonth = new Date(year, month, 1).getDay();
-                const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
-
                 const calendarContainer = document.getElementById('calendar');
                 calendarContainer.innerHTML = ''; // Clear calendar
 
@@ -381,11 +392,121 @@
                     scheduleText.textContent = schedule.schedule;
                     dayBlock.appendChild(scheduleText);
 
+                    // Add attendance button
+                    const button = document.createElement('button');
+                    button.classList.add('attendance-button');
+                    button.style.marginTop = "10px";
+
+                    // Check if the user has already marked attendance
+                    if (markedDates.includes(schedule.date)) {
+                        button.textContent = "You are going";
+                        button.disabled = true;
+                        button.style.backgroundColor = "#4caf50";
+                    } else {
+                        button.textContent = "I will come";
+                        button.addEventListener('click', () =>
+                            markAttendance(schedule.date, button)
+                        );
+                    }
+                    dayBlock.appendChild(button);
                     calendarContainer.appendChild(dayBlock);
                 });
             }
+
+            function markAttendance(date, button) {
+                fetch('/mark-attendance', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+                        },
+                        body: JSON.stringify({
+                            user_id: loggedinuserid,
+                            schedule_holder_id: scheduleHolderId,
+                            date
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: data.message,
+                            }).then(() => {
+                                location.reload(); // Reload after message is shown
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.message,
+                            }).then(() => {
+                                location.reload(); // Reload after error message is shown
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Something went wrong. Please try again later.',
+                        }).then(() => {
+                            location.reload(); // Reload on error
+                        });
+                    });
+            }
+
+            function markAttendance(date, button) {
+                fetch('/mark-attendance', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+                        },
+                        body: JSON.stringify({
+                            user_id: loggedinuserid,
+                            schedule_holder_id: scheduleHolderId,
+                            date
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: data.message,
+                            }).then(() => {
+                                location.reload(); // Reload after message is shown
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.message,
+                            }).then(() => {
+                                location.reload(); // Reload after error message is shown
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Something went wrong. Please try again later.',
+                        }).then(() => {
+                            location.reload(); // Reload on error
+                        });
+                    });
+            }
         });
     </script>
+
 
     <script>
         function likePost(postId) {

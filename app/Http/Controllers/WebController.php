@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\Schedule;
 use App\Models\User;
+use App\Models\UserAttendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -107,6 +108,54 @@ class WebController extends Controller
 
         return response()->json($data);
     }
+
+    public function markAttendance(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $scheduleHolderId = $request->input('schedule_holder_id');
+        $date = $request->input('date');
+
+        // Check if already marked
+        $exists = UserAttendance::where('user_id', $userId)
+            ->where('schedule_holder_id', $scheduleHolderId)
+            ->where('date', $date)
+            ->exists();
+
+        if ($exists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You have already marked attendance for this date!'
+            ]);
+        }
+
+        // Save attendance
+        UserAttendance::create([
+            'user_id' => $userId,
+            'schedule_holder_id' => $scheduleHolderId,
+            'date' => $date,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Attendance marked successfully!'
+        ]);
+    }
+
+
+    public function getUserAttendance(Request $request, $scheduleHolderId)
+    {
+        $userId = auth()->id(); // Logged-in user ID
+
+        // Get attendance for the schedule holder
+        $attendance = UserAttendance::where('user_id', $userId)
+            ->where('schedule_holder_id', $scheduleHolderId)
+            ->get(['date']); // Fetch only the dates
+
+        return response()->json($attendance);
+    }
+
+
+
 
     public function user_schedule(Request $request, $id)
     {

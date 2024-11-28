@@ -30,6 +30,12 @@ Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['aut
 Route::get('/user-schedule/{id}', 'WebController@user_schedule')->middleware(['auth'])->name('user-schedule');
 Route::get('/user-schedules/{id}', 'WebController@getUserSchedules');
 
+// Coach Can GO
+Route::post('/mark-attendance','WebController@markAttendance')->name('mark.attendance');
+Route::get('/user-attendance/{scheduleHolderId}', 'WebController@getUserAttendance');
+
+
+
 Route::get('/find-people', 'WebController@find_people')->name('find-people');
 Route::get('/user-friends', 'WebController@user_friends')->middleware(['auth'])->name('user-friends');
 Route::get('/your-friends', 'WebController@your_friends')->middleware(['auth'])->name('your-friends');
