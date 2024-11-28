@@ -108,38 +108,39 @@
                                                                         </a>
                                                                         <script>
                                                                             // JavaScript to trigger file input when profile picture is clicked
-                                                                            document.getElementById('profile-picture-link').addEventListener('click', function () {
+                                                                            document.getElementById('profile-picture-link').addEventListener('click', function() {
                                                                                 document.getElementById('profile-picture-input').click();
                                                                             });
 
                                                                             // Handle file upload
-                                                                            document.getElementById('profile-picture-input').addEventListener('change', function (event) {
+                                                                            document.getElementById('profile-picture-input').addEventListener('change', function(event) {
                                                                                 const file = event.target.files[0];
                                                                                 if (file) {
                                                                                     const formData = new FormData();
                                                                                     formData.append('profile_picture', file);
 
                                                                                     fetch('{{ route('upload-profile-picture') }}', {
-                                                                                        method: 'POST',
-                                                                                        headers: {
-                                                                                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token for Laravel
-                                                                                        },
-                                                                                        body: formData,
-                                                                                    })
-                                                                                    .then(response => response.json())
-                                                                                    .then(data => {
-                                                                                        if (data.success) {
-                                                                                            alert('Profile picture updated successfully!');
-                                                                                            // Update the profile picture preview
-                                                                                            document.querySelector('#profile-picture-link img').src = data.new_profile_picture_url;
-                                                                                        } else {
-                                                                                            alert('Failed to upload profile picture.');
-                                                                                        }
-                                                                                    })
-                                                                                    .catch(error => {
-                                                                                        console.error('Error uploading profile picture:', error);
-                                                                                        alert('An error occurred. Please try again.');
-                                                                                    });
+                                                                                            method: 'POST',
+                                                                                            headers: {
+                                                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token for Laravel
+                                                                                            },
+                                                                                            body: formData,
+                                                                                        })
+                                                                                        .then(response => response.json())
+                                                                                        .then(data => {
+                                                                                            if (data.success) {
+                                                                                                alert('Profile picture updated successfully!');
+                                                                                                // Update the profile picture preview
+                                                                                                document.querySelector('#profile-picture-link img').src = data
+                                                                                                    .new_profile_picture_url;
+                                                                                            } else {
+                                                                                                alert('Failed to upload profile picture.');
+                                                                                            }
+                                                                                        })
+                                                                                        .catch(error => {
+                                                                                            console.error('Error uploading profile picture:', error);
+                                                                                            alert('An error occurred. Please try again.');
+                                                                                        });
                                                                                 }
                                                                             });
                                                                         </script>
@@ -189,18 +190,25 @@
                                                         <div class="col-lg-6 ml-auto mr-auto">
                                                             <div class="nav-container">
                                                                 <li class="tab activity-tab">
-                                                                    <a href="{{ route('user-profile', ['id'=> $user->id]) }}">
+                                                                    <a
+                                                                        href="{{ route('user-profile', ['id' => $user->id]) }}">
                                                                         <i class="fa fa-chart-line"></i>
                                                                         Activity
                                                                     </a>
                                                                 </li>
-                                                                @if (auth()->user()->type === 'coach')
-                                                                    <li class="tab friend-tab">
-                                                                        <a href="{{ route('user-schedule', ['id'=> $user->id]) }}">
-                                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                                            Schedule
-                                                                        </a>
-                                                                    </li>
+                                                                @if ($user->type === 'player')
+
+
+                                                                    @if (auth()->user()->type === 'coach')
+                                                                        <li class="tab friend-tab">
+                                                                            <a
+                                                                                href="{{ route('user-schedule', ['id' => $user->id]) }}">
+                                                                                <i class="fa fa-calendar"
+                                                                                    aria-hidden="true"></i>
+                                                                                Schedule
+                                                                            </a>
+                                                                        </li>
+                                                                    @endif
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -474,7 +482,8 @@
                                                                                             id="like-button-{{ $post->id }}"
                                                                                             class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
                                                                                             style="color: {{ Auth::user()->hasLiked($post->id) ? '#8833E6' : '#777' }}">
-                                                                                            <i class="fa fa-thumbs-up mr-2"></i>
+                                                                                            <i
+                                                                                                class="fa fa-thumbs-up mr-2"></i>
                                                                                             {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
                                                                                             {{ $post->likes()->count() }}
                                                                                         </a>
@@ -589,25 +598,27 @@
         function likePost(postId) {
             // Send AJAX request to like/unlike the post
             fetch(`/like/${postId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ post_id: postId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Toggle the button text and color based on like status
-                const likeButton = document.getElementById(`like-button-${postId}`);
-                if (data.liked) {
-                    likeButton.style.color = '#8833E6'; // Liked color
-                    likeButton.textContent = 'Liked';
-                } else {
-                    likeButton.style.color = '#777'; // Default color
-                    likeButton.textContent = 'Like';
-                }
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Toggle the button text and color based on like status
+                    const likeButton = document.getElementById(`like-button-${postId}`);
+                    if (data.liked) {
+                        likeButton.style.color = '#8833E6'; // Liked color
+                        likeButton.textContent = 'Liked';
+                    } else {
+                        likeButton.style.color = '#777'; // Default color
+                        likeButton.textContent = 'Like';
+                    }
+                });
         }
     </script>
     <script>
