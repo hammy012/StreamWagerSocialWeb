@@ -119,6 +119,9 @@
                                                     style="">
                                                     <ul class="activity-list item-list bp-list">
                                                         @foreach ($posts as $post)
+                                                            @php
+                                                                $postUser = App\Models\User::where('id', $post->user_id)->first()
+                                                            @endphp
                                                             <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
                                                                 id="activity-{{ $post->id }}"
                                                                 data-bp-activity-id="{{ $post->id }}"
@@ -126,20 +129,20 @@
 
                                                                 <!-- Avatar and other post details -->
                                                                 <div class="activity-avatar item-avatar">
-                                                                    <a href="{{ route('profile') }}">
+                                                                    <a href="{{ route('user-profile', ['id' => $postUser->id]) }}">
                                                                         <img loading="lazy"
-                                                                            src="{{ asset($user->profile_picture) }}"
+                                                                            src="{{ asset($postUser->profile_picture) }}"
                                                                             class="avatar user-3-avatar avatar-200 photo"
                                                                             width="200" height="200"
-                                                                            alt="Profile picture of {{ $user->first_name }} {{ $user->last_name }}" />
+                                                                            alt="Profile picture of {{ $postUser->first_name }} {{ $postUser->last_name }}" />
                                                                     </a>
                                                                 </div>
 
                                                                 <div class="activity-content">
                                                                     <div class="activity-header">
                                                                         <div class="posted-meta">
-                                                                            <p><a href="{{ route('profile') }}">{{ $user->first_name }}
-                                                                                    {{ $user->last_name }}</a> posted</p>
+                                                                            <p><a href="{{ route('user-profile', ['id' => $postUser->id]) }}">{{ $postUser->first_name }}
+                                                                                    {{ $postUser->last_name }}</a> posted</p>
                                                                         </div>
                                                                         <div class="date mute">
                                                                             {{ $post->created_at->diffForHumans() }}

@@ -1730,7 +1730,7 @@
         <div class="inner-panel ass-scrollbar">
             <div class="panel-block dark">
                 <a href="/" class="panel-logo item">
-                    <img src="https://mythemestore.com/beehive-preview/wp-content/themes/beehive/assets/images/logo-vertical.svg"
+                    <img src="{{ asset('assets/img/logo.png') }}"
                         alt="Beehive Preview" />
                 </a>
                 @if (Auth::guard('web')->check())
