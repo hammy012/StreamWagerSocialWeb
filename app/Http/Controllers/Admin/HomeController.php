@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -14,8 +15,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // dd(\Auth::guard('admin')->user()->hasRole('editor'));
-        return view('admin.dashboard');
+
+        $coaches = User::where('type', 'coach')->get();
+        $players = User::where('type', 'player')->get();
+        $premiums = User::where('membership', 1)->get();
+
+        return view('admin.dashboard', compact('coaches', 'players', 'premiums', ));
     }
 
 
