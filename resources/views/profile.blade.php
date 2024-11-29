@@ -575,7 +575,7 @@
                                                                                             href="javascript:void(0);"
                                                                                             role="button"
                                                                                             onclick="toggleCommentInput({{ $post->id }})">
-                                                                                            <span
+                                                                                            <span style="display: block !important;"
                                                                                                 class="bp-screen-reader-text">Comment</span>
                                                                                             <span
                                                                                                 class="comment-count">{{ $post->comments()->count() }}</span>
