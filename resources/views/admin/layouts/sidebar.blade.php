@@ -52,7 +52,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.profile-view') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Profile</span></a>
     </li>

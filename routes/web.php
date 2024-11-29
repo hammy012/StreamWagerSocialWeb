@@ -108,6 +108,12 @@ Route::
                 Route::get('payment-list', 'HomeController@payment_list')->name('payment-list');
 
 
+                // PROFILE
+                Route::get('profile-view', 'HomeController@profile_view')->name('profile-view');
+                Route::post('profile-update', 'HomeController@profile_update')->name('profile-update');
+
+
+
             });
             Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
         });

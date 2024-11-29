@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Payment;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -192,5 +194,50 @@ class HomeController extends Controller
             return back();
         }
         return view('admin.users.view', compact('user'));
+    }
+
+
+
+    // ADMIN PROFILE
+    public function profile_view()
+    {
+        return view('admin.profile.profile');
+    }
+
+    public function profile_update(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'nullable|string',
+        ]);
+
+        // Get the authenticated admin user
+        $adminId = 1;
+        $admin = Admin::find($adminId);
+
+        // Check if the admin exists
+        if (!$admin) {
+            return back()->with('error', 'Admin not found.');
+        }
+
+        // Check if the provided password matches the stored hash
+        if ($request->password && !Hash::check($request->password, $admin->password)) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        // Update the admin details
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+
+        // Update the password if a new one is provided
+        if ($request->npassword) {
+            $admin->password = Hash::make($request->npassword);
+        }
+
+        $admin->save();
+
+        return back()->with('success', 'Profile updated successfully.');
     }
 }
