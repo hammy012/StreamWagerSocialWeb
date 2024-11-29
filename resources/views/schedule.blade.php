@@ -145,6 +145,34 @@
             font-size: 15px;
             margin-bottom: 8px;
         }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .tab {
+                flex: 1 1 calc(25% - 10px);
+                /* Each tab takes 25% width minus margin */
+                margin: 5px;
+                padding: 10px 5px;
+                /* Smaller padding */
+                font-size: 12px;
+                /* Smaller font size */
+            }
+
+            .tab i {
+                font-size: 12px;
+                /* Smaller icon size */
+                margin-bottom: 4px;
+            }
+
+            .tab a {
+                font-size: 10px;
+                /* Adjust text size inside links */
+            }
+        }
     </style>
 
     <style>
