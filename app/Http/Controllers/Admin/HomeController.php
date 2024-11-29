@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,13 +37,13 @@ class HomeController extends Controller
         abort(403);
     }
 
-    public function editorTest()
-    {
-        if (Auth::guard('admin')->user()->hasRole('editor')) {
-            dd('only editor allowed');
-        }
-        abort(403);
-    }
+    // public function editorTest()
+    // {
+    //     if (Auth::guard('admin')->user()->hasRole('editor')) {
+    //         dd('only editor allowed');
+    //     }
+    //     abort(403);
+    // }
 
 
     // CATEGORY
@@ -149,5 +150,12 @@ class HomeController extends Controller
         return redirect()->route('admin.category-list');
     }
 
+
+    public function payment_list()
+    {
+        $payments = Payment::orderBy('created_at', 'desc')->get();
+
+        return view('admin.payment.list', compact('payments'));
+    }
 
 }

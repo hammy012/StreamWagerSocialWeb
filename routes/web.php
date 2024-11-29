@@ -97,6 +97,10 @@ Route::
                 Route::put('category-update/{id}', 'HomeController@category_update')->name('category-update');
 
 
+                // Payments
+                Route::get('payment-list', 'HomeController@payment_list')->name('payment-list');
+
+
             });
             Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
         });
