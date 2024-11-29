@@ -153,23 +153,101 @@
             }
 
             .tab {
-                flex: 1 1 calc(25% - 10px); /* Each tab takes 25% width minus margin */
+                flex: 1 1 calc(25% - 10px);
+                /* Each tab takes 25% width minus margin */
                 margin: 5px;
-                padding: 10px 5px; /* Smaller padding */
-                font-size: 12px; /* Smaller font size */
+                padding: 10px 5px;
+                /* Smaller padding */
+                font-size: 12px;
+                /* Smaller font size */
             }
 
             .tab i {
-                font-size: 12px; /* Smaller icon size */
+                font-size: 12px;
+                /* Smaller icon size */
                 margin-bottom: 4px;
             }
 
             .tab a {
-                font-size: 10px; /* Adjust text size inside links */
+                font-size: 10px;
+                /* Adjust text size inside links */
             }
         }
     </style>
 
+
+    <style>
+        /* Custom Modal Styles */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Background color with opacity */
+            padding-top: 60px;
+            /* Position the modal */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            /* Adjust width for responsiveness */
+            max-width: 500px;
+            /* Maximum width for the modal */
+        }
+
+        .modal-header,
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: #8224E3;
+        }
+
+        .modal-body {
+            padding: 10px 0;
+        }
+
+        /* Responsive Design for Mobile */
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .modal-header h5 {
+                font-size: 18px;
+            }
+
+            .modal-footer button {
+                padding: 8px 15px;
+            }
+        }
+
+        /* Button Styles */
+        .generic-button a {
+            color: #8224E3;
+            text-decoration: none;
+        }
+
+        .generic-button a i {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+    </style>
 
     <div id="content" class="site-content" style="margin-top: 200px !important;">
 
@@ -265,20 +343,113 @@
                                                                 <div id="item-header-content">
                                                                     <h2 class="user-nicename">{{ $user->username }}</h2>
 
-                                                                    <ul class="member-header-actions action">
-                                                                        <li class="generic-button">
-                                                                            <a class="edit-profile" href="">Edit
-                                                                                profile</a>
-                                                                        </li>
-                                                                        <li></li>
-                                                                        {{--  <li class="generic-button">
-                                      <a
-                                        class="update-cover"
-                                        href="https://mythemestore.com/beehive-preview/members/user/profile/change-cover-image/#item-body"
-                                        >Update cover</a
-                                      >
-                                    </li>  --}}
-                                                                    </ul>
+                                                                    <div style="display: flex; justify-content:center;">
+                                                                        <ul>
+                                                                            <li class="generic-button">
+                                                                                <a class="edit-profile" href="#"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#editProfileModal"
+                                                                                    style="color: #8224E3">
+                                                                                    <i class="fas fa-pen"></i> Edit Profile
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                    <!-- Custom Modal -->
+                                                                    <div id="editProfileModal" class="custom-modal">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <span class="close-btn">&times;</span>
+                                                                                <h5 class="modal-title">Edit Profile</h5>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form id="updateProfileForm"
+                                                                                    action="{{ route('profile.update') }}"
+                                                                                    method="POST">
+                                                                                    @csrf
+                                                                                    @method('PUT')
+                                                                                    <div class="mb-3">
+                                                                                        <label for="first_name"
+                                                                                            class="form-label">First
+                                                                                            Name</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="first_name"
+                                                                                            name="first_name"
+                                                                                            value="{{ Auth::user()->first_name }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="last_name"
+                                                                                            class="form-label">Last
+                                                                                            Name</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="last_name" name="last_name"
+                                                                                            value="{{ Auth::user()->last_name }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="username"
+                                                                                            class="form-label">Username</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="username" name="username"
+                                                                                            value="{{ Auth::user()->username }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="email"
+                                                                                            class="form-label">Email</label>
+                                                                                        <input type="email"
+                                                                                            class="form-control"
+                                                                                            id="email" name="email"
+                                                                                            value="{{ Auth::user()->email }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary close-btn">Close</button>
+                                                                                <button type="submit"
+                                                                                    form="updateProfileForm"
+                                                                                    class="btn btn-primary">Update</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <script>
+                                                                        // Get the modal
+                                                                        var modal = document.getElementById("editProfileModal");
+
+                                                                        // Get the button that opens the modal
+                                                                        var btn = document.querySelector(".edit-profile");
+
+                                                                        // Get the <span> element that closes the modal
+                                                                        var closeBtns = document.querySelectorAll(".close-btn");
+
+                                                                        // When the user clicks the button, open the modal
+                                                                        btn.onclick = function(event) {
+                                                                            event.preventDefault(); // Prevent default link action
+                                                                            modal.style.display = "block";
+                                                                        }
+
+                                                                        // When the user clicks on <span> (x), close the modal
+                                                                        closeBtns.forEach(function(btn) {
+                                                                            btn.onclick = function() {
+                                                                                modal.style.display = "none";
+                                                                            }
+                                                                        });
+
+                                                                        // When the user clicks anywhere outside of the modal, close it
+                                                                        window.onclick = function(event) {
+                                                                            if (event.target === modal) {
+                                                                                modal.style.display = "none";
+                                                                            }
+                                                                        }
+                                                                    </script>
                                                                 </div>
                                                                 <!-- #item-header-content -->
                                                             </div>
@@ -429,15 +600,22 @@
                                                                                     </ul>
                                                                                     <ul class="members-meta action">
                                                                                         <li class="generic-button">
-                                                                                            <form action="{{ route('accept-friend-request', ['id' => $user->id]) }}" method="POST">
+                                                                                            <form
+                                                                                                action="{{ route('accept-friend-request', ['id' => $user->id]) }}"
+                                                                                                method="POST">
                                                                                                 @csrf
-                                                                                                <button type="submit" class="btn btn-success">Accept</button>
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-success">Accept</button>
                                                                                             </form>
                                                                                         </li>
                                                                                         <li class="generic-button">
-                                                                                            <form action="{{ route('decline-friend-request', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                                                                                            <form
+                                                                                                action="{{ route('decline-friend-request', ['id' => $user->id]) }}"
+                                                                                                method="POST"
+                                                                                                style="display: inline;">
                                                                                                 @csrf
-                                                                                                <button type="submit" class="btn btn-danger">Decline</button>
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-danger">Decline</button>
                                                                                             </form>
                                                                                         </li>
                                                                                     </ul>

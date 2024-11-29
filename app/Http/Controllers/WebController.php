@@ -43,6 +43,23 @@ class WebController extends Controller
         return view('profile', compact('user', 'posts'));
     }
 
+    public function updateUser(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update($validatedData);
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
     public function schedule()
     {
         // Get the logged-in user's ID

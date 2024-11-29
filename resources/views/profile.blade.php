@@ -2,6 +2,8 @@
 @section('header', 'Page Heading')
 @section('content')
 
+
+
     <style>
         .modal {
             display: none;
@@ -145,6 +147,7 @@
             font-size: 15px;
             margin-bottom: 8px;
         }
+
         @media (max-width: 768px) {
             .nav-container {
                 flex-wrap: wrap;
@@ -152,20 +155,99 @@
             }
 
             .tab {
-                flex: 1 1 calc(25% - 10px); /* Each tab takes 25% width minus margin */
+                flex: 1 1 calc(25% - 10px);
+                /* Each tab takes 25% width minus margin */
                 margin: 5px;
-                padding: 10px 5px; /* Smaller padding */
-                font-size: 12px; /* Smaller font size */
+                padding: 10px 5px;
+                /* Smaller padding */
+                font-size: 12px;
+                /* Smaller font size */
             }
 
             .tab i {
-                font-size: 12px; /* Smaller icon size */
+                font-size: 12px;
+                /* Smaller icon size */
                 margin-bottom: 4px;
             }
 
             .tab a {
-                font-size: 10px; /* Adjust text size inside links */
+                font-size: 10px;
+                /* Adjust text size inside links */
             }
+        }
+    </style>
+
+
+    <style>
+        /* Custom Modal Styles */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Background color with opacity */
+            padding-top: 60px;
+            /* Position the modal */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            /* Adjust width for responsiveness */
+            max-width: 500px;
+            /* Maximum width for the modal */
+        }
+
+        .modal-header,
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: #8224E3;
+        }
+
+        .modal-body {
+            padding: 10px 0;
+        }
+
+        /* Responsive Design for Mobile */
+        @media screen and (max-width: 768px) {
+            .modal-content {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .modal-header h5 {
+                font-size: 18px;
+            }
+
+            .modal-footer button {
+                padding: 8px 15px;
+            }
+        }
+
+        /* Button Styles */
+        .generic-button a {
+            color: #8224E3;
+            text-decoration: none;
+        }
+
+        .generic-button a i {
+            font-size: 20px;
+            margin-right: 8px;
         }
     </style>
 
@@ -200,7 +282,8 @@
                                                             <div class="col-lg-3">
                                                                 <div id="item-header-avatar">
                                                                     <div class="item-avatar">
-                                                                        <a href="javascript:void(0)" id="profile-picture-link">
+                                                                        <a href="javascript:void(0)"
+                                                                            id="profile-picture-link">
                                                                             <img loading="lazy" decoding="async"
                                                                                 src="{{ asset($user->profile_picture) }}"
                                                                                 class="avatar user-3-avatar avatar-200 photo"
@@ -209,42 +292,44 @@
                                                                         </a>
 
                                                                         <!-- Hidden file input -->
-                                                                        <input type="file" id="profile-picture-input" style="display: none;" accept="image/*" />
+                                                                        <input type="file" id="profile-picture-input"
+                                                                            style="display: none;" accept="image/*" />
 
                                                                         <script>
                                                                             // JavaScript to trigger file input when profile picture is clicked
-                                                                            document.getElementById('profile-picture-link').addEventListener('click', function () {
+                                                                            document.getElementById('profile-picture-link').addEventListener('click', function() {
                                                                                 document.getElementById('profile-picture-input').click();
                                                                             });
 
                                                                             // Handle file upload
-                                                                            document.getElementById('profile-picture-input').addEventListener('change', function (event) {
+                                                                            document.getElementById('profile-picture-input').addEventListener('change', function(event) {
                                                                                 const file = event.target.files[0];
                                                                                 if (file) {
                                                                                     const formData = new FormData();
                                                                                     formData.append('profile_picture', file);
 
                                                                                     fetch('{{ route('upload-profile-picture') }}', {
-                                                                                        method: 'POST',
-                                                                                        headers: {
-                                                                                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token for Laravel
-                                                                                        },
-                                                                                        body: formData,
-                                                                                    })
-                                                                                    .then(response => response.json())
-                                                                                    .then(data => {
-                                                                                        if (data.success) {
-                                                                                            alert('Profile picture updated successfully!');
-                                                                                            // Update the profile picture preview
-                                                                                            document.querySelector('#profile-picture-link img').src = data.new_profile_picture_url;
-                                                                                        } else {
-                                                                                            alert('Failed to upload profile picture.');
-                                                                                        }
-                                                                                    })
-                                                                                    .catch(error => {
-                                                                                        console.error('Error uploading profile picture:', error);
-                                                                                        alert('An error occurred. Please try again.');
-                                                                                    });
+                                                                                            method: 'POST',
+                                                                                            headers: {
+                                                                                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token for Laravel
+                                                                                            },
+                                                                                            body: formData,
+                                                                                        })
+                                                                                        .then(response => response.json())
+                                                                                        .then(data => {
+                                                                                            if (data.success) {
+                                                                                                alert('Profile picture updated successfully!');
+                                                                                                // Update the profile picture preview
+                                                                                                document.querySelector('#profile-picture-link img').src = data
+                                                                                                    .new_profile_picture_url;
+                                                                                            } else {
+                                                                                                alert('Failed to upload profile picture.');
+                                                                                            }
+                                                                                        })
+                                                                                        .catch(error => {
+                                                                                            console.error('Error uploading profile picture:', error);
+                                                                                            alert('An error occurred. Please try again.');
+                                                                                        });
                                                                                 }
                                                                             });
                                                                         </script>
@@ -258,23 +343,119 @@
                                                             </div>
 
                                                             <div class="col-lg-9">
-                                                                <div id="item-header-content">
+                                                                <div>
                                                                     <h2 class="user-nicename">{{ $user->username }}</h2>
+                                                                    <div style="display: flex; justify-content:center;">
+                                                                        <ul>
+                                                                            <li class="generic-button">
+                                                                                <a class="edit-profile" href="#"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#editProfileModal"
+                                                                                    style="color: #8224E3">
+                                                                                    <i class="fas fa-pen"></i> Edit Profile
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
 
-                                                                    <ul class="member-header-actions action">
-                                                                        <li class="generic-button">
-                                                                            <a class="edit-profile" href="">Edit
-                                                                                profile</a>
-                                                                        </li>
-                                                                        <li></li>
-                                                                        {{--  <li class="generic-button">
-                                      <a
-                                        class="update-cover"
-                                        href="https://mythemestore.com/beehive-preview/members/user/profile/change-cover-image/#item-body"
-                                        >Update cover</a
-                                      >
-                                    </li>  --}}
-                                                                    </ul>
+                                                                    <!-- Custom Modal -->
+                                                                    <div id="editProfileModal" class="custom-modal">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <span class="close-btn">&times;</span>
+                                                                                <h5 class="modal-title">Edit Profile</h5>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form id="updateProfileForm"
+                                                                                    action="{{ route('profile.update') }}"
+                                                                                    method="POST">
+                                                                                    @csrf
+                                                                                    @method('PUT')
+                                                                                    <div class="mb-3">
+                                                                                        <label for="first_name"
+                                                                                            class="form-label">First
+                                                                                            Name</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="first_name"
+                                                                                            name="first_name"
+                                                                                            value="{{ Auth::user()->first_name }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="last_name"
+                                                                                            class="form-label">Last
+                                                                                            Name</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="last_name" name="last_name"
+                                                                                            value="{{ Auth::user()->last_name }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="username"
+                                                                                            class="form-label">Username</label>
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            id="username" name="username"
+                                                                                            value="{{ Auth::user()->username }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                    <div class="mb-3">
+                                                                                        <label for="email"
+                                                                                            class="form-label">Email</label>
+                                                                                        <input type="email"
+                                                                                            class="form-control"
+                                                                                            id="email" name="email"
+                                                                                            value="{{ Auth::user()->email }}"
+                                                                                            required>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary close-btn">Close</button>
+                                                                                <button type="submit"
+                                                                                    form="updateProfileForm"
+                                                                                    class="btn btn-primary">Update</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <script>
+                                                                        // Get the modal
+                                                                        var modal = document.getElementById("editProfileModal");
+
+                                                                        // Get the button that opens the modal
+                                                                        var btn = document.querySelector(".edit-profile");
+
+                                                                        // Get the <span> element that closes the modal
+                                                                        var closeBtns = document.querySelectorAll(".close-btn");
+
+                                                                        // When the user clicks the button, open the modal
+                                                                        btn.onclick = function(event) {
+                                                                            event.preventDefault(); // Prevent default link action
+                                                                            modal.style.display = "block";
+                                                                        }
+
+                                                                        // When the user clicks on <span> (x), close the modal
+                                                                        closeBtns.forEach(function(btn) {
+                                                                            btn.onclick = function() {
+                                                                                modal.style.display = "none";
+                                                                            }
+                                                                        });
+
+                                                                        // When the user clicks anywhere outside of the modal, close it
+                                                                        window.onclick = function(event) {
+                                                                            if (event.target === modal) {
+                                                                                modal.style.display = "none";
+                                                                            }
+                                                                        }
+                                                                    </script>
+
+
+
+
                                                                 </div>
                                                                 <!-- #item-header-content -->
                                                             </div>
@@ -377,11 +558,12 @@
 
 
 
-                                                            <div id="bp-nouveau-activity-form" class="activity-update-form">
+                                                            <div id="bp-nouveau-activity-form"
+                                                                class="activity-update-form">
                                                             </div>
 
-                                                            <input type="hidden" id="rt_upload_hf_activity" value="1"
-                                                                name="activity" />
+                                                            <input type="hidden" id="rt_upload_hf_activity"
+                                                                value="1" name="activity" />
 
                                                             <div id="activity-stream" class="activity single-user"
                                                                 data-bp-list="activity" style="">
@@ -584,7 +766,8 @@
                                                                                             id="like-button-{{ $post->id }}"
                                                                                             class="button {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
                                                                                             style="color: {{ Auth::user()->hasLiked($post->id) ? '#8833E6' : '#777' }}">
-                                                                                            <i class="fa fa-thumbs-up mr-2"></i>
+                                                                                            <i
+                                                                                                class="fa fa-thumbs-up mr-2"></i>
                                                                                             {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
                                                                                             {{ $post->likes()->count() }}
                                                                                         </a>
@@ -597,7 +780,8 @@
                                                                                             href="javascript:void(0);"
                                                                                             role="button"
                                                                                             onclick="toggleCommentInput({{ $post->id }})">
-                                                                                            <span style="display: block !important;"
+                                                                                            <span
+                                                                                                style="display: block !important;"
                                                                                                 class="bp-screen-reader-text">Comment</span>
                                                                                             <span
                                                                                                 class="comment-count">{{ $post->comments()->count() }}</span>
@@ -699,25 +883,27 @@
         function likePost(postId) {
             // Send AJAX request to like/unlike the post
             fetch(`/like/${postId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ post_id: postId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Toggle the button text and color based on like status
-                const likeButton = document.getElementById(`like-button-${postId}`);
-                if (data.liked) {
-                    likeButton.style.color = '#8833E6'; // Liked color
-                    likeButton.textContent = 'Liked';
-                } else {
-                    likeButton.style.color = '#777'; // Default color
-                    likeButton.textContent = 'Like';
-                }
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Toggle the button text and color based on like status
+                    const likeButton = document.getElementById(`like-button-${postId}`);
+                    if (data.liked) {
+                        likeButton.style.color = '#8833E6'; // Liked color
+                        likeButton.textContent = 'Liked';
+                    } else {
+                        likeButton.style.color = '#777'; // Default color
+                        likeButton.textContent = 'Like';
+                    }
+                });
         }
     </script>
     <script>

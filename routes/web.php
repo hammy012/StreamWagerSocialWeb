@@ -24,6 +24,8 @@ Route::get('/friends', 'WebController@getFriends');
 
 Route::get('/', 'WebController@welcome')->middleware(['auth'])->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
+Route::put('/profile/update', 'WebController@updateUser')->name('profile.update');
+
 Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['auth'])->name('user-profile');
 
 // USER SCHEDULE
