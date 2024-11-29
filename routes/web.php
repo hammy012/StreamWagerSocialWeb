@@ -97,6 +97,13 @@ Route::
                 Route::put('category-update/{id}', 'HomeController@category_update')->name('category-update');
 
 
+                // USER
+                Route::get('user-list', 'HomeController@user_list')->name('user-list');
+                Route::delete('user-delete/{id}', 'HomeController@user_delete')->name('user-delete');
+                Route::get('user-view/{id}', 'HomeController@user_view')->name('user-view');
+
+
+
                 // Payments
                 Route::get('payment-list', 'HomeController@payment_list')->name('payment-list');
 

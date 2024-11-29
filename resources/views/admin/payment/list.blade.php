@@ -24,7 +24,7 @@
                         @php($user = App\Models\User::where('id', $project->user_id)->first())
                         <tr>
                             <td class="column1">{{ $count++ }}</td>
-                            <td class="column2">{{ $user['username'] }}</td>
+                            <td class="column2"><a href="{{ route('admin.user-view' , ['id' => $user->id]) }}">{{ $user['username'] }}</a></td>
                             <td class="column3">Stripe</td>
                             <td class="column3">{{ $project['trx_id'] }}</td>
                         </tr>

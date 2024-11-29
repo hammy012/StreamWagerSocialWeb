@@ -158,4 +158,39 @@ class HomeController extends Controller
         return view('admin.payment.list', compact('payments'));
     }
 
+
+    public function user_list()
+    {
+        $users = User::orderBy('created_at', 'desc')->get();
+
+        return view('admin.users.list', compact('users'));
+    }
+
+    public function user_delete($id)
+    {
+        // Find the project by ID
+        $project = User::find($id);
+
+        // Check if the project exists
+        if (!$project) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Delete the project
+        $project->delete();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'User deleted successfully.');
+
+    }
+
+    public function user_view($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return back();
+        }
+        return view('admin.users.view', compact('user'));
+    }
 }

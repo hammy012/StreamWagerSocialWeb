@@ -28,17 +28,9 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link" href="{{ route('admin.user-list') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Users</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Add</a>
-                <a class="collapse-item" href="">List</a>
-            </div>
-        </div>
+            <span>Users</span></a>
     </li>
 
     <hr class="sidebar-divider">
