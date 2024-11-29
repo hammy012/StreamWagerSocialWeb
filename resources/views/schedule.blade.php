@@ -606,11 +606,11 @@
 
                                                             @if (auth()->user()->membership === 1)
                                                                 <div class="my-4" style="margin-top: 100px;">
-                                                                    <h3>You have our premium membership</h3>
+                                                                    <h4>You have our premium membership</h4>
                                                                 </div>
                                                             @else
                                                                 <div class="my-4">
-                                                                    <h3>You do not have our premium membership</h3>
+                                                                    <h4>You do not have our premium membership</h4>
                                                                     <form action="{{ route('checkout-payment') }}"
                                                                         method="POST">
                                                                         @csrf
@@ -620,8 +620,9 @@
                                                             @endif
 
 
-                                                            <h1 class="mb-5">Schedule for: <span id="monthName"></span>
-                                                            </h1>
+                                                            <h3 class="mb-5">Schedule for: <span id="monthName"></span>
+                                                            </h3>
+
                                                             <div id="calendar" class="calendar"></div>
                                                         </div>
 
