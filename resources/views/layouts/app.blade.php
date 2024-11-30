@@ -1725,12 +1725,18 @@
         directory activity buddypress bp-nouveau buddypress-template-default page page-id-370 wp-embed-responsive theme-beehive woocommerce-no-js beehive beehive-guest-user beehive-child elementor-default elementor-kit-588 title-bar-active beehive-social-layout panel-expanded has-page-sidebar @endif
     ">
 
+    <style>
+        .newImageLogo{
+            width: 100px;
+        }
+    </style>
+
 
     <div id="beehive-social-panel" class="beehive-social-panel">
         <div class="inner-panel ass-scrollbar">
             <div class="panel-block dark">
-                <a href="/" class="panel-logo item">
-                    <img src="{{ asset('assets/img/logo.png') }}"
+                <a href="/" class="">
+                    <img class="newImageLogo" src="{{ asset('assets/img/logo.png') }}"
                         alt="Beehive Preview" />
                 </a>
                 @if (Auth::guard('web')->check())
