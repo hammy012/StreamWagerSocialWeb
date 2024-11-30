@@ -611,6 +611,7 @@
                                                             @else
                                                                 <div class="my-4">
                                                                     <h4>You do not have our premium membership</h4>
+                                                                    <p>Purchase Our Membership in $50</p>
                                                                     <form action="{{ route('checkout-payment') }}"
                                                                         method="POST">
                                                                         @csrf
