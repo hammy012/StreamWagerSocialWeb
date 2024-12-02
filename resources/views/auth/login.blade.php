@@ -1731,7 +1731,7 @@
                                                                                     <div
                                                                                         class="elementor-widget-container">
                                                                                         <img decoding="async" style="width: 100px;"
-                                                                                            src="{{ asset('assets/img/logoblack.png') }}"
+                                                                                            src="{{ asset('assets/img/logo.jpg') }}"
                                                                                             class="attachment-thumbnail size-thumbnail wp-image-837"
                                                                                             alt="" />
                                                                                     </div>

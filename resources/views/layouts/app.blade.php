@@ -1736,7 +1736,7 @@
         <div class="inner-panel ass-scrollbar">
             <div class="panel-block dark">
                 <a href="/" class="">
-                    <img class="newImageLogo" src="{{ asset('assets/img/logo.png') }}"
+                    <img class="newImageLogo" src="{{ asset('assets/img/logo.jpg') }}"
                         alt="Beehive Preview" />
                 </a>
                 @if (Auth::guard('web')->check())
