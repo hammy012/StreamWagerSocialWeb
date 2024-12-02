@@ -26,7 +26,7 @@
 
         /* Style for Activity tab */
         .activity-tab {
-            background-color: #8224E3;
+            background-color: #4B3649;
             /* Purple background */
             color: white;
         }
@@ -481,7 +481,7 @@
                                                                                             onclick="likePost({{ $post->id }})"
                                                                                             id="like-button-{{ $post->id }}"
                                                                                             class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
-                                                                                            style="color: {{ Auth::user()->hasLiked($post->id) ? '#8833E6' : '#777' }}">
+                                                                                            style="color: {{ Auth::user()->hasLiked($post->id) ? '#4B3649' : '#777' }}">
                                                                                             <i
                                                                                                 class="fa fa-thumbs-up mr-2"></i>
                                                                                             {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
@@ -612,7 +612,7 @@
                     // Toggle the button text and color based on like status
                     const likeButton = document.getElementById(`like-button-${postId}`);
                     if (data.liked) {
-                        likeButton.style.color = '#8833E6'; // Liked color
+                        likeButton.style.color = '#4B3649'; // Liked color
                         likeButton.textContent = 'Liked';
                     } else {
                         likeButton.style.color = '#777'; // Default color

@@ -89,7 +89,7 @@
 
         /* Style for Activity tab */
         .activity-tab {
-            background-color: #8224E3;
+            background-color: #4B3649;
             /* Purple background */
             color: white;
         }
@@ -214,7 +214,7 @@
         .modal-header .close-btn {
             font-size: 30px;
             cursor: pointer;
-            color: #8224E3;
+            color: #4B3649;
         }
 
         .modal-body {
@@ -239,7 +239,7 @@
 
         /* Button Styles */
         .generic-button a {
-            color: #8224E3;
+            color: #4B3649;
             text-decoration: none;
         }
 
@@ -350,7 +350,7 @@
                                                                                 <a class="edit-profile" href="#"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#editProfileModal"
-                                                                                    style="color: #8224E3">
+                                                                                    style="color: #4B3649">
                                                                                     <i class="fas fa-pen"></i> Edit Profile
                                                                                 </a>
                                                                             </li>

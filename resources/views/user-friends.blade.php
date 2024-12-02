@@ -89,7 +89,7 @@
 
         /* Style for Activity tab */
         .activity-tab {
-            background-color: #8224E3;
+            background-color: #4B3649;
             /* Purple background */
             color: white;
         }

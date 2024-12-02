@@ -26,7 +26,7 @@
 
         /* Style for Activity tab */
         .activity-tab {
-            background-color: #8224E3;
+            background-color: #4B3649;
             /* Purple background */
             color: white;
         }
@@ -98,7 +98,7 @@
         .schedule {
             margin-top: 5px;
             font-size: 14px;
-            color: #8224E3;
+            color: #4B3649;
             line-height: 14px;
         }
 
