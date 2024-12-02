@@ -501,7 +501,7 @@
                                                                         <li>
                                                                             <span
                                                                                 class="count">{{ \App\Models\FriendRequest::where(function ($query) use ($user) {
-                                                                                    $query->where('sender_id', $user->id)->orWhere('receiver_id', $user->id);
+                                                                                    $query->where('receiver_id', $user->id);
                                                                                 })->where('status', 'accepted')->count() }}</span>
                                                                             <p class="mute">Friends</p>
                                                                         </li>

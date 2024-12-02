@@ -288,7 +288,6 @@ class WebController extends Controller
 
     public function friend_requests()
     {
-
         // Get the logged-in user's ID
         $userId = Auth::user()->id;
 
@@ -298,19 +297,13 @@ class WebController extends Controller
         // Get all posts made by the user with media (if available)
         $posts = Post::where('user_id', $userId)->get();
 
-        $friendsAsSender = FriendRequest::where('sender_id', $userId)
+        // Get friend requests where the logged-in user is the receiver
+        $friendRequests = FriendRequest::where('receiver_id', $userId)
             ->where('status', 'pending')
-            ->pluck('receiver_id'); // Get the IDs of the receivers
+            ->pluck('sender_id'); // Only fetch sender IDs
 
-        $friendsAsReceiver = FriendRequest::where('receiver_id', $userId)
-            ->where('status', 'pending')
-            ->pluck('sender_id'); // Get the IDs of the senders
-
-        // Combine both to get all friends
-        $friendIds = $friendsAsSender->merge($friendsAsReceiver);
-
-        // Fetch the friend users
-        $friends = User::whereIn('id', $friendIds)->orderBy('created_at', 'desc')->get();
+        // Fetch the users who sent the friend requests
+        $friends = User::whereIn('id', $friendRequests)->orderBy('created_at', 'desc')->get();
 
         return view('friends-requests', compact('user', 'posts', 'friends'));
     }
@@ -503,7 +496,7 @@ class WebController extends Controller
                             'product_data' => [
                                 'name' => 'Order Payment',
                             ],
-                            'unit_amount' => 5000,  // Amount in cents
+                            'unit_amount' => 799,  // Amount in cents
                         ],
                         'quantity' => 1,
                     ]

@@ -71,7 +71,7 @@
     <link rel="alternate" type="application/rss+xml" title="Beehive Preview | Site Wide Activity RSS Feed"
         href="https://mythemestore.com/beehive-preview/activity/feed/" />
 
-    <title>Stream Wager - Registration</title>
+    <title>HoopXRecruit - Login</title>
     <meta name='robots' content='max-image-preview:large' />
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
     <link rel="alternate" type="application/rss+xml" title="Beehive Preview &raquo; Feed"
@@ -1696,78 +1696,7 @@
                                                                             data-element_type="column">
                                                                             <div
                                                                                 class="elementor-widget-wrap elementor-element-populated">
-                                                                                <div class="elementor-element elementor-element-d940293 elementor-invisible elementor-widget elementor-widget-heading"
-                                                                                    data-id="d940293"
-                                                                                    data-element_type="widget"
-                                                                                    data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
-                                                                                    data-widget_type="heading.default">
-                                                                                    <div
-                                                                                        class="elementor-widget-container">
-                                                                                        <h3
-                                                                                            class="elementor-heading-title elementor-size-default">
-                                                                                            Join Now</h3>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="elementor-element elementor-element-9a6d6c8 elementor-invisible elementor-widget elementor-widget-text-editor"
-                                                                                    data-id="9a6d6c8"
-                                                                                    data-element_type="widget"
-                                                                                    data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
-                                                                                    data-widget_type="text-editor.default">
-                                                                                    <div
-                                                                                        class="elementor-widget-container">
-                                                                                        <p>Lorem ipsum dolor sit amet,
-                                                                                            consectetur adipiscing elit.
-                                                                                            Ut elit tellus, luctus.</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="elementor-element elementor-element-633213d elementor-mobile-align-center elementor-invisible elementor-widget elementor-widget-beehive-iconbox"
-                                                                                    data-id="633213d"
-                                                                                    data-element_type="widget"
-                                                                                    data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
-                                                                                    data-widget_type="beehive-iconbox.default">
-                                                                                    <div
-                                                                                        class="elementor-widget-container">
 
-                                                                                        <div
-                                                                                            class="beehive-iconbox-element beehive-element icon-view-framed icon-shape-rounded">
-                                                                                            <div class="icon-wrapper">
-                                                                                                <i aria-hidden="true"
-                                                                                                    class="fas fa-laptop"></i>
-                                                                                            </div>
-                                                                                            <div class="iconbox-info">
-                                                                                                <h4 class="title">
-                                                                                                    Community</h4>
-                                                                                                <p class="description">
-                                                                                                    At vero eos et
-                                                                                                    accusamus et.</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="elementor-element elementor-element-8d74799 elementor-mobile-align-center elementor-invisible elementor-widget elementor-widget-beehive-iconbox"
-                                                                                    data-id="8d74799"
-                                                                                    data-element_type="widget"
-                                                                                    data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
-                                                                                    data-widget_type="beehive-iconbox.default">
-                                                                                    <div
-                                                                                        class="elementor-widget-container">
-
-                                                                                        <div
-                                                                                            class="beehive-iconbox-element beehive-element icon-view-framed icon-shape-rounded">
-                                                                                            <div class="icon-wrapper">
-                                                                                                <i aria-hidden="true"
-                                                                                                    class="fas fa-shopping-basket"></i>
-                                                                                            </div>
-                                                                                            <div class="iconbox-info">
-                                                                                                <h4 class="title">
-                                                                                                    Online shop</h4>
-                                                                                                <p class="description">
-                                                                                                    At vero eos et
-                                                                                                    accusamus et.</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
                                                                                 <div class="elementor-element elementor-element-4bc7a15 elementor-mobile-align-center elementor-invisible elementor-widget elementor-widget-beehive-iconbox"
                                                                                     data-id="4bc7a15"
                                                                                     data-element_type="widget"
@@ -1778,16 +1707,10 @@
 
                                                                                         <div
                                                                                             class="beehive-iconbox-element beehive-element icon-view-framed icon-shape-rounded">
-                                                                                            <div class="icon-wrapper">
-                                                                                                <i aria-hidden="true"
-                                                                                                    class="fas fa-briefcase"></i>
-                                                                                            </div>
                                                                                             <div class="iconbox-info">
-                                                                                                <h4 class="title">Job
-                                                                                                    search</h4>
-                                                                                                <p class="description">
-                                                                                                    At vero eos et
-                                                                                                    accusamus et.</p>
+                                                                                                <h4 class="title">
+                                                                                                    Login to HOOPXRECRUIT
+                                                                                                </h4>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -1807,10 +1730,8 @@
                                                                                     data-widget_type="image.default">
                                                                                     <div
                                                                                         class="elementor-widget-container">
-                                                                                        <img decoding="async"
-                                                                                            width="1"
-                                                                                            height="1"
-                                                                                            src="https://mythemestore.com/beehive-preview/wp-content/uploads/2020/07/logo-icon.svg"
+                                                                                        <img decoding="async" style="width: 100px;"
+                                                                                            src="{{ asset('assets/img/logoblack.png') }}"
                                                                                             class="attachment-thumbnail size-thumbnail wp-image-837"
                                                                                             alt="" />
                                                                                     </div>
@@ -1824,7 +1745,7 @@
                                                                                         class="elementor-widget-container">
                                                                                         <h3
                                                                                             class="elementor-heading-title elementor-size-default">
-                                                                                            Welcome</h3>
+                                                                                            HOOPXRECRUIT</h3>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="elementor-element elementor-element-02df375 elementor-invisible elementor-widget elementor-widget-text-editor"
@@ -1834,7 +1755,7 @@
                                                                                     data-widget_type="text-editor.default">
                                                                                     <div
                                                                                         class="elementor-widget-container">
-                                                                                        <p>Fill the Details to Sign up
+                                                                                        <p>Fill the Details to Login
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
@@ -1882,7 +1803,7 @@
                                                                                                     </div>
 
                                                                                                     <div class="register-link">
-                                                                                                        <p class="color-primary">Don't have an account? <a href="/register">Sign up</a></p>
+                                                                                                        <p class="color-primary">Dont have an account? <a href="/register">Sign up</a></p>
                                                                                                     </div>
                                                                                                 </form>
 
@@ -1909,7 +1830,7 @@
                                                                                     data-element_type="widget"
                                                                                     data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}"
                                                                                     data-widget_type="beehive-inline-menu.default">
-                                                                                    <div
+                                                                                    {{--  <div
                                                                                         class="elementor-widget-container">
 
                                                                                         <div
@@ -1946,7 +1867,7 @@
                                                                                                 </ul>
                                                                                             </nav>
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div>  --}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
