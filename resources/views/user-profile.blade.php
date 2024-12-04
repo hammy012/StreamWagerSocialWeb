@@ -479,7 +479,7 @@
                                                                                         <a href="javascript:void(0);"
                                                                                             onclick="likePost({{ $post->id }})"
                                                                                             id="like-button-{{ $post->id }}"
-                                                                                            class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
+                                                                                            class="button {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
                                                                                             style="color: {{ Auth::user()->hasLiked($post->id) ? '#4B3649' : '#777' }}">
                                                                                             <i
                                                                                                 class="fa fa-thumbs-up mr-2"></i>
