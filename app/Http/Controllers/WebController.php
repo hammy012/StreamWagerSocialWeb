@@ -37,7 +37,7 @@ class WebController extends Controller
         $user = User::find($userId);
 
         // Get all posts made by the user with media (if available)
-        $posts = Post::where('user_id', $userId)->get();
+        $posts = Post::where('user_id', $userId)->orderBy('created_at','desc')->get();
 
         // Pass the user and posts (with media) to the view
         return view('profile', compact('user', 'posts'));

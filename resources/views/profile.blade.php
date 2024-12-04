@@ -521,30 +521,47 @@
                                                                 </div>
 
                                                                 <div class="widget">
-                                                                    <h5 class="widget-title">My photos</h5>
+                                                                    <!-- My Photos Section -->
+                                                                    <h5 class="widget-title">My Photos</h5>
                                                                     <ul class="member-photo-list" style="gap: 8px;">
                                                                         @foreach ($posts as $post)
                                                                             @php
-                                                                                $media = App\Models\Media::where(
-                                                                                    'post_id',
-                                                                                    $post->id,
-                                                                                )->first();
+                                                                                $media = App\Models\Media::where('post_id', $post->id)->where('media_type', 'like', '%image%')->first();
                                                                             @endphp
 
                                                                             @if ($media)
-                                                                                @if (str_contains($media->media_type, 'image'))
-                                                                                    <div class="inner">
-                                                                                        <img style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;"
-                                                                                            decoding="async"
-                                                                                            src="{{ asset($media->media_url) }}"
-                                                                                            alt="Photo" />
-                                                                                    </div>
-                                                                                @endif
+                                                                                <div class="inner">
+                                                                                    <img style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;"
+                                                                                        decoding="async"
+                                                                                        src="{{ asset($media->media_url) }}"
+                                                                                        alt="Photo" />
+                                                                                </div>
                                                                             @endif
                                                                         @endforeach
-
                                                                     </ul>
                                                                 </div>
+
+                                                                <div class="widget" style="margin-top: 20px;">
+                                                                    <!-- My Videos Section -->
+                                                                    <h5 class="widget-title">My Videos</h5>
+                                                                    <ul class="member-photo-list" style="gap: 8px;">
+                                                                        @foreach ($posts as $post)
+                                                                            @php
+                                                                                $media = App\Models\Media::where('post_id', $post->id)->where('media_type', 'like', '%video%')->first();
+                                                                            @endphp
+
+                                                                            @if ($media)
+                                                                                <div class="inner">
+                                                                                    <video style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;" controls>
+                                                                                        <source src="{{ asset($media->media_url) }}" type="{{ $media->media_type }}">
+                                                                                        Your browser does not support the video tag.
+                                                                                    </video>
+                                                                                </div>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+
                                                             </aside>
                                                         </div>
 
@@ -568,123 +585,6 @@
                                                             <div id="activity-stream" class="activity single-user"
                                                                 data-bp-list="activity" style="">
                                                                 <ul class="activity-list item-list bp-list">
-                                                                    {{--  <li class="activity activity_comment activity-item animate-item slideInUp"
-                                                                        id="activity-16181" data-bp-activity-id="16181"
-                                                                        data-bp-timestamp="1730321202"
-                                                                        style="
-                                                                            visibility: visible;
-                                                                            animation-name: slideInUp;
-                                                                            ">
-                                                                        <div class="activity-avatar item-avatar">
-                                                                            <a
-                                                                                href="https://mythemestore.com/beehive-preview/members/user/">
-                                                                                <img loading="lazy"
-                                                                                    src="https://mythemestore.com/beehive-preview/wp-content/uploads/avatars/3/1730269944-bpfull.jpg"
-                                                                                    class="avatar user-3-avatar avatar-200 photo"
-                                                                                    width="200" height="200"
-                                                                                    alt="Profile picture of Tum Yeto" />
-                                                                            </a>
-                                                                        </div>
-
-                                                                        <div class="activity-content">
-                                                                            <div class="activity-header">
-                                                                                <div class="posted-meta">
-                                                                                    <p>
-                                                                                        <a
-                                                                                            href="https://mythemestore.com/beehive-preview/members/user/">Tum
-                                                                                            Yeto</a>
-                                                                                        posted a new activity comment
-                                                                                    </p>
-                                                                                </div>
-
-                                                                                <div class="date mute">
-                                                                                    13 hours, 49 minutes ago
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="activity-inner">
-                                                                                <div class="rtmedia-activity-container">
-                                                                                    <div class="rtmedia-activity-text">
-                                                                                        <span
-                                                                                            data-reaction-type="like">this
-                                                                                            is fucked up<br />
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <ul
-                                                                                        class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-0 rtm-activity-mixed-list rtm-activity-list-rendered">
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="activity-meta action">
-                                                                                <div class="generic-button">
-                                                                                    <a class="button view bp-secondary-action bp-tooltip"
-                                                                                        data-bp-tooltip="View Conversation"
-                                                                                        href="https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
-                                                                                        role="button"><span
-                                                                                            class="bp-screen-reader-text">View
-                                                                                            Conversation</span></a>
-                                                                                </div>
-                                                                                <div class="generic-button reactions">
-                                                                                    <a href="#"
-                                                                                        data-reaction-type=""
-                                                                                        class="button react-to-activity"><span
-                                                                                            class="bp-screen-reader-text">Like</span></a>
-                                                                                    <div class="pick-reaction">
-                                                                                        <span class="reaction like"><span
-                                                                                                class="reaction-tooltip">Like</span></span><span
-                                                                                            class="reaction love"><span
-                                                                                                class="reaction-tooltip">Love</span></span><span
-                                                                                            class="reaction care"><span
-                                                                                                class="reaction-tooltip">Care</span></span><span
-                                                                                            class="reaction haha"><span
-                                                                                                class="reaction-tooltip">Haha</span></span><span
-                                                                                            class="reaction wow"><span
-                                                                                                class="reaction-tooltip">Wow</span></span><span
-                                                                                            class="reaction sad"><span
-                                                                                                class="reaction-tooltip">Sad</span></span><span
-                                                                                            class="reaction angry"><span
-                                                                                                class="reaction-tooltip">Angry</span></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="generic-button">
-                                                                                    <a href="#"
-                                                                                        id="activity-share-16181"
-                                                                                        class="button share-activity"><span
-                                                                                            class="bp-screen-reader-text">Share</span></a>
-                                                                                    <ul class="share-activity-options"
-                                                                                        aria-labelledby="activity-share-16181"
-                                                                                        style="display: none">
-                                                                                        <li>
-                                                                                            <a id="share-on-activity-16181"
-                                                                                                href="#"
-                                                                                                class="share-item share-on-activity"
-                                                                                                data-share-id="16181">Share
-                                                                                                on Activity</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
-                                                                                                class="share-item share-on-facebook"
-                                                                                                target="_blank">Share on
-                                                                                                Facebook</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="https://twitter.com/intent/tweet?url=https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
-                                                                                                class="share-item share-on-twitter"
-                                                                                                target="_blank">Share on
-                                                                                                Twitter</a>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://mythemestore.com/beehive-preview/activity/p/16180/#acomment-16181"
-                                                                                                class="share-item share-on-linkedin"
-                                                                                                target="_blank">Share on
-                                                                                                Linkedin</a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>  --}}
 
                                                                     @foreach ($posts as $post)
                                                                         <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
@@ -739,17 +639,16 @@
                                                                                                                 alt="{{ $media->media_url }}"
                                                                                                                 src="{{ asset($media->media_url) }}" />
                                                                                                         </div>
-                                                                                                    @elseif(str_contains($media->media_type, 'video'))
-                                                                                                        <div
-                                                                                                            class="rtmedia-item-thumbnail">
+                                                                                                    @elseif(str_contains($media->media_type, 'video/mp4'))
+                                                                                                        {{--  <div
+                                                                                                            class="rtmedia-item-thumbnail">  --}}
                                                                                                             <video
                                                                                                                 loading="lazy"
                                                                                                                 controls>
-                                                                                                                <source
-                                                                                                                    src="{{ asset($media->media_url) }}"
-                                                                                                                    type="{{ $media->media_url }}">
+                                                                                                                <source src="{{ asset($media->media_url) }}" type="{{ $media->media_type }}">
+
                                                                                                             </video>
-                                                                                                        </div>
+                                                                                                        {{--  </div>  --}}
                                                                                                     @endif
                                                                                                 @endif
                                                                                             </li>

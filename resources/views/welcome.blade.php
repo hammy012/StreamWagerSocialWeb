@@ -120,7 +120,10 @@
                                                     <ul class="activity-list item-list bp-list">
                                                         @foreach ($posts as $post)
                                                             @php
-                                                                $postUser = App\Models\User::where('id', $post->user_id)->first()
+                                                                $postUser = App\Models\User::where(
+                                                                    'id',
+                                                                    $post->user_id,
+                                                                )->first();
                                                             @endphp
                                                             <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
                                                                 id="activity-{{ $post->id }}"
@@ -129,7 +132,8 @@
 
                                                                 <!-- Avatar and other post details -->
                                                                 <div class="activity-avatar item-avatar">
-                                                                    <a href="{{ route('user-profile', ['id' => $postUser->id]) }}">
+                                                                    <a
+                                                                        href="{{ route('user-profile', ['id' => $postUser->id]) }}">
                                                                         <img loading="lazy"
                                                                             src="{{ asset($postUser->profile_picture) }}"
                                                                             class="avatar user-3-avatar avatar-200 photo"
@@ -141,8 +145,10 @@
                                                                 <div class="activity-content">
                                                                     <div class="activity-header">
                                                                         <div class="posted-meta">
-                                                                            <p><a href="{{ route('user-profile', ['id' => $postUser->id]) }}">{{ $postUser->first_name }}
-                                                                                    {{ $postUser->last_name }}</a> posted</p>
+                                                                            <p><a
+                                                                                    href="{{ route('user-profile', ['id' => $postUser->id]) }}">{{ $postUser->first_name }}
+                                                                                    {{ $postUser->last_name }}</a> posted
+                                                                            </p>
                                                                         </div>
                                                                         <div class="date mute">
                                                                             {{ $post->created_at->diffForHumans() }}
@@ -171,16 +177,16 @@
                                                                                                     alt="{{ $media->media_url }}"
                                                                                                     src="{{ asset($media->media_url) }}" />
                                                                                             </div>
-                                                                                        @elseif(str_contains($media->media_type, 'video'))
-                                                                                            <div
-                                                                                                class="rtmedia-item-thumbnail">
-                                                                                                <video loading="lazy"
-                                                                                                    controls>
-                                                                                                    <source
-                                                                                                        src="{{ asset($media->media_url) }}"
-                                                                                                        type="{{ $media->media_url }}">
-                                                                                                </video>
-                                                                                            </div>
+                                                                                        @elseif(str_contains($media->media_type, 'video/mp4'))
+                                                                                            {{--  <div
+                                                                                                class="rtmedia-item-thumbnail">  --}}
+                                                                                            <video loading="lazy" controls>
+                                                                                                <source
+                                                                                                    src="{{ asset($media->media_url) }}"
+                                                                                                    type="{{ $media->media_type }}">
+
+                                                                                            </video>
+                                                                                            {{--  </div>  --}}
                                                                                         @endif
                                                                                     @endif
                                                                                 </li>
@@ -192,12 +198,13 @@
                                                                     <div class="activity-meta action">
                                                                         <div class="generic-button">
                                                                             <a href="javascript:void(0);"
-                                                                               onclick="likePost({{ $post->id }})"
-                                                                               id="like-button-{{ $post->id }}"
-                                                                               class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
-                                                                               style="color: {{ Auth::user()->hasLiked($post->id) ? '#4B3649' : '#777' }}">
-                                                                               <i class="fa fa-thumbs-up mr-2"></i>
-                                                                                {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}  {{ $post->likes()->count() }}
+                                                                                onclick="likePost({{ $post->id }})"
+                                                                                id="like-button-{{ $post->id }}"
+                                                                                class="button react-to-activity {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
+                                                                                style="color: {{ Auth::user()->hasLiked($post->id) ? '#4B3649' : '#777' }}">
+                                                                                <i class="fa fa-thumbs-up mr-2"></i>
+                                                                                {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
+                                                                                {{ $post->likes()->count() }}
                                                                             </a>
                                                                         </div>
                                                                         <div class="generic-button">
@@ -207,8 +214,8 @@
                                                                                 aria-expanded="false"
                                                                                 href="javascript:void(0);" role="button"
                                                                                 onclick="toggleCommentInput({{ $post->id }})">
-                                                                                <span
-                                                                                    class="bp-screen-reader-text" style="display: block !important;">Comment</span>
+                                                                                <span class="bp-screen-reader-text"
+                                                                                    style="display: block !important;">Comment</span>
                                                                                 <span
                                                                                     class="comment-count">{{ $post->comments()->count() }}</span>
                                                                                 <!-- Display comment count -->
@@ -231,10 +238,15 @@
                                                                         id="comments-{{ $post->id }}">
                                                                         @foreach ($post->comments as $comment)
                                                                             @php($userComment = App\Models\User::where('id', $comment->user_id)->first())
-                                                                            <div class="comment" style="display: flex; align-items:center; gap: 12px; margin-top: 12px; background: #eee; padding: 12px; border-radius: 25px;">
-                                                                                <img src="{{ asset($userComment->profile_picture) }}" style="width: 30px; height: 30px; border-radius: 50%" alt="">
-                                                                                <a href="{{ route('user-profile', ['id' => $userComment->id]) }}" class="color-primary"><strong>{{ $comment->user->first_name }}
-                                                                                    {{ $comment->user->last_name }} : </strong></a>
+                                                                            <div class="comment"
+                                                                                style="display: flex; align-items:center; gap: 12px; margin-top: 12px; background: #eee; padding: 12px; border-radius: 25px;">
+                                                                                <img src="{{ asset($userComment->profile_picture) }}"
+                                                                                    style="width: 30px; height: 30px; border-radius: 50%"
+                                                                                    alt="">
+                                                                                <a href="{{ route('user-profile', ['id' => $userComment->id]) }}"
+                                                                                    class="color-primary"><strong>{{ $comment->user->first_name }}
+                                                                                        {{ $comment->user->last_name }} :
+                                                                                    </strong></a>
                                                                                 <p>{{ $comment->content }}</p>
                                                                             </div>
                                                                         @endforeach
@@ -277,7 +289,9 @@
                                                     <a href="{{ route('user-profile', ['id' => $user->id]) }}"><img
                                                             loading="lazy" loading="lazy"
                                                             src="{{ asset($user->profile_picture) }}"
-                                                            class="avatar user-3-avatar avatar-50 photo" style="width: 50px; height: 40px;" alt="Profile picture" /></a>
+                                                            class="avatar user-3-avatar avatar-50 photo"
+                                                            style="width: 50px; height: 40px;"
+                                                            alt="Profile picture" /></a>
                                                 </div>
 
                                                 <div class="item">
@@ -335,25 +349,27 @@
         function likePost(postId) {
             // Send AJAX request to like/unlike the post
             fetch(`/like/${postId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ post_id: postId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Toggle the button text and color based on like status
-                const likeButton = document.getElementById(`like-button-${postId}`);
-                if (data.liked) {
-                    likeButton.style.color = '#4B3649'; // Liked color
-                    likeButton.textContent = 'Liked';
-                } else {
-                    likeButton.style.color = '#777'; // Default color
-                    likeButton.textContent = 'Like';
-                }
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        post_id: postId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Toggle the button text and color based on like status
+                    const likeButton = document.getElementById(`like-button-${postId}`);
+                    if (data.liked) {
+                        likeButton.style.color = '#4B3649'; // Liked color
+                        likeButton.textContent = 'Liked';
+                    } else {
+                        likeButton.style.color = '#777'; // Default color
+                        likeButton.textContent = 'Like';
+                    }
+                });
         }
     </script>
     <script>

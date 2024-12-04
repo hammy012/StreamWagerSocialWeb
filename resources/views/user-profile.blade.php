@@ -456,17 +456,16 @@
                                                                                                                 alt="{{ $media->media_url }}"
                                                                                                                 src="{{ asset($media->media_url) }}" />
                                                                                                         </div>
-                                                                                                    @elseif(str_contains($media->media_type, 'video'))
-                                                                                                        <div
-                                                                                                            class="rtmedia-item-thumbnail">
+                                                                                                        @elseif(str_contains($media->media_type, 'video/mp4'))
+                                                                                                        {{--  <div
+                                                                                                            class="rtmedia-item-thumbnail">  --}}
                                                                                                             <video
                                                                                                                 loading="lazy"
                                                                                                                 controls>
-                                                                                                                <source
-                                                                                                                    src="{{ asset($media->media_url) }}"
-                                                                                                                    type="{{ $media->media_url }}">
+                                                                                                                <source src="{{ asset($media->media_url) }}" type="{{ $media->media_type }}">
+
                                                                                                             </video>
-                                                                                                        </div>
+                                                                                                        {{--  </div>  --}}
                                                                                                     @endif
                                                                                                 @endif
                                                                                             </li>
