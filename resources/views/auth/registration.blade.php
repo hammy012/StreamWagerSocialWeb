@@ -1609,13 +1609,21 @@
                                                 <section
                                                     class="elementor-section elementor-top-section elementor-element elementor-element-0405d30 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle"
                                                     data-id="0405d30" data-element_type="section"
-                                                    data-settings="{&quot;background_background&quot;:&quot;video&quot;,&quot;background_video_link&quot;:&quot;https:\/\/mythemestore.com\/friend-finder\/videos\/8.mp4&quot;}">
+                                                    data-settings='{"background_background":"video","background_video_link":"{{ asset('assets/videos/video.mp4') }}"}'>
+
+                                                    <!-- Background Video Container -->
                                                     <div
                                                         class="elementor-background-video-container elementor-hidden-phone">
                                                         <video
                                                             class="elementor-background-video-hosted elementor-html5-video"
-                                                            autoplay muted playsinline loop></video>
+                                                            autoplay muted playsinline loop>
+                                                            <source src="{{ asset('assets/videos/video.mp4') }}"
+                                                                type="video/mp4">
+                                                            Your browser does not support the video tag.
+                                                        </video>
                                                     </div>
+
+                                                    <!-- Background Overlay -->
                                                     <div class="elementor-background-overlay"></div>
                                                     <div class="elementor-container elementor-column-gap-default">
                                                         <div class="elementor-column elementor-col-16 elementor-top-column elementor-element elementor-element-e541bc9"
@@ -1652,7 +1660,8 @@
                                                                                             class="beehive-iconbox-element beehive-element icon-view-framed icon-shape-rounded">
                                                                                             <div class="iconbox-info">
                                                                                                 <h4 class="title">
-                                                                                                    Register to HOOPXRECRUIT
+                                                                                                    Register to
+                                                                                                    HOOPXRECRUIT
                                                                                                 </h4>
                                                                                             </div>
                                                                                         </div>
@@ -1673,7 +1682,8 @@
                                                                                     data-widget_type="image.default">
                                                                                     <div
                                                                                         class="elementor-widget-container">
-                                                                                        <img decoding="async" style="width: 100px;"
+                                                                                        <img decoding="async"
+                                                                                            style="width: 100px;"
                                                                                             src="{{ asset('assets/img/logo.jpg') }}"
                                                                                             class="attachment-thumbnail size-thumbnail wp-image-837"
                                                                                             alt="" />
@@ -1714,38 +1724,97 @@
                                                                                             class="beehive-login-element beehive-element default">
                                                                                             <div
                                                                                                 class="login-form-wrapper">
-                                                                                                <form action="{{ route('register') }}" method="post" enctype="multipart/form-data" class="beehive-login-form element-login-form">
+                                                                                                <form
+                                                                                                    action="{{ route('register') }}"
+                                                                                                    method="post"
+                                                                                                    enctype="multipart/form-data"
+                                                                                                    class="beehive-login-form element-login-form">
                                                                                                     @csrf
-                                                                                                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                                                                                                    <x-auth-validation-errors
+                                                                                                        class="mb-4"
+                                                                                                        :errors="$errors" />
 
-                                                                                                    <div class="form-group">
-                                                                                                        <label>Profile Picture : <span style="color: red; opacity: .7;">ratio (1:1)</span> </label>
-                                                                                                        <input type="file" name="profile_picture" required placeholder="Profile Picture">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <label>Profile
+                                                                                                            Picture :
+                                                                                                            <span
+                                                                                                                style="color: red; opacity: .7;">ratio
+                                                                                                                (1:1)</span>
+                                                                                                        </label>
+                                                                                                        <input
+                                                                                                            type="file"
+                                                                                                            name="profile_picture"
+                                                                                                            required
+                                                                                                            placeholder="Profile Picture">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="text" name="first_name" required placeholder="First Name">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            name="first_name"
+                                                                                                            required
+                                                                                                            placeholder="First Name">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="text" name="last_name" required placeholder="Last Name">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            name="last_name"
+                                                                                                            required
+                                                                                                            placeholder="Last Name">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="text" name="username" required placeholder="Username">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            name="username"
+                                                                                                            required
+                                                                                                            placeholder="Username">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <select name="type" style="width: 100%">
-                                                                                                            <option selected disabled>Type</option>
-                                                                                                            <option value="player">Player</option>
-                                                                                                            <option value="coach">Coach</option>
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <select
+                                                                                                            name="type"
+                                                                                                            style="width: 100%">
+                                                                                                            <option
+                                                                                                                selected
+                                                                                                                disabled>
+                                                                                                                Type
+                                                                                                            </option>
+                                                                                                            <option
+                                                                                                                value="player">
+                                                                                                                Player
+                                                                                                            </option>
+                                                                                                            <option
+                                                                                                                value="coach">
+                                                                                                                Coach
+                                                                                                            </option>
                                                                                                         </select>
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="text" name="email" required placeholder="Email">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            name="email"
+                                                                                                            required
+                                                                                                            placeholder="Email">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="password" name="password" required placeholder="Password">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="password"
+                                                                                                            name="password"
+                                                                                                            required
+                                                                                                            placeholder="Password">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="password" name="password_confirmation" required placeholder="Confirm Password">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="password"
+                                                                                                            name="password_confirmation"
+                                                                                                            required
+                                                                                                            placeholder="Confirm Password">
                                                                                                     </div>
 
                                                                                                     {{--  <div class="form-options">
@@ -1764,12 +1833,25 @@
                                                                                                         </div>
                                                                                                     </div>  --}}
 
-                                                                                                    <div class="submit">
-                                                                                                        <button type="submit" id="element_login_submit" class="wide submit-login ellipsis">Sign up</button>
+                                                                                                    <div
+                                                                                                        class="submit">
+                                                                                                        <button
+                                                                                                            type="submit"
+                                                                                                            id="element_login_submit"
+                                                                                                            class="wide submit-login ellipsis">Sign
+                                                                                                            up</button>
                                                                                                     </div>
 
-                                                                                                    <div class="register-link">
-                                                                                                        <p class="color-primary">Already have an account? <a href="/login">Sign in</a></p>
+                                                                                                    <div
+                                                                                                        class="register-link">
+                                                                                                        <p
+                                                                                                            class="color-primary">
+                                                                                                            Already have
+                                                                                                            an account?
+                                                                                                            <a
+                                                                                                                href="/login">Sign
+                                                                                                                in</a>
+                                                                                                        </p>
                                                                                                     </div>
                                                                                                 </form>
 

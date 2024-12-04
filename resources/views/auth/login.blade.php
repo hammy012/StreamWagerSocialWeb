@@ -1668,13 +1668,21 @@
                                                 <section
                                                     class="elementor-section elementor-top-section elementor-element elementor-element-0405d30 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle"
                                                     data-id="0405d30" data-element_type="section"
-                                                    data-settings="{&quot;background_background&quot;:&quot;video&quot;,&quot;background_video_link&quot;:&quot;https:\/\/mythemestore.com\/friend-finder\/videos\/8.mp4&quot;}">
+                                                    data-settings='{"background_background":"video","background_video_link":"{{ asset('assets/videos/video.mp4') }}"}'>
+
+                                                    <!-- Background Video Container -->
                                                     <div
                                                         class="elementor-background-video-container elementor-hidden-phone">
                                                         <video
                                                             class="elementor-background-video-hosted elementor-html5-video"
-                                                            autoplay muted playsinline loop></video>
+                                                            autoplay muted playsinline loop>
+                                                            <source src="{{ asset('assets/videos/video.mp4') }}"
+                                                                type="video/mp4">
+                                                            Your browser does not support the video tag.
+                                                        </video>
                                                     </div>
+
+                                                    <!-- Background Overlay -->
                                                     <div class="elementor-background-overlay"></div>
                                                     <div class="elementor-container elementor-column-gap-default">
                                                         <div class="elementor-column elementor-col-16 elementor-top-column elementor-element elementor-element-e541bc9"
@@ -1709,7 +1717,8 @@
                                                                                             class="beehive-iconbox-element beehive-element icon-view-framed icon-shape-rounded">
                                                                                             <div class="iconbox-info">
                                                                                                 <h4 class="title">
-                                                                                                    Login to HOOPXRECRUIT
+                                                                                                    Login to
+                                                                                                    HOOPXRECRUIT
                                                                                                 </h4>
                                                                                             </div>
                                                                                         </div>
@@ -1730,7 +1739,8 @@
                                                                                     data-widget_type="image.default">
                                                                                     <div
                                                                                         class="elementor-widget-container">
-                                                                                        <img decoding="async" style="width: 100px;"
+                                                                                        <img decoding="async"
+                                                                                            style="width: 100px;"
                                                                                             src="{{ asset('assets/img/logo.jpg') }}"
                                                                                             class="attachment-thumbnail size-thumbnail wp-image-837"
                                                                                             alt="" />
@@ -1771,39 +1781,77 @@
                                                                                             class="beehive-login-element beehive-element default">
                                                                                             <div
                                                                                                 class="login-form-wrapper">
-                                                                                                <form action="{{ route('login') }}" method="post" class="beehive-login-form element-login-form">
+                                                                                                <form
+                                                                                                    action="{{ route('login') }}"
+                                                                                                    method="post"
+                                                                                                    class="beehive-login-form element-login-form">
                                                                                                     @csrf
-                                                                                                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                                                                                                    <x-auth-validation-errors
+                                                                                                        class="mb-4"
+                                                                                                        :errors="$errors" />
 
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="text" name="email" required placeholder="Email">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            name="email"
+                                                                                                            required
+                                                                                                            placeholder="Email">
                                                                                                     </div>
-                                                                                                    <div class="form-group">
-                                                                                                        <input type="password" name="password" required placeholder="Password">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            type="password"
+                                                                                                            name="password"
+                                                                                                            required
+                                                                                                            placeholder="Password">
                                                                                                     </div>
 
-                                                                                                    <div class="form-options">
-                                                                                                        <div class="row">
-                                                                                                            <div class="col-6">
-                                                                                                                <label for="element-rememberme">
-                                                                                                                    <input type="checkbox" name="remember" id="element-rememberme">
+                                                                                                    <div
+                                                                                                        class="form-options">
+                                                                                                        <div
+                                                                                                            class="row">
+                                                                                                            <div
+                                                                                                                class="col-6">
+                                                                                                                <label
+                                                                                                                    for="element-rememberme">
+                                                                                                                    <input
+                                                                                                                        type="checkbox"
+                                                                                                                        name="remember"
+                                                                                                                        id="element-rememberme">
                                                                                                                     Remember
                                                                                                                 </label>
                                                                                                             </div>
-                                                                                                            <div class="col-6">
-                                                                                                                <div class="forgot-password">
-                                                                                                                    <a href="#">Lost Password?</a>
+                                                                                                            <div
+                                                                                                                class="col-6">
+                                                                                                                <div
+                                                                                                                    class="forgot-password">
+                                                                                                                    <a
+                                                                                                                        href="#">Lost
+                                                                                                                        Password?</a>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
 
-                                                                                                    <div class="submit">
-                                                                                                        <button type="submit" id="element_login_submit" class="wide submit-login ellipsis">Sign in</button>
+                                                                                                    <div
+                                                                                                        class="submit">
+                                                                                                        <button
+                                                                                                            type="submit"
+                                                                                                            id="element_login_submit"
+                                                                                                            class="wide submit-login ellipsis">Sign
+                                                                                                            in</button>
                                                                                                     </div>
 
-                                                                                                    <div class="register-link">
-                                                                                                        <p class="color-primary">Dont have an account? <a href="/register">Sign up</a></p>
+                                                                                                    <div
+                                                                                                        class="register-link">
+                                                                                                        <p
+                                                                                                            class="color-primary">
+                                                                                                            Dont have an
+                                                                                                            account? <a
+                                                                                                                href="/register">Sign
+                                                                                                                up</a>
+                                                                                                        </p>
                                                                                                     </div>
                                                                                                 </form>
 

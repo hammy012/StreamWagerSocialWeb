@@ -658,8 +658,6 @@
 
                                                                                 <div class="activity-meta action">
                                                                                     <div class="generic-button">
-
-
                                                                                         <a href="javascript:void(0);"
                                                                                             onclick="likePost({{ $post->id }})"
                                                                                             id="like-button-{{ $post->id }}"
