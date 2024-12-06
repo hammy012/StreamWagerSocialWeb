@@ -9,10 +9,12 @@ use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\StatusUpdatedMail;
 
 class HomeController extends Controller
 {
@@ -168,6 +170,12 @@ class HomeController extends Controller
         return view('admin.users.list', compact('users'));
     }
 
+    public function user_view($id){
+        $user = User::find($id);
+
+        return view('admin.users.view', compact('user'));
+    }
+
     public function user_delete($id)
     {
         // Find the project by ID
@@ -212,8 +220,21 @@ class HomeController extends Controller
         $user->status = $request->status;
         $user->save();
 
+        // Prepare the email content
+        if ($request->status == 'Rejected') {
+            $subject = 'Your Sign-Up Request has been Rejected';
+            $description = 'We regret to inform you that your sign-up request has been rejected. Please contact our support team for further clarification.';
+        } elseif ($request->status == 'Verified') {
+            $subject = 'Congratulations! Your Account has been Verified';
+            $description = 'Congratulations! Your account has been verified. You can now log in and start using our platform.';
+        }
+
+        // Send the email
+        Mail::to($user->email)->send(new StatusUpdatedMail($subject, $description));
+
         return redirect()->back()->with('success', 'Status updated successfully.');
     }
+
 
 
 
