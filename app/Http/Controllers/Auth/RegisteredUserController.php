@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 
 class RegisteredUserController extends Controller
 {
@@ -44,11 +46,34 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Store the profile picture
-        $profilePicturePath = 'user_profiles/' . $request->file('profile_picture')->getClientOriginalName();
-        $request->file('profile_picture')->move(public_path('user_profiles'), $profilePicturePath);
+        if ($request->type === 'coach') {
+            // Generate a 6-digit OTP
+            $otp = rand(100000, 999999);
 
-        // Create user with profile picture path
+            // Temporarily save the file with a unique name
+            $fileName = uniqid() . '_profile_pic.' . $request->file('profile_picture')->getClientOriginalExtension();
+            $profilePicturePath = 'user_profiles/' . $fileName;
+            $request->file('profile_picture')->move(public_path('user_profiles'), $fileName);
+
+            // Store OTP and data in session
+            session([
+                'otp_' . $request->email => $otp,
+                'user_data' => array_merge($request->all(), ['profile_picture' => $profilePicturePath]),
+                'email' => $request->email,
+            ]);
+
+            // Send OTP via email
+            Mail::to($request->email)->send(new \App\Mail\SendOtpMail($otp));
+
+            return redirect()->route('verify.otp')->with('email', $request->email);
+        }
+
+        // For players, directly store the profile picture
+        $fileName = uniqid() . '_profile_pic.' . $request->file('profile_picture')->getClientOriginalExtension();
+        $profilePicturePath = 'user_profiles/' . $fileName;
+        $request->file('profile_picture')->move(public_path('user_profiles'), $fileName);
+
+        // Create user without email verification
         $user = User::create([
             'profile_picture' => $profilePicturePath,
             'first_name' => $request->first_name,
@@ -59,10 +84,54 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Trigger registered event and login user
-        event(new Registered($user));
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
+
+
+
+
+    public function verifyOtpForm()
+    {
+        return view('auth.verify-otp');
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required|numeric|digits:6',
+        ]);
+
+        $cachedOtp = session('otp_' . $request->email);
+
+        if ($cachedOtp && $cachedOtp == $request->otp) {
+            // Remove OTP and retrieve user data from session
+            session()->forget('otp_' . $request->email);
+            $data = session('user_data');
+            session()->forget('user_data');
+
+            // Profile picture path already set during the store function
+            $profilePicturePath = $data['profile_picture'];
+
+            // Create the coach user
+            $user = User::create([
+                'profile_picture' => $profilePicturePath,
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'type' => $data['type'],
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            Auth::login($user);
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        return back()->withErrors(['otp' => 'Invalid or expired OTP.']);
+    }
+
+
+
 }

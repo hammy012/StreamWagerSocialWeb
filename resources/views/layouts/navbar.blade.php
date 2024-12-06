@@ -57,7 +57,7 @@
         <div class="container">
             <div id="beehive-ajax-search" class="beehive-ajax-search">
                 <form role="search" method="GET" class="ajax-search-form form-inline" action="{{ route('find-people') }}">
-                    <div class="search-field">
+                    <div class="search-field" style="display: flex">
                         <i class="fa fa-search"></i>
                         <input
                             id="ajax-search-textfield"
@@ -68,15 +68,9 @@
                             autocomplete="off"
                             required
                         />
-                        <span class="beehive-loading-ring"></span>
-                    </div>
-                    <div class="search-button">
-                        <button type="submit" class="search-submit">
-                            <i class="icon ion-android-search"></i>
-                        </button>
+                        <button style="font-size: 12px; padding: .3rem .5rem;">Search</button>
                     </div>
                 </form>
-                <div id="ajax-search-result"></div>
             </div>
 
             <ul id="navbar-user" class="navbar-nav navbar-user">

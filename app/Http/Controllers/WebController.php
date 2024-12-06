@@ -37,7 +37,7 @@ class WebController extends Controller
         $user = User::find($userId);
 
         // Get all posts made by the user with media (if available)
-        $posts = Post::where('user_id', $userId)->orderBy('created_at','desc')->get();
+        $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
 
         // Pass the user and posts (with media) to the view
         return view('profile', compact('user', 'posts'));
@@ -226,15 +226,25 @@ class WebController extends Controller
     {
         $search = $request->input('s');
 
-        $all_users = User::orderBy('created_at', 'desc')->get();
+        // Get all users excluding logged-in user
+        $all_users = User::where('id', '!=', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
+        // Search users excluding logged-in user
         $search_users = User::when($search, function ($query, $search) {
-            return $query->where('first_name', 'LIKE', "%{$search}%")
-                ->orWhere('last_name', 'LIKE', "%{$search}%");
-        })->orderBy('created_at', 'desc')->get();
+            return $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'LIKE', "%{$search}%")
+                    ->orWhere('last_name', 'LIKE', "%{$search}%");
+            });
+        })
+            ->where('id', '!=', auth()->id()) // Exclude logged-in user
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('find-people', compact('all_users', 'search_users'));
     }
+
 
     public function about()
     {
