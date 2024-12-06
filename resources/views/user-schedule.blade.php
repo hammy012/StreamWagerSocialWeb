@@ -194,8 +194,10 @@
                                                             </div>
 
                                                             <div class="col-lg-9">
-                                                                <div id="item-header-content">
+                                                                <div>
                                                                     <h2 class="user-nicename">{{ $user->username }}</h2>
+                                                                    <p class="mt-2">{{ $user->bio }}</p>
+
                                                                 </div>
                                                                 <!-- #item-header-content -->
                                                             </div>

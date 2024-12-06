@@ -154,23 +154,10 @@
                                                             </div>
 
                                                             <div class="col-lg-9">
-                                                                <div id="item-header-content">
+                                                                <div>
                                                                     <h2 class="user-nicename">{{ $user->username }}</h2>
+                                                                    <p class="mt-2">{{ $user->bio }}</p>
 
-                                                                    <ul class="member-header-actions action">
-                                                                        <li class="generic-button">
-                                                                            <a class="edit-profile" href="">Edit
-                                                                                profile</a>
-                                                                        </li>
-                                                                        <li></li>
-                                                                        {{--  <li class="generic-button">
-                                      <a
-                                        class="update-cover"
-                                        href="https://mythemestore.com/beehive-preview/members/user/profile/change-cover-image/#item-body"
-                                        >Update cover</a
-                                      >
-                                    </li>  --}}
-                                                                    </ul>
                                                                 </div>
                                                                 <!-- #item-header-content -->
                                                             </div>
