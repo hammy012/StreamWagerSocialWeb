@@ -82,6 +82,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status' => 'Verified'
         ]);
 
         Auth::login($user);
@@ -123,10 +124,10 @@ class RegisteredUserController extends Controller
                 'username' => $data['username'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
+                'status' => 'Pending'
             ]);
 
-            Auth::login($user);
-            return redirect(RouteServiceProvider::HOME);
+            return redirect()->route('login');
         }
 
         return back()->withErrors(['otp' => 'Invalid or expired OTP.']);

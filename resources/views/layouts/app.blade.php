@@ -1682,9 +1682,9 @@
         }
     </style>
     <link rel="alternate" type="application/rss+xml" title="Beehive Preview | Site Wide Activity RSS Feed"
-        href="https://mythemestore.com/beehive-preview/activity/feed/" />
+        href="" />
 
-    <link rel="canonical" href="https://mythemestore.com/beehive-preview/members/" />
+    <link rel="canonical" href="" />
     <style id="wp-fonts-local" type="text/css">
         @font-face {
             font-family: Inter;

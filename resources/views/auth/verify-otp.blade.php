@@ -1026,8 +1026,8 @@
             --wp--preset--color--vivid-green-cyan: #00d084;
             --wp--preset--color--pale-cyan-blue: #8ed1fc;
             --wp--preset--color--vivid-cyan-blue: #0693e3;
-            --wp--preset--color--vivid-purple: #9b51e0;
-            --wp--preset--color--primary-color: #8224E3;
+            --wp--preset--color--vivid-purple: #4B3649;
+            --wp--preset--color--primary-color: #4B3649;
             --wp--preset--color--very-light-gray: #eeeeee;
             --wp--preset--color--very-dark-gray: #313131;
             --wp--preset--color--white-color: #ffffff;
@@ -1415,20 +1415,20 @@
             --theme-body-line-height: 26px;
             --theme-heading-font-family: Quicksand;
             --theme-heading-font-weight: 700;
-            --theme-color-primary: #8224E3;
+            --theme-color-primary: #4B3649;
             --theme-color-primary-rgb: 130, 36, 227;
-            --theme-color-primary-lightened: #a84aff;
-            --theme-color-primary-darkened: #7d1fde;
+            --theme-color-primary-lightened: #4B3649;
+            --theme-color-primary-darkened: #4B3649;
             --theme-color-text: #626276;
             --theme-color-textmute-half: #838397;
             --theme-color-textmute: #bbbbcf;
             --theme-color-heading: #4f515b;
             --theme-color-anchor: #29292d;
-            --theme-background-color-primary: #8224E3;
+            --theme-background-color-primary: #4B3649;
             --theme-color-border: #e7edf2;
-            --theme-color-info: #8224E3;
+            --theme-color-info: #4B3649;
             --theme-color-info-rgb: 130, 36, 227;
-            --theme-color-info-lightened: #a84aff;
+            --theme-color-info-lightened: #4B3649;
             --theme-color-success: #2ED573;
             --theme-color-success-rgb: 46, 213, 115;
             --theme-color-success-lightened: #48ef8d;
@@ -1586,7 +1586,7 @@
 
     <div class="beehive-preloader preloader-2">
         <div class="loader-wrapper">
-            <img src="https://mythemestore.com/beehive-preview/wp-content/uploads/2020/07/logo-icon.svg"
+            <img src="{{ asset('assets/img/logo.jpg') }}"
                 class="attachment-full size-full" alt="" decoding="async" />
             <div class="loader-bar"></div>
             <div class="loading-text">Loading...</div>

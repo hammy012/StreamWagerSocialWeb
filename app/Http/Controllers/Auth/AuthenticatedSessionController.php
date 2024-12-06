@@ -28,12 +28,43 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        // Step 1: Validate email and password
+        if (!Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
 
-        $request->session()->regenerate();
+        // Step 2: Check user's account status
+        $user = Auth::user();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if ($user->status === 'Pending') {
+            Auth::logout(); // Logout the user immediately
+            return back()->withErrors([
+                'status' => 'Your account is still pending approval. Please wait for up to 3 business days for our team to update your account status.',
+            ]);
+        }
+
+        if ($user->status === 'Rejected') {
+            Auth::logout(); // Logout the user immediately
+            return back()->withErrors([
+                'status' => 'Your account has been rejected. Please contact our support team for further assistance.',
+            ]);
+        }
+
+        // Step 3: Allow login if status is verified
+        if ($user->status === 'Verified') {
+            $request->session()->regenerate();
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        // Fallback for unexpected status
+        Auth::logout();
+        return back()->withErrors([
+            'status' => 'Unexpected account status. Please contact support.',
+        ]);
     }
+
 
     /**
      * Destroy an authenticated session.
