@@ -345,6 +345,7 @@
                                                             <div class="col-lg-9">
                                                                 <div>
                                                                     <h2 class="user-nicename">{{ $user->username }}</h2>
+                                                                    <p class="mt-2">{{ $user->bio }}</p>
                                                                     <div style="display: flex; justify-content:center;">
                                                                         <ul>
                                                                             <li class="generic-button">
@@ -352,7 +353,7 @@
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#editProfileModal"
                                                                                     style="color: #4B3649">
-                                                                                    <i class="fas fa-pen"></i> Edit Profile
+                                                                                    <i class="fas fa-pen"></i> Edit Profile & Bio
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
@@ -371,7 +372,7 @@
                                                                                     method="POST">
                                                                                     @csrf
                                                                                     @method('PUT')
-                                                                                    <div class="mb-3">
+                                                                                    <div class="mb-3" style="text-align: left;">
                                                                                         <label for="first_name"
                                                                                             class="form-label">First
                                                                                             Name</label>
@@ -382,7 +383,7 @@
                                                                                             value="{{ Auth::user()->first_name }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3">
+                                                                                    <div class="mb-3" style="text-align: left;">
                                                                                         <label for="last_name"
                                                                                             class="form-label">Last
                                                                                             Name</label>
@@ -392,7 +393,7 @@
                                                                                             value="{{ Auth::user()->last_name }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3">
+                                                                                    <div class="mb-3" style="text-align: left;">
                                                                                         <label for="username"
                                                                                             class="form-label">Username</label>
                                                                                         <input type="text"
@@ -401,7 +402,7 @@
                                                                                             value="{{ Auth::user()->username }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3">
+                                                                                    <div class="mb-3" style="text-align: left;">
                                                                                         <label for="email"
                                                                                             class="form-label">Email</label>
                                                                                         <input type="email"
@@ -409,6 +410,15 @@
                                                                                             id="email" name="email"
                                                                                             value="{{ Auth::user()->email }}"
                                                                                             required>
+                                                                                    </div>
+                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                        <label for="bio"
+                                                                                            class="form-label">Bio</label>
+                                                                                        <textarea type="text" style="height: 80px; border: 1px solid #4B3649; border-radius: 5px;"
+                                                                                            class="form-control"
+                                                                                            id="bio" name="bio"
+                                                                                            maxlength="200"
+                                                                                            required>{{ Auth::user()->bio }}</textarea>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
@@ -639,7 +649,7 @@
                                                                                                                 alt="{{ $media->media_url }}"
                                                                                                                 src="{{ asset($media->media_url) }}" />
                                                                                                         </div>
-                                                                                                    @elseif(str_contains($media->media_type, 'video/mp4'))
+                                                                                                    @elseif(str_contains($media->media_type, 'video'))
                                                                                                         {{--  <div
                                                                                                             class="rtmedia-item-thumbnail">  --}}
                                                                                                             <video

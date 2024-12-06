@@ -177,7 +177,7 @@
                                                                                                     alt="{{ $media->media_url }}"
                                                                                                     src="{{ asset($media->media_url) }}" />
                                                                                             </div>
-                                                                                        @elseif(str_contains($media->media_type, 'video/mp4'))
+                                                                                        @elseif(str_contains($media->media_type, 'video'))
                                                                                             {{--  <div
                                                                                                 class="rtmedia-item-thumbnail">  --}}
                                                                                             <video loading="lazy" controls>
