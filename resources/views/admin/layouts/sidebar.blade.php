@@ -30,7 +30,13 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.user-list') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Users</span></a>
+            <span>All Users</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.coach-list') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Coaches</span></a>
     </li>
 
     <hr class="sidebar-divider">

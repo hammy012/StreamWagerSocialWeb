@@ -186,15 +186,35 @@ class HomeController extends Controller
 
     }
 
-    public function user_view($id)
+
+
+    public function coach_list()
+    {
+        $coaches = User::where('type', 'coach')->orderBy('created_at', 'desc')->get();
+
+        return view('admin.coach.list', compact('coaches'));
+    }
+
+    public function coach_update(Request $request, $id)
     {
         $user = User::find($id);
 
         if (!$user) {
-            return back();
+            return back()->with('error', 'User not found.');
         }
-        return view('admin.users.view', compact('user'));
+
+        // Validate the status
+        $request->validate([
+            'status' => 'required|in:Pending,Rejected,Verified',
+        ]);
+
+        // Update the user's status
+        $user->status = $request->status;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Status updated successfully.');
     }
+
 
 
 

@@ -107,6 +107,11 @@ Route::
                 Route::get('user-view/{id}', 'HomeController@user_view')->name('user-view');
 
 
+                // USER
+                Route::get('coach-list', 'HomeController@coach_list')->name('coach-list');
+                Route::post('coach-update/{id}', 'HomeController@coach_update')->name('coach-update');
+
+
 
                 // Payments
                 Route::get('payment-list', 'HomeController@payment_list')->name('payment-list');
