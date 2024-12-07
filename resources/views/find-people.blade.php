@@ -9,7 +9,7 @@
             <div class="layout social">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-8 col-main">
+                        <div class="col-lg-12 col-main">
                             <main id="main" class="main-content">
                                 <div class="beehive-title-bar social">
                                     <div class="title-bar-wrapper">
@@ -132,7 +132,7 @@
                         </div>
                         <!-- .col-main -->
 
-                        <div class="col-lg-4 col-aside">
+                        {{--  <div class="col-lg-4 col-aside">
                             <aside id="buddypress_sidebar" class="widget-area sidebar-widget-area sticky-sidebar">
                                 <div id="buddy_bridge_members_widget-3"
                                     class="widget buddy-bridge-dynamic-members-list buddypress">
@@ -177,22 +177,10 @@
                                             class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-115">
                                             <a href="/">Home</a>
                                         </li>
-                                        {{--  <li id="menu-item-114"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-114">
-                                            <a href="{{ route('about') }}">About Us</a>
-                                        </li>
-                                        <li id="menu-item-113"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-113">
-                                            <a href="{{ route('faq') }}">FAQs</a>
-                                        </li>
-                                        <li id="menu-item-112"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-112">
-                                            <a href="{{ route('contact') }}">Contact</a>
-                                        </li>  --}}
                                     </ul>
                                 </nav>
                             </aside>
-                        </div>
+                        </div>  --}}
                     </div>
                     <!-- .row -->
                 </div>

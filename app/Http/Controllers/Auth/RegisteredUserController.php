@@ -47,25 +47,39 @@ class RegisteredUserController extends Controller
         ]);
 
         if ($request->type === 'coach') {
-            // Generate a 6-digit OTP
-            $otp = rand(100000, 999999);
+            // $otp = rand(100000, 999999);
 
-            // Temporarily save the file with a unique name
+            // $fileName = uniqid() . '_profile_pic.' . $request->file('profile_picture')->getClientOriginalExtension();
+            // $profilePicturePath = 'user_profiles/' . $fileName;
+            // $request->file('profile_picture')->move(public_path('user_profiles'), $fileName);
+
+            // session([
+            //     'otp_' . $request->email => $otp,
+            //     'user_data' => array_merge($request->all(), ['profile_picture' => $profilePicturePath]),
+            //     'email' => $request->email,
+            // ]);
+
+            // Mail::to($request->email)->send(new \App\Mail\SendOtpMail($otp));
+
+            // return redirect()->route('verify.otp')->with('email', $request->email);
+
             $fileName = uniqid() . '_profile_pic.' . $request->file('profile_picture')->getClientOriginalExtension();
             $profilePicturePath = 'user_profiles/' . $fileName;
             $request->file('profile_picture')->move(public_path('user_profiles'), $fileName);
 
-            // Store OTP and data in session
-            session([
-                'otp_' . $request->email => $otp,
-                'user_data' => array_merge($request->all(), ['profile_picture' => $profilePicturePath]),
+            // Create user without email verification
+            $user = User::create([
+                'profile_picture' => $profilePicturePath,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'type' => $request->type,
+                'username' => $request->username,
                 'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'status' => 'Pending'
             ]);
 
-            // Send OTP via email
-            Mail::to($request->email)->send(new \App\Mail\SendOtpMail($otp));
-
-            return redirect()->route('verify.otp')->with('email', $request->email);
+            return redirect()->route('login')->with('success', 'You Registration is Successfull Please Wait for admin Approval');
         }
 
         // For players, directly store the profile picture
