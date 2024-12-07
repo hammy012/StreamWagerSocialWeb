@@ -1827,7 +1827,7 @@
                                                                                                                 <div
                                                                                                                     class="forgot-password">
                                                                                                                     <a
-                                                                                                                        href="#">Lost
+                                                                                                                        href="{{ route('password.request') }}">Lost
                                                                                                                         Password?</a>
                                                                                                                 </div>
                                                                                                             </div>
