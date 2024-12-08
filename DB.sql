@@ -43,14 +43,16 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table stream_social_db.comments: ~2 rows (approximately)
+-- Dumping data for table stream_social_db.comments: ~6 rows (approximately)
 INSERT INTO `comments` (`id`, `post_id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
 	(1, 13, 5, 'Hi Nice Post', '2024-11-15 09:01:54', '2024-11-15 09:01:54'),
 	(2, 13, 5, 'i like it', '2024-11-15 09:04:41', '2024-11-15 09:04:41'),
 	(3, 8, 4, 'this is my post', '2024-11-15 09:30:29', '2024-11-15 09:30:29'),
-	(4, 10, 4, 'hi', '2024-11-18 07:28:44', '2024-11-18 07:28:44');
+	(4, 10, 4, 'hi', '2024-11-18 07:28:44', '2024-11-18 07:28:44'),
+	(5, 18, 7, 'nice photo', '2024-11-30 11:24:53', '2024-11-30 11:24:53'),
+	(6, 18, 10, 'thank you', '2024-11-30 11:25:41', '2024-11-30 11:25:41');
 
 -- Dumping structure for table stream_social_db.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
@@ -69,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 
 -- Dumping structure for table stream_social_db.friend_requests
 CREATE TABLE IF NOT EXISTS `friend_requests` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `sender_id` bigint unsigned NOT NULL,
   `receiver_id` bigint unsigned NOT NULL,
   `status` enum('pending','accepted','declined') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
@@ -82,15 +84,10 @@ CREATE TABLE IF NOT EXISTS `friend_requests` (
   CONSTRAINT `friend_requests_sender_id_foreign` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table stream_social_db.friend_requests: ~6 rows (approximately)
+-- Dumping data for table stream_social_db.friend_requests: ~2 rows (approximately)
 INSERT INTO `friend_requests` (`id`, `sender_id`, `receiver_id`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 4, 6, 'pending', '2024-11-18 07:48:22', '2024-11-18 07:48:22'),
-	(2, 4, 5, 'accepted', '2024-11-18 07:49:23', '2024-11-18 11:02:39'),
-	(3, 7, 7, 'accepted', '2024-11-21 06:03:17', '2024-11-23 07:16:18'),
-	(4, 7, 6, 'pending', '2024-11-21 06:03:20', '2024-11-21 06:03:20'),
-	(5, 7, 5, 'pending', '2024-11-21 06:03:23', '2024-11-21 06:03:23'),
-	(6, 7, 4, 'accepted', '2024-11-21 06:03:26', '2024-11-21 06:03:56'),
-	(7, 8, 9, 'accepted', '2024-11-28 04:45:15', '2024-11-28 04:45:34');
+	(6, 7, 7, 'declined', '2024-12-02 07:03:57', '2024-12-02 07:04:20'),
+	(7, 7, 6, 'accepted', '2024-12-02 07:04:32', '2024-12-02 07:10:12');
 
 -- Dumping structure for table stream_social_db.likes
 CREATE TABLE IF NOT EXISTS `likes` (
@@ -100,16 +97,23 @@ CREATE TABLE IF NOT EXISTS `likes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table stream_social_db.likes: ~5 rows (approximately)
+-- Dumping data for table stream_social_db.likes: ~12 rows (approximately)
 INSERT INTO `likes` (`id`, `post_id`, `user_id`, `created_at`, `updated_at`) VALUES
 	(7, 11, 5, '2024-11-15 09:25:56', '2024-11-15 09:25:56'),
 	(8, 9, 5, '2024-11-15 09:26:04', '2024-11-15 09:26:04'),
 	(9, 11, 4, '2024-11-15 09:26:23', '2024-11-15 09:26:23'),
 	(10, 13, 4, '2024-11-18 07:18:09', '2024-11-18 07:18:09'),
 	(11, 10, 4, '2024-11-18 07:28:37', '2024-11-18 07:28:37'),
-	(14, 15, 6, '2024-11-25 11:38:56', '2024-11-25 11:38:56');
+	(14, 15, 6, '2024-11-25 11:38:56', '2024-11-25 11:38:56'),
+	(15, 18, 7, '2024-11-30 11:24:29', '2024-11-30 11:24:29'),
+	(16, 17, 7, '2024-11-30 11:24:39', '2024-11-30 11:24:39'),
+	(17, 22, 7, '2024-12-04 05:51:00', '2024-12-04 05:51:00'),
+	(18, 26, 7, '2024-12-04 06:08:36', '2024-12-04 06:08:36'),
+	(20, 25, 7, '2024-12-04 06:09:41', '2024-12-04 06:09:41'),
+	(21, 16, 7, '2024-12-04 06:11:26', '2024-12-04 06:11:26'),
+	(22, 23, 7, '2024-12-04 06:11:46', '2024-12-04 06:11:46');
 
 -- Dumping structure for table stream_social_db.media
 CREATE TABLE IF NOT EXISTS `media` (
@@ -120,9 +124,9 @@ CREATE TABLE IF NOT EXISTS `media` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table stream_social_db.media: ~9 rows (approximately)
+-- Dumping data for table stream_social_db.media: ~15 rows (approximately)
 INSERT INTO `media` (`id`, `post_id`, `media_url`, `media_type`, `created_at`, `updated_at`) VALUES
 	(1, 8, 'posts/1731409704.jpg', 'image/jpeg', '2024-11-12 06:08:24', '2024-11-12 06:08:24'),
 	(2, 9, 'posts/1731410019.jpg', 'image/jpeg', '2024-11-12 06:13:39', '2024-11-12 06:13:39'),
@@ -132,7 +136,14 @@ INSERT INTO `media` (`id`, `post_id`, `media_url`, `media_type`, `created_at`, `
 	(6, 14, 'posts/1732364230.jpg', 'image/jpeg', '2024-11-23 07:17:10', '2024-11-23 07:17:10'),
 	(7, 15, 'posts/1732552731.jpg', 'image/jpeg', '2024-11-25 11:38:51', '2024-11-25 11:38:51'),
 	(8, 16, 'posts/1732787022.jpg', 'image/jpeg', '2024-11-28 04:43:42', '2024-11-28 04:43:42'),
-	(9, 17, 'posts/1732787038.jpg', 'image/jpeg', '2024-11-28 04:43:58', '2024-11-28 04:43:58');
+	(9, 17, 'posts/1732787038.jpg', 'image/jpeg', '2024-11-28 04:43:58', '2024-11-28 04:43:58'),
+	(10, 18, 'posts/1732983650.jpg', 'image/jpeg', '2024-11-30 11:20:50', '2024-11-30 11:20:50'),
+	(11, 19, 'posts/1732984496.jpg', 'image/jpeg', '2024-11-30 11:34:56', '2024-11-30 11:34:56'),
+	(12, 20, 'posts/1732984508.jpg', 'image/jpeg', '2024-11-30 11:35:08', '2024-11-30 11:35:08'),
+	(13, 21, 'posts/1732984523.jpg', 'image/jpeg', '2024-11-30 11:35:23', '2024-11-30 11:35:23'),
+	(15, 23, 'posts/1733309260.jpg', 'image/jpeg', '2024-12-04 05:47:40', '2024-12-04 05:47:40'),
+	(17, 25, 'posts/1733309805.mp4', 'video/mp4', '2024-12-04 05:56:45', '2024-12-04 05:56:45'),
+	(18, 26, 'posts/1733309831.mp4', 'video/mp4', '2024-12-04 05:57:11', '2024-12-04 05:57:11');
 
 -- Dumping structure for table stream_social_db.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
@@ -188,11 +199,11 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table stream_social_db.payments: ~2 rows (approximately)
 INSERT INTO `payments` (`id`, `trx_id`, `user_id`, `created_at`, `updated_at`) VALUES
-	(2, 'pi_3QQBE5RvrhESRVaD0hl8Xxnq', 9, '2024-11-28 12:10:04', '2024-11-28 12:10:04');
+	(3, 'pi_3QQtafRvrhESRVaD1qjkPcm8', 10, '2024-11-30 11:32:21', '2024-11-30 11:32:21');
 
 -- Dumping structure for table stream_social_db.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
@@ -236,9 +247,9 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table stream_social_db.posts: ~10 rows (approximately)
+-- Dumping data for table stream_social_db.posts: ~14 rows (approximately)
 INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`, `updated_at`) VALUES
 	(8, 4, 'image my', '2024-11-12 06:08:24', '2024-11-12 06:08:24'),
 	(9, 4, 'Hi i am Hammad Khan', '2024-11-12 06:13:39', '2024-11-12 06:13:39'),
@@ -249,7 +260,10 @@ INSERT INTO `posts` (`id`, `user_id`, `content`, `created_at`, `updated_at`) VAL
 	(14, 7, 'hi look my awesome image', '2024-11-23 07:17:10', '2024-11-23 07:17:10'),
 	(15, 6, 'my new pic', '2024-11-25 11:38:51', '2024-11-25 11:38:51'),
 	(16, 8, 'My Profile Pic', '2024-11-28 04:43:42', '2024-11-28 04:43:42'),
-	(17, 9, 'How is my Profile pic', '2024-11-28 04:43:58', '2024-11-28 04:43:58');
+	(17, 9, 'How is my Profile pic', '2024-11-28 04:43:58', '2024-11-28 04:43:58'),
+	(23, 7, 'my new picture', '2024-12-04 05:47:40', '2024-12-04 05:47:40'),
+	(25, 7, 'New Pilly Videos', '2024-12-04 05:56:45', '2024-12-04 05:56:45'),
+	(26, 7, 'sda', '2024-12-04 05:57:11', '2024-12-04 05:57:11');
 
 -- Dumping structure for table stream_social_db.replies
 CREATE TABLE IF NOT EXISTS `replies` (
@@ -296,7 +310,7 @@ INSERT INTO `roles_permissions` (`role_id`, `permission_id`) VALUES
 
 -- Dumping structure for table stream_social_db.schedules
 CREATE TABLE IF NOT EXISTS `schedules` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
   `date` date NOT NULL,
   `schedule` text COLLATE utf8mb4_unicode_ci,
@@ -305,32 +319,9 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   PRIMARY KEY (`id`),
   KEY `schedules_user_id_foreign` (`user_id`),
   CONSTRAINT `schedules_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table stream_social_db.schedules: ~19 rows (approximately)
-INSERT INTO `schedules` (`id`, `user_id`, `date`, `schedule`, `created_at`, `updated_at`) VALUES
-	(2, 7, '2024-11-01', 'football match with henry', '2024-11-25 05:32:15', '2024-11-25 05:32:15'),
-	(3, 7, '2024-11-13', 'football match with peter', '2024-11-25 05:32:15', '2024-11-25 05:32:15'),
-	(4, 7, '2024-11-19', 'football match with shaheen', '2024-11-25 05:32:15', '2024-11-25 05:32:15'),
-	(5, 7, '2024-12-12', 'football match with shaheen', '2024-11-25 05:32:15', '2024-11-25 05:32:15'),
-	(6, 7, '2024-11-03', 'pak vs ind', '2024-11-25 05:53:18', '2024-11-25 05:53:18'),
-	(7, 7, '2024-11-22', 'ind vs aus', '2024-11-25 05:53:43', '2024-11-25 05:53:43'),
-	(8, 7, '2024-11-17', 'fight with hammad', '2024-11-25 05:54:24', '2024-11-25 05:54:24'),
-	(9, 7, '2024-11-05', 'done', '2024-11-25 05:56:01', '2024-11-25 05:56:01'),
-	(10, 4, '2024-11-21', 'this is my data', '2024-11-25 05:56:53', '2024-11-25 05:56:53'),
-	(11, 4, '2024-11-03', 'here is my file information', '2024-11-25 05:57:34', '2024-11-25 05:57:34'),
-	(12, 4, '2024-11-07', 'tarun vs hammad khan', '2024-11-25 05:57:34', '2024-11-25 05:57:34'),
-	(13, 4, '2024-11-12', 'fight with hammad khan', '2024-11-25 05:57:34', '2024-11-25 05:57:34'),
-	(14, 4, '2024-11-24', 'fight with tarun jha', '2024-11-25 05:57:34', '2024-11-25 05:57:34'),
-	(15, 7, '2024-11-08', 'here is my more details', '2024-11-25 10:55:29', '2024-11-25 10:55:29'),
-	(16, 7, '2024-11-25', 'australia vs sauth africa match', '2024-11-25 11:35:50', '2024-11-25 11:35:50'),
-	(17, 7, '2024-11-29', 'india vs pakistan match', '2024-11-25 11:35:51', '2024-11-25 11:35:51'),
-	(18, 9, '2024-11-01', 'here is my schedule 8:00 AM', '2024-11-28 07:07:59', '2024-11-28 07:07:59'),
-	(19, 9, '2024-11-10', 'my match with nadeem aslam at 10:00 AM', '2024-11-28 07:07:59', '2024-11-28 07:07:59'),
-	(20, 9, '2024-11-12', 'here is my schedule 8:00 AM', '2024-11-28 07:08:10', '2024-11-28 07:08:10'),
-	(21, 9, '2024-11-21', 'my match with nadeem aslam at 10:00 AM', '2024-11-28 07:08:10', '2024-11-28 07:08:10'),
-	(22, 9, '2024-11-25', 'australia vs sauth africa match at 8:00 AM', '2024-11-28 07:29:04', '2024-11-28 07:29:04'),
-	(23, 9, '2024-11-07', 'my game is over i go to see my friend match at 11:00 AM', '2024-11-28 07:29:30', '2024-11-28 07:29:30');
+-- Dumping data for table stream_social_db.schedules: ~0 rows (approximately)
 
 -- Dumping structure for table stream_social_db.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -343,22 +334,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bio` text COLLATE utf8mb4_unicode_ci,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `membership` int DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table stream_social_db.users: ~6 rows (approximately)
-INSERT INTO `users` (`id`, `profile_picture`, `first_name`, `last_name`, `username`, `type`, `email`, `email_verified_at`, `password`, `remember_token`, `membership`, `created_at`, `updated_at`) VALUES
-	(4, 'user_profiles/1731773359_profile_pic.jpg', 'Hammad', 'Khanam', 'hammy', 'player', 'hammad1@gmail.com', NULL, '$2y$10$9jxvAEt5FKbp10yNjj0jvuI5ulIxoCp1/O8SzL8Bvnb8uJ5eRdzaS', 'IwdEBMqPYnWKKe1nquICf7SVxIw1jECwhu8LSoviuMwu4uMpKR2GqNgfTF7C', 0, '2024-11-09 07:36:57', '2024-11-16 11:09:19'),
-	(5, 'user_profiles/profile image 3333.jpg', 'Hammad', 'Khan', 'hammad2@gmail.com', 'player', 'hammad2@gmail.com', NULL, '$2y$10$DKzIhBXsY47UF7PeMNSzmeSLYLacXDEapbJP.PAhQrpu1SzDDeIFS', NULL, 0, '2024-11-15 07:34:30', '2024-11-15 07:34:30'),
-	(6, 'user_profiles/1732532374_462105302_2078531709208703_5042179445574189842_n.jpg', 'Ahmed', 'Ali', 'ahmed', 'coach', 'ahmed@gmail.com', NULL, '$2y$10$6ngiMNYUemNCxcc5Avpute8EfUhERDvpQqklrTwzK9LpBKNevF1.O', NULL, 0, '2024-11-18 07:08:08', '2024-11-25 05:59:34'),
-	(7, 'user_profiles/profile image 3333.jpg', 'Shahrukh', 'Arain', 'shahrukh', 'player', 'hammad@gmail.com', NULL, '$2y$10$OA6fl/OExLHK7CyDUN81CekLTXi5YfDbDYLhzz79SfOwPRrzYDU9C', NULL, 0, '2024-11-21 06:02:58', '2024-11-21 06:02:58'),
-	(8, 'user_profiles/462105302_2078531709208703_5042179445574189842_n.jpg', 'The', 'Coach', 'thecoach', 'coach', 'thecoach@gmail.com', NULL, '$2y$10$FIonqtqEhpA3N/7S0nshXuF0wXvVKzNnlJ3veEj1YCovrZcDBFV1y', NULL, 0, '2024-11-28 04:42:34', '2024-11-28 04:42:34'),
-	(9, 'user_profiles/profile_pic.jpg', 'The', 'Player', 'theplayer', 'player', 'theplayer@gmail.com', NULL, '$2y$10$HZU572ozf6dDoJYNWVEODuJiIEdSKYRpMudxVSiwDnQF834cRJBjW', 'TWGL8r7Z7UHOFPgS4VSwOuu87I6j7PRhDSC6Ht80weZfRx9cDUzfBa6mpVHj', 1, '2024-11-28 04:43:27', '2024-11-29 11:37:51');
+-- Dumping data for table stream_social_db.users: ~9 rows (approximately)
+INSERT INTO `users` (`id`, `profile_picture`, `first_name`, `last_name`, `username`, `type`, `email`, `email_verified_at`, `password`, `bio`, `status`, `remember_token`, `membership`, `created_at`, `updated_at`) VALUES
+	(4, 'user_profiles/1731773359_profile_pic.jpg', 'Hammad', 'Khanam', 'hammy', 'player', 'hammad1@gmail.com', NULL, '$2y$10$9jxvAEt5FKbp10yNjj0jvuI5ulIxoCp1/O8SzL8Bvnb8uJ5eRdzaS', NULL, 'Verified', 'IwdEBMqPYnWKKe1nquICf7SVxIw1jECwhu8LSoviuMwu4uMpKR2GqNgfTF7C', 0, '2024-11-09 07:36:57', '2024-11-16 11:09:19'),
+	(5, 'user_profiles/profile image 3333.jpg', 'Hammad', 'Khan', 'hammad2@gmail.com', 'player', 'hammad2@gmail.com', NULL, '$2y$10$DKzIhBXsY47UF7PeMNSzmeSLYLacXDEapbJP.PAhQrpu1SzDDeIFS', NULL, 'Verified', NULL, 0, '2024-11-15 07:34:30', '2024-11-15 07:34:30'),
+	(6, 'user_profiles/1732532374_462105302_2078531709208703_5042179445574189842_n.jpg', 'Ahmed', 'Ali', 'ahmed', 'coach', 'ahmed@gmail.com', NULL, '$2y$10$6ngiMNYUemNCxcc5Avpute8EfUhERDvpQqklrTwzK9LpBKNevF1.O', NULL, 'Pending', NULL, 0, '2024-11-18 07:08:08', '2024-11-25 05:59:34'),
+	(7, 'user_profiles/profile image 3333.jpg', 'Shahruk', 'Arain', 'shahrukh', 'player', 'hammad@gmail.com', NULL, '$2y$10$OA6fl/OExLHK7CyDUN81CekLTXi5YfDbDYLhzz79SfOwPRrzYDU9C', 'this is the bio now this is the bio now this is the bio now this is the bio now this is the bio now this is the bio now this is the bio now s is the bio now this is the bio now', 'Verified', NULL, 0, '2024-11-21 06:02:58', '2024-12-06 06:30:27'),
+	(8, 'user_profiles/1732984106_462105302_2078531709208703_5042179445574189842_n.jpg', 'The', 'Coach', 'thecoach', 'coach', 'thecoach@gmail.com', NULL, '$2y$10$FIonqtqEhpA3N/7S0nshXuF0wXvVKzNnlJ3veEj1YCovrZcDBFV1y', 'this is the bio i add this is the bio i add this is the bio i add this is the bio i add this is the bio i add this is the bio i add this is the bio i add', 'Rejected', NULL, 0, '2024-11-28 04:42:34', '2024-12-06 10:12:59'),
+	(9, 'user_profiles/profile_pic.jpg', 'The', 'Player', 'theplayer', 'player', 'theplayer@gmail.com', NULL, '$2y$10$HZU572ozf6dDoJYNWVEODuJiIEdSKYRpMudxVSiwDnQF834cRJBjW', NULL, 'Verified', 'TWGL8r7Z7UHOFPgS4VSwOuu87I6j7PRhDSC6Ht80weZfRx9cDUzfBa6mpVHj', 1, '2024-11-28 04:43:27', '2024-11-29 11:37:51'),
+	(14, 'user_profiles/67530c8233b25_profile_pic.jpg', 'Hammad', 'Khan', 'hammy234', 'coach', 'hk7856231@gmail.com', NULL, '$2y$10$s1yIcQdMcrNyCUSBy9uffOQN4WJrKvnx/D2f6B/ClRO6hRSDIw7Ve', 'this is the bio of my profile i can write here anything this is the bio of my profile i can write here anything this is the bio of my profile i can write here anything this is the bio of my profile i', 'Verified', 'xzKc3tWf728OiXFcdWmYxxssEd3S3li6lkLao40pe6yleq4j7r19FB8Q8cVr', 0, '2024-12-06 09:39:25', '2024-12-07 04:57:28'),
+	(15, 'user_profiles/675418a779252_profile_pic.jpg', 'Hamy', 'khan', 'hamy12312', 'coach', 'myemail123@gmail.com', NULL, '$2y$10$UoSdaLOEu7BheO7c9SRj5uvTr90HNlWykvmY/VCf.jhnvvquar.0m', NULL, 'Pending', NULL, 0, '2024-12-07 04:43:03', '2024-12-07 04:43:03'),
+	(16, 'user_profiles/6754191072934_profile_pic.jpg', 'my', 'namw', 'myname12@gmail.com', 'coach', 'myemail238497@gmail.com', NULL, '$2y$10$Lfk5g6U5pGY2UFdrF/VEmOteNK7w6bMfOo/Po5WQ/LPHDWtj01yX.', NULL, 'Verified', NULL, 0, '2024-12-07 04:44:48', '2024-12-07 04:48:26'),
+	(17, 'user_profiles/6754195854082_profile_pic.jpg', 'Player', 'Player', 'player384', 'coach', 'player2349@gmail.com', NULL, '$2y$10$0Ku33AusS6wp.QjqtzL4.OjLOdvS7AGgXUxOV.r4qGdA1uDOcIbm2', NULL, 'Pending', NULL, 0, '2024-12-07 04:46:00', '2024-12-07 04:46:00'),
+	(18, 'user_profiles/6754197fc8654_profile_pic.jpg', 'Player', 'player', 'player3490', 'player', 'player98234@gmail.com', NULL, '$2y$10$BPaVatmR7B/GClTBxeXMge6jzAG1F58ZBLuFYCgefzCrGeKfSzWVO', NULL, 'Verified', NULL, 0, '2024-12-07 04:46:39', '2024-12-07 04:46:39');
 
 -- Dumping structure for table stream_social_db.users_permissions
 CREATE TABLE IF NOT EXISTS `users_permissions` (
@@ -393,22 +391,12 @@ CREATE TABLE IF NOT EXISTS `user_attendances` (
   PRIMARY KEY (`id`),
   KEY `user_attendances_user_id_foreign` (`user_id`),
   CONSTRAINT `user_attendances_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table stream_social_db.user_attendances: ~11 rows (approximately)
+-- Dumping data for table stream_social_db.user_attendances: ~2 rows (approximately)
 INSERT INTO `user_attendances` (`id`, `user_id`, `schedule_holder_id`, `date`, `created_at`, `updated_at`) VALUES
-	(6, 8, 7, '2024-11-13', '2024-11-28 06:08:12', '2024-11-28 06:08:12'),
-	(8, 8, 7, '2024-11-08', '2024-11-28 06:13:52', '2024-11-28 06:13:52'),
-	(9, 8, 7, '2024-11-19', '2024-11-28 06:15:22', '2024-11-28 06:15:22'),
-	(12, 8, 7, '2024-11-17', '2024-11-28 06:18:23', '2024-11-28 06:18:23'),
-	(13, 8, 7, '2024-11-05', '2024-11-28 06:20:08', '2024-11-28 06:20:08'),
-	(14, 8, 9, '2024-11-01', '2024-11-28 07:08:31', '2024-11-28 07:08:31'),
-	(15, 8, 9, '2024-11-10', '2024-11-28 07:08:38', '2024-11-28 07:08:38'),
-	(16, 8, 9, '2024-11-12', '2024-11-28 07:15:28', '2024-11-28 07:15:28'),
-	(17, 8, 9, '2024-11-07', '2024-11-28 07:29:43', '2024-11-28 07:29:43'),
-	(18, 8, 9, '2024-11-21', '2024-11-28 08:04:04', '2024-11-28 08:04:04'),
-	(19, 6, 9, '2024-11-25', '2024-11-28 11:08:47', '2024-11-28 11:08:47'),
-	(20, 6, 9, '2024-11-01', '2024-11-28 11:09:01', '2024-11-28 11:09:01');
+	(21, 8, 10, '2024-11-01', '2024-11-30 11:30:56', '2024-11-30 11:30:56'),
+	(22, 8, 10, '2024-11-22', '2024-11-30 11:31:13', '2024-11-30 11:31:13');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
