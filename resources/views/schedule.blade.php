@@ -218,6 +218,10 @@
             color: #8124E2
         }
 
+        .schedule-container{
+            text-align: center
+        }
+
         .no-attendance {
             text-align: center;
             font-size: 12px;
@@ -229,6 +233,20 @@
             filter: blur(3px);
             color: gray;
             /* Optional: Adjust color to make it appear more faded */
+        }
+
+        .schedule-input {
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .save-btn {
+            margin-top: 5px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
         }
     </style>
 
@@ -732,52 +750,59 @@
 
                     // Create input or show schedule
                     if (schedule) {
+                        const scheduleContainer = document.createElement('div');
+                        scheduleContainer.classList.add('schedule-container');
                         const scheduleText = document.createElement('div');
                         scheduleText.classList.add('schedule');
-                        scheduleText.classList.add('text-center');
                         scheduleText.textContent = schedule.schedule;
-                        dayBlock.appendChild(scheduleText);
 
-                        // Find the attendance for the day
-                        const attendanceForDay = attendance.filter(a => a.date === dateString);
-                        const attendanceText = document.createElement('div');
-                        attendanceText.classList.add('attendance');
-                        const loggedInUserMembership =
-                            {{ auth()->user()->membership }}; // This will fetch membership of logged-in user
+                        // Make schedule editable on click
+                        scheduleText.addEventListener('click', function () {
+                            const inputField = document.createElement('input');
+                            inputField.type = 'text';
+                            inputField.value = schedule.schedule;
+                            inputField.classList.add('schedule-input');
+                            scheduleContainer.innerHTML = ''; // Clear existing text
+                            scheduleContainer.appendChild(inputField);
 
-                        if (attendanceForDay.length > 0) {
-                            attendanceForDay.forEach(attendance => {
-                                const userName = attendance.user
-                                    .username; // Assuming 'user' is related correctly
-                                const userId = attendance.user.id; // Assuming 'user' has the 'id' property
-                                const userElement = document.createElement('div');
+                            // Save Button
+                            const saveButton = document.createElement('button');
+                            saveButton.textContent = 'Save';
+                            saveButton.classList.add('save-btn');
+                            saveButton.addEventListener('click', function () {
+                                const updatedSchedule = inputField.value;
 
-                                if (loggedInUserMembership === 1) {
-                                    // Logged-in user's membership is 1, show as a link
-                                    const userLink = document.createElement('a');
-                                    userLink.href = `/user-profile/${userId}`; // Link to the user's profile
-                                    userLink.textContent = `@${userName}`; // Display username with '@'
-                                    userLink.classList.add(
-                                        'user-link'); // Optionally add a class for styling
-                                    userElement.appendChild(userLink);
-                                } else {
-                                    // Logged-in user's membership is 0, show as a blurred p tag
-                                    const userText = document.createElement('p');
-                                    userText.textContent = `@${userName}`; // Display username with '@'
-                                    userText.classList.add(
-                                        'blurred-text'); // Add a class for styling blur effect
-                                    userElement.appendChild(userText);
-                                }
-
-                                attendanceText.appendChild(userElement);
+                                fetch('/update-schedule', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                    },
+                                    body: JSON.stringify({
+                                        schedules: { [dateString]: updatedSchedule }
+                                    })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert('Schedule Updated Successfully');
+                                            scheduleContainer.innerHTML = ''; // Replace input with updated text
+                                            const updatedText = document.createElement('div');
+                                            updatedText.classList.add('schedule');
+                                            updatedText.textContent = updatedSchedule;
+                                            scheduleContainer.appendChild(updatedText);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        alert('An error occurred. Please try again.');
+                                    });
                             });
-                        } else {
-                            const noAttendance = document.createElement('div');
-                            noAttendance.classList.add('no-attendance');
-                            noAttendance.textContent = 'No one comes';
-                            attendanceText.appendChild(noAttendance);
-                        }
-                        dayBlock.appendChild(attendanceText);
+                            scheduleContainer.appendChild(saveButton);
+                        });
+
+                        scheduleContainer.appendChild(scheduleText);
+                        dayBlock.appendChild(scheduleContainer);
                     } else {
                         const inputField = document.createElement('input');
                         inputField.type = 'text';
