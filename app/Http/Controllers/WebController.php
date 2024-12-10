@@ -175,6 +175,31 @@ class WebController extends Controller
         ]);
     }
 
+    public function deleteAttendance(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $scheduleHolderId = $request->input('schedule_holder_id');
+        $date = $request->input('date');
+
+        $attendance = UserAttendance::where('user_id', $userId)
+            ->where('schedule_holder_id', $scheduleHolderId)
+            ->where('date', $date)
+            ->first();
+
+        if ($attendance) {
+            $attendance->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Attendance deleted successfully!',
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Attendance not found!',
+        ]);
+    }
+
 
     public function getUserAttendance(Request $request, $scheduleHolderId)
     {

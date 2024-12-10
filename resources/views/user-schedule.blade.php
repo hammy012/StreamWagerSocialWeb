@@ -401,19 +401,17 @@
 
                     // Check if the user has already marked attendance
                     if (markedDates.includes(schedule.date)) {
-                        button.textContent = "You are going";
-                        button.disabled = true;
-                        button.style.backgroundColor = "#4caf50";
+                        button.textContent = "I can't attend";
+                        button.addEventListener('click', () => deleteAttendance(schedule.date, button));
                     } else {
-                        button.textContent = "I will come";
-                        button.addEventListener('click', () =>
-                            markAttendance(schedule.date, button)
-                        );
+                        button.textContent = "I'll attend";
+                        button.addEventListener('click', () => markAttendance(schedule.date, button));
                     }
                     dayBlock.appendChild(button);
                     calendarContainer.appendChild(dayBlock);
                 });
             }
+
 
             function markAttendance(date, button) {
                 fetch('/mark-attendance', {
@@ -461,37 +459,30 @@
                     });
             }
 
-            function markAttendance(date, button) {
-                fetch('/mark-attendance', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content'),
-                        },
-                        body: JSON.stringify({
-                            user_id: loggedinuserid,
-                            schedule_holder_id: scheduleHolderId,
-                            date
-                        }),
-                    })
+            function deleteAttendance(date, button) {
+                fetch('/delete-attendance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content'),
+                    },
+                    body: JSON.stringify({
+                        user_id: loggedinuserid,
+                        schedule_holder_id: scheduleHolderId,
+                        date
+                    }),
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: data.message,
-                            }).then(() => {
-                                location.reload(); // Reload after message is shown
-                            });
+                            button.textContent = "I'll attend";
+                            button.onclick = () => markAttendance(date, button); // Change button action
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
                                 text: data.message,
-                            }).then(() => {
-                                location.reload(); // Reload after error message is shown
                             });
                         }
                     })
@@ -501,8 +492,6 @@
                             icon: 'error',
                             title: 'Error',
                             text: 'Something went wrong. Please try again later.',
-                        }).then(() => {
-                            location.reload(); // Reload on error
                         });
                     });
             }

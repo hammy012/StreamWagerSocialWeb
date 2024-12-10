@@ -34,6 +34,8 @@ Route::get('/user-schedules/{id}', 'WebController@getUserSchedules');
 
 // Coach Can GO
 Route::post('/mark-attendance','WebController@markAttendance')->name('mark.attendance');
+Route::post('/delete-attendance', 'WebController@deleteAttendance');
+
 Route::get('/user-attendance/{scheduleHolderId}', 'WebController@getUserAttendance');
 
 
