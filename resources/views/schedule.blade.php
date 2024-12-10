@@ -218,10 +218,6 @@
             color: #8124E2
         }
 
-        .schedule-container{
-            text-align: center
-        }
-
         .no-attendance {
             text-align: center;
             font-size: 12px;
@@ -233,20 +229,6 @@
             filter: blur(3px);
             color: gray;
             /* Optional: Adjust color to make it appear more faded */
-        }
-
-        .schedule-input {
-            margin-top: 5px;
-            width: 100%;
-        }
-
-        .save-btn {
-            margin-top: 5px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
         }
     </style>
 
@@ -425,7 +407,8 @@
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#editProfileModal"
                                                                                     style="color: #4B3649">
-                                                                                    <i class="fas fa-pen"></i> Edit Profile & Bio
+                                                                                    <i class="fas fa-pen"></i> Edit Profile
+                                                                                    & Bio
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
@@ -444,7 +427,8 @@
                                                                                     method="POST">
                                                                                     @csrf
                                                                                     @method('PUT')
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="first_name"
                                                                                             class="form-label">First
                                                                                             Name</label>
@@ -455,7 +439,8 @@
                                                                                             value="{{ Auth::user()->first_name }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="last_name"
                                                                                             class="form-label">Last
                                                                                             Name</label>
@@ -465,7 +450,8 @@
                                                                                             value="{{ Auth::user()->last_name }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="username"
                                                                                             class="form-label">Username</label>
                                                                                         <input type="text"
@@ -474,7 +460,8 @@
                                                                                             value="{{ Auth::user()->username }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="email"
                                                                                             class="form-label">Email</label>
                                                                                         <input type="email"
@@ -483,14 +470,12 @@
                                                                                             value="{{ Auth::user()->email }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="bio"
                                                                                             class="form-label">Bio</label>
-                                                                                        <textarea type="text" style="height: 80px; border: 1px solid #4B3649; border-radius: 5px;"
-                                                                                            class="form-control"
-                                                                                            id="bio" name="bio"
-                                                                                            maxlength="200"
-                                                                                            required>{{ Auth::user()->bio }}</textarea>
+                                                                                        <textarea type="text" style="height: 80px; border: 1px solid #4B3649; border-radius: 5px;" class="form-control"
+                                                                                            id="bio" name="bio" maxlength="200" required>{{ Auth::user()->bio }}</textarea>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
@@ -748,68 +733,53 @@
                         `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     const schedule = schedules.find(s => s.date === dateString);
 
-                    // Create input or show schedule
+                    // Create input field for editing/updating schedule
+                    const inputField = document.createElement('input');
+                    inputField.type = 'text';
+                    inputField.name = `schedules[${dateString}]`;
+                    inputField.placeholder = 'Type Here...';
+
                     if (schedule) {
-                        const scheduleContainer = document.createElement('div');
-                        scheduleContainer.classList.add('schedule-container');
-                        const scheduleText = document.createElement('div');
-                        scheduleText.classList.add('schedule');
-                        scheduleText.textContent = schedule.schedule;
-
-                        // Make schedule editable on click
-                        scheduleText.addEventListener('click', function () {
-                            const inputField = document.createElement('input');
-                            inputField.type = 'text';
-                            inputField.value = schedule.schedule;
-                            inputField.classList.add('schedule-input');
-                            scheduleContainer.innerHTML = ''; // Clear existing text
-                            scheduleContainer.appendChild(inputField);
-
-                            // Save Button
-                            const saveButton = document.createElement('button');
-                            saveButton.textContent = 'Save';
-                            saveButton.classList.add('save-btn');
-                            saveButton.addEventListener('click', function () {
-                                const updatedSchedule = inputField.value;
-
-                                fetch('/update-schedule', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                                    },
-                                    body: JSON.stringify({
-                                        schedules: { [dateString]: updatedSchedule }
-                                    })
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        if (data.success) {
-                                            alert('Schedule Updated Successfully');
-                                            scheduleContainer.innerHTML = ''; // Replace input with updated text
-                                            const updatedText = document.createElement('div');
-                                            updatedText.classList.add('schedule');
-                                            updatedText.textContent = updatedSchedule;
-                                            scheduleContainer.appendChild(updatedText);
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.error('Error:', error);
-                                        alert('An error occurred. Please try again.');
-                                    });
-                            });
-                            scheduleContainer.appendChild(saveButton);
-                        });
-
-                        scheduleContainer.appendChild(scheduleText);
-                        dayBlock.appendChild(scheduleContainer);
-                    } else {
-                        const inputField = document.createElement('input');
-                        inputField.type = 'text';
-                        inputField.name = `schedules[${dateString}]`;
-                        inputField.placeholder = 'Type Here...';
-                        dayBlock.appendChild(inputField);
+                        inputField.value = schedule.schedule; // Show existing schedule for editing
                     }
+
+                    dayBlock.appendChild(inputField);
+
+                    // Attendance Section
+                    const attendanceText = document.createElement('div');
+                    attendanceText.classList.add('attendance');
+                    const attendanceForDay = attendance.filter(a => a.date === dateString);
+                    const loggedInUserMembership = {{ auth()->user()->membership }};
+
+                    if (attendanceForDay.length > 0) {
+                        attendanceForDay.forEach(attendance => {
+                            const userName = attendance.user.username;
+                            const userId = attendance.user.id;
+                            const userElement = document.createElement('div');
+
+                            if (loggedInUserMembership === 1) {
+                                const userLink = document.createElement('a');
+                                userLink.href = `/user-profile/${userId}`;
+                                userLink.textContent = `@${userName}`;
+                                userLink.classList.add('user-link');
+                                userElement.appendChild(userLink);
+                            } else {
+                                const userText = document.createElement('p');
+                                userText.textContent = `@${userName}`;
+                                userText.classList.add('blurred-text');
+                                userElement.appendChild(userText);
+                            }
+
+                            attendanceText.appendChild(userElement);
+                        });
+                    } else {
+                        const noAttendance = document.createElement('div');
+                        noAttendance.classList.add('no-attendance');
+                        noAttendance.textContent = 'No one comes';
+                        attendanceText.appendChild(noAttendance);
+                    }
+
+                    dayBlock.appendChild(attendanceText);
 
                     calendarContainer.appendChild(dayBlock);
                 }
@@ -853,6 +823,7 @@
                 });
                 calendarContainer.appendChild(updateButton);
             }
+
         });
     </script>
 
