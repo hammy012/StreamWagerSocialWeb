@@ -500,6 +500,11 @@
                                                                                 class="fas fa-user-friends"></i>Schedule</a>
                                                                     </li>
                                                                 @endif
+                                                                <li class="tab friend-tab">
+                                                                    <a href="{{ route('stats') }}">
+                                                                        <i class="fas fa-chart-line"></i>Stats
+                                                                    </a>
+                                                                </li>
                                                             </div>
                                                         </div>
                                                     </div>

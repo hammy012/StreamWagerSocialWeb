@@ -26,6 +26,11 @@ Route::get('/', 'WebController@welcome')->middleware(['auth'])->name('home');
 Route::get('/profile', 'WebController@profile')->middleware(['auth'])->name('profile');
 Route::put('/profile/update', 'WebController@updateUser')->name('profile.update');
 
+Route::get('/stats', 'WebController@stats')->middleware(['auth'])->name('stats');
+Route::get('/user-stats/{id}', 'WebController@user_stats')->name('user-stats');
+Route::delete('/stats/{id}', 'WebController@destroy_stat')->name('stats.destroy');
+Route::put('/stats-store', 'WebController@stats_store')->name('stats-store');
+
 Route::get('/user-profile/{id}', 'WebController@user_profile')->middleware(['auth'])->name('user-profile');
 
 // USER SCHEDULE

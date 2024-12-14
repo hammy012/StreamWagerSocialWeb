@@ -353,7 +353,8 @@
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#editProfileModal"
                                                                                     style="color: #4B3649">
-                                                                                    <i class="fas fa-pen"></i> Edit Profile & Bio
+                                                                                    <i class="fas fa-pen"></i> Edit Profile
+                                                                                    & Bio
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
@@ -372,7 +373,8 @@
                                                                                     method="POST">
                                                                                     @csrf
                                                                                     @method('PUT')
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="first_name"
                                                                                             class="form-label">First
                                                                                             Name</label>
@@ -383,7 +385,8 @@
                                                                                             value="{{ Auth::user()->first_name }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="last_name"
                                                                                             class="form-label">Last
                                                                                             Name</label>
@@ -393,7 +396,8 @@
                                                                                             value="{{ Auth::user()->last_name }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="username"
                                                                                             class="form-label">Username</label>
                                                                                         <input type="text"
@@ -402,7 +406,8 @@
                                                                                             value="{{ Auth::user()->username }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="email"
                                                                                             class="form-label">Email</label>
                                                                                         <input type="email"
@@ -411,14 +416,12 @@
                                                                                             value="{{ Auth::user()->email }}"
                                                                                             required>
                                                                                     </div>
-                                                                                    <div class="mb-3" style="text-align: left;">
+                                                                                    <div class="mb-3"
+                                                                                        style="text-align: left;">
                                                                                         <label for="bio"
                                                                                             class="form-label">Bio</label>
-                                                                                        <textarea type="text" style="height: 80px; border: 1px solid #4B3649; border-radius: 5px;"
-                                                                                            class="form-control"
-                                                                                            id="bio" name="bio"
-                                                                                            maxlength="200"
-                                                                                            required>{{ Auth::user()->bio }}</textarea>
+                                                                                        <textarea type="text" style="height: 80px; border: 1px solid #4B3649; border-radius: 5px;" class="form-control"
+                                                                                            id="bio" name="bio" maxlength="200" required>{{ Auth::user()->bio }}</textarea>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
@@ -484,7 +487,7 @@
 
                                                         <div class="col-lg-6 ml-auto mr-auto">
                                                             <div class="nav-container">
-                                                                <li class="tab activity-tab">
+                                                                <li class="tab friend-tab">
                                                                     <a href="{{ route('profile') }}"><i
                                                                             class="fa fa-chart-line"></i>Activity</a>
                                                                 </li>
@@ -502,7 +505,7 @@
                                                                                 class="fas fa-user-friends"></i>Schedule</a>
                                                                     </li>
                                                                 @endif
-                                                                <li class="tab friend-tab">
+                                                                <li class="tab activity-tab">
                                                                     <a href="{{ route('stats') }}">
                                                                         <i class="fas fa-chart-line"></i>Stats
                                                                     </a>
@@ -541,7 +544,16 @@
                                                                     <ul class="member-photo-list" style="gap: 8px;">
                                                                         @foreach ($posts as $post)
                                                                             @php
-                                                                                $media = App\Models\Media::where('post_id', $post->id)->where('media_type', 'like', '%image%')->first();
+                                                                                $media = App\Models\Media::where(
+                                                                                    'post_id',
+                                                                                    $post->id,
+                                                                                )
+                                                                                    ->where(
+                                                                                        'media_type',
+                                                                                        'like',
+                                                                                        '%image%',
+                                                                                    )
+                                                                                    ->first();
                                                                             @endphp
 
                                                                             @if ($media)
@@ -562,14 +574,28 @@
                                                                     <ul class="member-photo-list" style="gap: 8px;">
                                                                         @foreach ($posts as $post)
                                                                             @php
-                                                                                $media = App\Models\Media::where('post_id', $post->id)->where('media_type', 'like', '%video%')->first();
+                                                                                $media = App\Models\Media::where(
+                                                                                    'post_id',
+                                                                                    $post->id,
+                                                                                )
+                                                                                    ->where(
+                                                                                        'media_type',
+                                                                                        'like',
+                                                                                        '%video%',
+                                                                                    )
+                                                                                    ->first();
                                                                             @endphp
 
                                                                             @if ($media)
                                                                                 <div class="inner">
-                                                                                    <video style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;" controls>
-                                                                                        <source src="{{ asset($media->media_url) }}" type="{{ $media->media_type }}">
-                                                                                        Your browser does not support the video tag.
+                                                                                    <video
+                                                                                        style="width: 60px; height: 60px; border-radius: 5px; margin-top: 8px;"
+                                                                                        controls>
+                                                                                        <source
+                                                                                            src="{{ asset($media->media_url) }}"
+                                                                                            type="{{ $media->media_type }}">
+                                                                                        Your browser does not support the
+                                                                                        video tag.
                                                                                     </video>
                                                                                 </div>
                                                                             @endif
@@ -585,158 +611,91 @@
 
                                                         <div class="col-lg-9 profile-col-main">
 
-                                                            <button id="openModalBtn" style="width: 100%">Create a
-                                                                Post</button>
+                                                            <div class="col-lg-9 profile-col-main">
+                                                                <!-- Stats Input Form -->
+                                                                <form action="{{ route('stats-store') }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
 
+                                                                    <div class="form-group">
+                                                                        <label for="points">Points</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="points" name="points" required>
+                                                                    </div>
 
+                                                                    <div class="form-group">
+                                                                        <label for="rebounds">Rebounds</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="rebounds" name="rebounds" required>
+                                                                    </div>
 
-                                                            <div id="bp-nouveau-activity-form"
-                                                                class="activity-update-form">
-                                                            </div>
+                                                                    <div class="form-group">
+                                                                        <label for="assists">Assists</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="assists" name="assists" required>
+                                                                    </div>
 
-                                                            <input type="hidden" id="rt_upload_hf_activity"
-                                                                value="1" name="activity" />
+                                                                    <div class="form-group">
+                                                                        <label for="steals">Steals</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="steals" name="steals" required>
+                                                                    </div>
 
-                                                            <div id="activity-stream" class="activity single-user"
-                                                                data-bp-list="activity" style="">
-                                                                <ul class="activity-list item-list bp-list">
+                                                                    <div class="form-group">
+                                                                        <label for="game_date">Game Date</label>
+                                                                        <input type="date" class="form-control"
+                                                                            id="game_date" name="game_date" required>
+                                                                    </div>
 
-                                                                    @foreach ($posts as $post)
-                                                                        <li class="activity rtmedia_update activity-item has-comments animate-item slideInUp text-rendered"
-                                                                            id="activity-{{ $post->id }}"
-                                                                            data-bp-activity-id="{{ $post->id }}"
-                                                                            data-bp-timestamp="{{ $post->created_at->timestamp }}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary mt-3">Submit
+                                                                        Stats</button>
+                                                                </form>
 
-                                                                            <!-- Avatar and other post details -->
-                                                                            <div class="activity-avatar item-avatar">
-                                                                                <a href="{{ route('profile') }}">
-                                                                                    <img loading="lazy"
-                                                                                        src="{{ asset($user->profile_picture) }}"
-                                                                                        class="avatar user-3-avatar avatar-200 photo"
-                                                                                        width="200" height="200"
-                                                                                        alt="Profile picture of {{ $user->first_name }} {{ $user->last_name }}" />
-                                                                                </a>
-                                                                            </div>
-
-                                                                            <div class="activity-content">
-                                                                                <div class="activity-header">
-                                                                                    <div class="posted-meta">
-                                                                                        <p><a
-                                                                                                href="{{ route('profile') }}">{{ $user->first_name }}
-                                                                                                {{ $user->last_name }}</a>
-                                                                                            posted</p>
-                                                                                    </div>
-                                                                                    <div class="date mute">
-                                                                                        {{ $post->created_at->diffForHumans() }}
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="activity-inner">
-                                                                                    <div
-                                                                                        class="rtmedia-activity-container">
-                                                                                        <ul
-                                                                                            class="rtmedia-list rtm-activity-media-list rtmedia-activity-media-length-1 rtm-activity-photo-list">
-                                                                                            <li
-                                                                                                class="rtmedia-list-item media-type-photo">
-                                                                                                <span
-                                                                                                    style="color: #444; font-weight: 600;">{{ $post->content }}</span>
-                                                                                                @php
-                                                                                                    $media = App\Models\Media::where(
-                                                                                                        'post_id',
-                                                                                                        $post->id,
-                                                                                                    )->first();
-                                                                                                @endphp
-                                                                                                @if ($media)
-                                                                                                    @if (str_contains($media->media_type, 'image'))
-                                                                                                        <div
-                                                                                                            class="rtmedia-item-thumbnail">
-                                                                                                            <img loading="lazy"
-                                                                                                                alt="{{ $media->media_url }}"
-                                                                                                                src="{{ asset($media->media_url) }}" />
-                                                                                                        </div>
-                                                                                                    @elseif(str_contains($media->media_type, 'video'))
-                                                                                                        {{--  <div
-                                                                                                            class="rtmedia-item-thumbnail">  --}}
-                                                                                                            <video
-                                                                                                                loading="lazy"
-                                                                                                                controls>
-                                                                                                                <source src="{{ asset($media->media_url) }}" type="{{ $media->media_type }}">
-
-                                                                                                            </video>
-                                                                                                        {{--  </div>  --}}
-                                                                                                    @endif
-                                                                                                @endif
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="activity-meta action">
-                                                                                    <div class="generic-button">
-                                                                                        <a href="javascript:void(0);"
-                                                                                            onclick="likePost({{ $post->id }})"
-                                                                                            id="like-button-{{ $post->id }}"
-                                                                                            class="button {{ Auth::user()->hasLiked($post->id) ? 'liked' : '' }}"
-                                                                                            style="color: {{ Auth::user()->hasLiked($post->id) ? '#4B3649' : '#777' }}">
+                                                                <!-- Stats Table -->
+                                                                <table class="table table-responsive mt-5">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Date</th>
+                                                                            <th>Points</th>
+                                                                            <th>Rebounds</th>
+                                                                            <th>Assists</th>
+                                                                            <th>Steals</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($stats as $stat)
+                                                                            <tr>
+                                                                                <td>{{ $stat->game_date }}</td>
+                                                                                <td>{{ $stat->points }}</td>
+                                                                                <td>{{ $stat->rebounds }}</td>
+                                                                                <td>{{ $stat->assists }}</td>
+                                                                                <td>{{ $stat->steals }}</td>
+                                                                                <td>
+                                                                                    <!-- Delete button/form -->
+                                                                                    <form
+                                                                                        action="{{ route('stats.destroy', $stat->id) }}"
+                                                                                        method="POST"
+                                                                                        style="display:inline;">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-danger">
                                                                                             <i
-                                                                                                class="fa fa-thumbs-up mr-2"></i>
-                                                                                            {{ Auth::user()->hasLiked($post->id) ? 'Liked' : 'Like' }}
-                                                                                            {{ $post->likes()->count() }}
-                                                                                        </a>
-                                                                                    </div>
-                                                                                    <div class="generic-button">
-                                                                                        <a id="acomment-comment-{{ $post->id }}"
-                                                                                            class="button acomment-reply bp-primary-action bp-tooltip"
-                                                                                            data-bp-tooltip="Comment"
-                                                                                            aria-expanded="false"
-                                                                                            href="javascript:void(0);"
-                                                                                            role="button"
-                                                                                            onclick="toggleCommentInput({{ $post->id }})">
-                                                                                            <span
-                                                                                                style="display: block !important;"
-                                                                                                class="bp-screen-reader-text">Comment</span>
-                                                                                            <span
-                                                                                                class="comment-count">{{ $post->comments()->count() }}</span>
-                                                                                            <!-- Display comment count -->
-                                                                                        </a>
-                                                                                    </div>
-
-
-                                                                                </div>
-
-                                                                                <!-- Hidden comment input -->
-                                                                                <div id="comment-input-{{ $post->id }}"
-                                                                                    style="display:none;">
-                                                                                    <textarea id="comment-text-{{ $post->id }}" placeholder="Write a comment..." rows="1"></textarea>
-                                                                                    <button style="margin-top: 14px;"
-                                                                                        onclick="postComment({{ $post->id }})">Post</button>
-                                                                                </div>
-
-                                                                                <!-- Display Comments under the post -->
-                                                                                <div class="post-comments"
-                                                                                    id="comments-{{ $post->id }}">
-                                                                                    @foreach ($post->comments as $comment)
-                                                                                        @php($userComment = App\Models\User::where('id', $comment->user_id)->first())
-                                                                                        <div class="comment"
-                                                                                            style="display: flex; align-items:center; gap: 12px; margin-top: 12px; background: #eee; padding: 12px; border-radius: 25px;">
-                                                                                            <img src="{{ asset($userComment->profile_picture) }}"
-                                                                                                style="width: 30px; height: 30px; border-radius: 50%"
-                                                                                                alt="">
-                                                                                            <a href="{{ route('user-profile', ['id' => $userComment->id]) }}"
-                                                                                                class="color-primary"><strong>{{ $comment->user->first_name }}
-                                                                                                    {{ $comment->user->last_name }}
-                                                                                                    : </strong></a>
-                                                                                            <p>{{ $comment->content }}</p>
-                                                                                        </div>
-                                                                                    @endforeach
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    @endforeach
-                                                                </ul>
-
+                                                                                                class="fas fa-trash-alt"></i>
+                                                                                            <!-- Font Awesome trash icon -->
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
 
                                                             </div>
+
+
                                                         </div>
 
                                                     </div>

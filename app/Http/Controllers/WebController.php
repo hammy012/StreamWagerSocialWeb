@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Models\Payment;
 use App\Models\Post;
 use App\Models\Schedule;
+use App\Models\Stat;
 use App\Models\User;
 use App\Models\UserAttendance;
 use Illuminate\Http\Request;
@@ -42,6 +43,66 @@ class WebController extends Controller
         // Pass the user and posts (with media) to the view
         return view('profile', compact('user', 'posts'));
     }
+
+
+    public function stats()
+    {
+        // Get the logged-in user's ID
+        $userId = Auth::user()->id;
+
+        // Fetch the user along with their posts and associated media
+        $user = User::find($userId);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        $stats = Stat::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+
+        // Pass the user and posts (with media) to the view
+        return view('stats', compact('user', 'posts', 'stats'));
+    }
+
+    public function stats_store(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'points' => 'required|numeric',
+            'rebounds' => 'required|numeric',
+            'assists' => 'required|numeric',
+            'steals' => 'required|numeric',
+            'game_date' => 'required|date',
+        ]);
+
+        // Store stats data
+        $userId = Auth::user()->id;  // Assuming you are using authenticated users
+        $stat = new Stat;
+        $stat->user_id = $userId;
+        $stat->points = $request->points;
+        $stat->rebounds = $request->rebounds;
+        $stat->assists = $request->assists;
+        $stat->steals = $request->steals;
+        $stat->game_date = $request->game_date;
+        $stat->save();
+
+        return redirect()->back()->with('success', 'Stats added successfully');
+    }
+
+    public function destroy_stat($id)
+    {
+        // Find the stat record by ID
+        $stat = Stat::find($id);
+
+        if ($stat) {
+            // Delete the record
+            $stat->delete();
+
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'Stat deleted successfully');
+        }
+
+        // If the stat is not found, redirect with an error message
+        return redirect()->back()->with('error', 'Stat not found');
+    }
+
 
     public function updateUser(Request $request)
     {
@@ -245,6 +306,19 @@ class WebController extends Controller
 
         // Pass the user and posts (with media) to the view
         return view('user-profile', compact('user', 'posts'));
+    }
+
+    public function user_stats($id)
+    {
+        $user = User::find($id);
+
+        // Get all posts made by the user with media (if available)
+        $posts = Post::where('user_id', $id)->get();
+
+        $stats = Stat::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+
+        // Pass the user and posts (with media) to the view
+        return view('user-stat', compact('user', 'posts', 'stats'));
     }
 
     public function find_people(Request $request)

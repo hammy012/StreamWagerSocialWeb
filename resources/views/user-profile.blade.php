@@ -197,6 +197,12 @@
                                                                         </li>
                                                                     @endif
                                                                 @endif
+                                                                <li class="tab friend-tab">
+                                                                    <a
+                                                                        href="{{ route('user-stats', ['id' => $user->id]) }}">
+                                                                        <i class="fas fa-chart-line"></i>Stats
+                                                                    </a>
+                                                                </li>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -443,15 +449,17 @@
                                                                                                                 alt="{{ $media->media_url }}"
                                                                                                                 src="{{ asset($media->media_url) }}" />
                                                                                                         </div>
-                                                                                                        @elseif(str_contains($media->media_type, 'video/mp4'))
+                                                                                                    @elseif(str_contains($media->media_type, 'video/mp4'))
                                                                                                         {{--  <div
                                                                                                             class="rtmedia-item-thumbnail">  --}}
-                                                                                                            <video
-                                                                                                                loading="lazy"
-                                                                                                                controls>
-                                                                                                                <source src="{{ asset($media->media_url) }}" type="{{ $media->media_type }}">
+                                                                                                        <video
+                                                                                                            loading="lazy"
+                                                                                                            controls>
+                                                                                                            <source
+                                                                                                                src="{{ asset($media->media_url) }}"
+                                                                                                                type="{{ $media->media_type }}">
 
-                                                                                                            </video>
+                                                                                                        </video>
                                                                                                         {{--  </div>  --}}
                                                                                                     @endif
                                                                                                 @endif
@@ -483,7 +491,8 @@
                                                                                             role="button"
                                                                                             onclick="toggleCommentInput({{ $post->id }})">
                                                                                             <span
-                                                                                                class="bp-screen-reader-text" style="display: block !important;">Comment</span>
+                                                                                                class="bp-screen-reader-text"
+                                                                                                style="display: block !important;">Comment</span>
                                                                                             <span
                                                                                                 class="comment-count">{{ $post->comments()->count() }}</span>
                                                                                             <!-- Display comment count -->
