@@ -133,12 +133,12 @@
                                                                 <!-- Avatar and other post details -->
                                                                 <div class="activity-avatar item-avatar">
                                                                     <a
-                                                                        href="{{ route('user-profile', ['id' => $postUser->id]) }}">
+                                                                        href="{{ route('user-profile', ['id' => $post->user->id]) }}">
                                                                         <img loading="lazy"
-                                                                            src="{{ asset($postUser->profile_picture) }}"
+                                                                            src="{{ asset($post->user->profile_picture) }}"
                                                                             class="avatar user-3-avatar avatar-200 photo"
                                                                             width="200" height="200"
-                                                                            alt="Profile picture of {{ $postUser->first_name }} {{ $postUser->last_name }}" />
+                                                                            alt="Profile picture of {{ $post->user->first_name }} {{ $post->user->last_name }}" />
                                                                     </a>
                                                                 </div>
 
@@ -146,8 +146,8 @@
                                                                     <div class="activity-header">
                                                                         <div class="posted-meta">
                                                                             <p><a
-                                                                                    href="{{ route('user-profile', ['id' => $postUser->id]) }}">{{ $postUser->first_name }}
-                                                                                    {{ $postUser->last_name }}</a> posted
+                                                                                    href="{{ route('user-profile', ['id' => $post->user->id]) }}">{{ $post->user->first_name }}
+                                                                                    {{ $post->user->last_name }}</a> posted
                                                                             </p>
                                                                         </div>
                                                                         <div class="date mute">

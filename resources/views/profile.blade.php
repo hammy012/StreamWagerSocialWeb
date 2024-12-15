@@ -629,6 +629,15 @@
                                                                                     <div class="date mute">
                                                                                         {{ $post->created_at->diffForHumans() }}
                                                                                     </div>
+
+                                                                                    <div class="dropdown" style="position: relative; float: right;">
+                                                                                        <form action="{{ route('postDelete', ['id'=>$post->id]) }}" method="POST">
+                                                                                            @csrf
+                                                                                            @method('DELETE')
+                                                                                            <button style="cursor: pointer;">Delete</button>
+                                                                                        </form>
+                                                                                    </div>
+
                                                                                 </div>
 
                                                                                 <div class="activity-inner">

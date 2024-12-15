@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\FriendRequest;
 use App\Models\Like;
+use App\Models\Media;
 use App\Models\Payment;
 use App\Models\Post;
 use App\Models\Schedule;
@@ -42,6 +43,16 @@ class WebController extends Controller
 
         // Pass the user and posts (with media) to the view
         return view('profile', compact('user', 'posts'));
+    }
+
+    public function deletePost($id){
+        $post = Post::find($id);
+        $media = Media::where('post_id', $post->id)->first();
+
+        $post->delete();
+        $media->delete();
+
+        return redirect()->back()->with('success', 'Post Deleted successfully');
     }
 
 

@@ -67,6 +67,7 @@ Route::post('/like/{postId}', [WebController::class, 'likePost'])->name('like.po
 
 Route::post('/upload-profile-picture', [WebController::class, 'uploadProfilePicture'])->name('upload-profile-picture');
 
+Route::delete('postDelete/{id}', 'WebController@deletePost')->name('postDelete');
 
 
 // FOR POST
